@@ -1,28 +1,86 @@
 # Tirotir — تیروتیر
 
-تیروتیر یک زبان برنامه‌نویسی فارسی واقعی و مفسری است که سادگی Scratch/Logo را با متغیر، شرط، حلقه، تابع، فهرست، فرهنگ، ورودی/خروجی، گرافیک، صدای ساده، GUI، پروژهٔ چندفایلی و runtime امن ترکیب می‌کند.
+**Tirotir** یک زبان برنامه‌نویسی متنی فارسی و مفسری است؛ نه یک Framework.
 
-## وضعیت انتشار
+تیروتیر برای یادگیری و ساخت برنامه‌های واقعی طراحی شده است. می‌توان با یک دستور ساده مانند `چاپ -سلام دنیا-` شروع کرد و سپس به متغیر، شرط، حلقه، تابع، فهرست، فرهنگ، پروژه‌های چندفایلی و قابلیت‌های خلاقانه مانند Graphics، Audio و GUI رسید.
 
-نسخهٔ فعلی **Tirotir 1.1.0** است و مسیر معماری ۲٫۰ تا این milestoneها پیش رفته است: Contract Freeze، Semantic Layer و Module System. مجموعهٔ پروژه شامل **۲۴۰ تست موفق** و **۷۱ نمونهٔ `.t`** است. خروجی گرافیکی SVG، fallback صوتی WAV، Event Runtime پایه، GUI primitiveهای Tkinter، Builder مستقل EXE و اکستنشن مستقل VS Code نیز در repository قرار دارند.
+🌐 https://tirotir.ir  
+🌐 https://tirotir.com
 
-## نصب
+---
 
-در Linux، macOS یا Windows با Python 3.11 یا جدیدتر:
+## وضعیت فعلی
+
+**Tirotir 1.1.0 — Frozen Baseline**
+
+- زبان برنامه‌نویسی مفسری فارسی
+- پسوند رسمی فایل: `.t`
+- پشتیبانی از شناسه‌های فارسی و Unicode
+- Lexer، Parser، AST و Semantic Analyzer
+- Diagnostics ساختاریافته و پیام‌های خطای فارسی
+- CLI و REPL
+- پروژه و Module System چندفایلی
+- Graphics با خروجی SVG
+- Audio با تولید WAV
+- GUI مبتنی بر Tkinter
+- افزونهٔ VS Code
+- Builder برای ساخت EXE در Windows
+- Runtime با قابلیت‌های کنترل‌شده
+- **۲۴۴ تست موفق در baseline**
+
+پسوند قدیمی `.tirotir` نیز برای سازگاری با پروژه‌های قدیمی حفظ شده است.
+
+---
+
+# نصب
+
+## Windows — برای کاربران عادی
+
+اگر فقط می‌خواهید تیروتیر را نصب و استفاده کنید، فایل زیر را در پوشه install اجرا کنید:
+
+```text
+Tirotir-1.1.0-Setup.exe
+```
+
+در این روش نیازی به Python، pip، Git، PyInstaller یا Inno Setup ندارید.
+
+پس از نصب، یک PowerShell یا Command Prompt جدید باز کنید و اجرا کنید:
+
+```text
+tirotir version
+```
+
+باید نسخهٔ زیر نمایش داده شود:
+
+```text
+Tirotir 1.1.0
+```
+
+اگر `tirotir` در PATH نبود:
+
+```powershell
+& "C:\Program Files\Tirotir\tirotir.exe" version
+```
+
+## نصب برای توسعه‌دهندگان
+
+با Python 3.11 یا جدیدتر:
 
 ```bash
 python -m pip install .
 tirotir version
 ```
 
-برای نصب توسعه و اجرای تست‌ها:
+برای نصب توسعه:
 
 ```bash
 python -m pip install -e .
 python -m pytest -q
 ```
 
-## اولین برنامه
+---
+
+# اولین برنامه
 
 فایل `hello.t`:
 
@@ -34,51 +92,76 @@ python -m pytest -q
 
 ```bash
 tirotir run hello.t
-tirotir check hello.t
-tirotir format hello.t
-tirotir graphics examples/graphics/hello_shape.t
-tirotir audio examples/audio/scale.t
-tirotir project path/to/my-project
-tirotir builder
 ```
 
-فرمان `tirotir builder` یک ابزار گرافیکی مستقل برای ساخت EXE با PyInstaller باز می‌کند. فایل اصلی `.t`، نام برنامه، حالت one-file/folder، نمایش کنسول، آیکون و مسیر خروجی از داخل Builder انتخاب می‌شوند.
+خروجی:
 
-## مبانی زبان
+```text
+سلام دنیا
+```
+
+بررسی بدون اجرای اثر اصلی:
+
+```bash
+tirotir check hello.t
+```
+
+---
+
+# مبانی زبان
+
+## متغیر
 
 ```text
 بگذار سن برابر ۲۰
+بگذار نام برابر -سارا-
+
+چاپ نام
+چاپ سن
+```
+
+## شرط
+
+```text
+بگذار سن برابر ۲۰
+
 اگر سن بزرگتر یا مساوی ۱۸
     چاپ -بزرگسال-
 وگرنه
     چاپ -نابالغ-
 ```
 
-حلقه و تابع:
+## حلقه
+
+```text
+تکرار ۴ بار
+    چاپ -سلام-
+```
+
+## تابع
 
 ```text
 تابع مربع با عدد
     بازگردان عدد * عدد
 
-تکرار ۴ بار
-    چاپ مربع با ۳
+چاپ مربع با ۵
 ```
 
-فهرست و فرهنگ نیز در هستهٔ زبان وجود دارند. متن سنتی با `-متن-` نوشته می‌شود و شناسه‌های فارسی، انگلیسی و اعداد فارسی پشتیبانی می‌شوند.
+فهرست، فرهنگ، ورودی و خروجی نیز در هستهٔ زبان پشتیبانی می‌شوند.
 
-## پروژهٔ چندفایلی
+---
 
-ساختار پروژه:
+# پروژهٔ چندفایلی
 
 ```text
 my-project/
-    tirotir.toml
-    main.t
-    lib/
-        tools.t
+├── tirotir.toml
+├── main.t
+└── lib/
+    └── tools.t
 ```
 
-`tirotir.toml`:
+نمونهٔ `tirotir.toml`:
 
 ```toml
 [project]
@@ -94,24 +177,25 @@ project-files = false
 network = false
 ```
 
-در فایل اصلی:
+واردکردن ماژول:
 
 ```text
 وارد کن -lib/tools-
-چاپ -پروژه اجرا شد-
 ```
 
-از ریشهٔ پروژه اجرا کنید:
+اجرای پروژه از ریشه:
 
 ```bash
 tirotir run
 ```
 
-Module Graph پیش از اجرای source ساخته می‌شود، مسیرها canonicalize می‌شوند و خروج از project root یا چرخهٔ import رد می‌شود.
+---
+
+# قابلیت‌های پیرامونی
+
+Graphics، Audio و GUI بخشی از **زبان پایه** نیستند؛ سرویس‌ها و ابزارهای پیرامونی Tirotir هستند.
 
 ## Graphics
-
-برنامهٔ رسمی در `examples/graphics/hello_shape.t` قرار دارد:
 
 ```text
 پنجره بازکن با ۸۰۰ و ۶۰۰
@@ -120,17 +204,13 @@ Module Graph پیش از اجرای source ساخته می‌شود، مسیره
 مربع با ۱۲۰
 ```
 
-تولید SVG:
-
 ```bash
-tirotir run examples/graphics/hello_shape.t --scene scene.svg
+tirotir graphics examples/graphics/hello_shape.t --scene scene.svg
 ```
 
-سرویس graphics فرمان‌های حرکت، چرخش، قلم، رنگ، ضخامت، مربع، مستطیل، دایره و مثلث را به Scene تبدیل می‌کند. اکستنشن VS Code با گزینهٔ داخلی `--live-scene` همین Scene را از JSON اجرای جاری دریافت و مستقیماً در WebView نمایش می‌دهد؛ در اجرای معمول، فایل SVG کنار source ساخته نمی‌شود.
+Graphics نسخهٔ 1.1.0 یک renderer مبتنی بر SVG است. Animation کامل در این نسخه وجود ندارد.
 
 ## Audio
-
-نمونهٔ sequence در `examples/audio/scale.t` است:
 
 ```text
 نت بنواز با ۲۶۲ و ۰٫۰۲
@@ -138,23 +218,14 @@ tirotir run examples/graphics/hello_shape.t --scene scene.svg
 نت بنواز با ۳۳۰ و ۰٫۰۲
 ```
 
-بدون backend صوتی نیز WAV تولید می‌شود:
-
 ```bash
 tirotir run examples/audio/scale.t
-```
-
-برای درخواست پخش فوری، از گزینهٔ اختیاری استفاده کنید:
-
-```bash
 tirotir run examples/audio/scale.t --play-audio
 ```
 
-در Linux به `aplay`، `paplay` یا `ffplay`، در macOS به `afplay` و در Windows به PowerShell Media.SoundPlayer نیاز است. اگر backend موجود نباشد، runtime خطا را به شکست برنامه تبدیل نمی‌کند و فایل WAV را نگه می‌دارد.
+تولید WAV مستقل از backend پخش سیستم‌عامل است.
 
 ## GUI
-
-نمونهٔ `examples/apps/hello_gui.t` شامل پنجره، label، button و input است:
 
 ```text
 پنجره بساز با -برنامهٔ من- و ۶۰۰ و ۴۰۰
@@ -164,55 +235,171 @@ tirotir run examples/audio/scale.t --play-audio
 نمایش پنجره
 ```
 
-اجرا:
-
 ```bash
 tirotir gui examples/apps/hello_gui.t
 ```
 
-backend فعلی Tkinter اختیاری است. eventهای پیچیدهٔ دکمه و binding داده در milestone بعدی تکمیل می‌شوند؛ بنابراین این نسخه ادعا نمی‌کند که framework کامل GUI است.
+GUI فعلی بر پایهٔ Tkinter است و هنوز Framework کامل GUI محسوب نمی‌شود.
 
-## VS Code
+---
 
-از فایل `tirotirLang-1.1.0.vsix` نصب کنید:
+# VS Code
+
+افزونهٔ:
+
+```text
+tirotirLang-1.1.0.vsix
+```
+
+را از داخل VS Code با:
+
+```text
+Ctrl + Shift + P
+Extensions: Install from VSIX
+```
+
+نصب کنید.
+
+یا:
 
 ```bash
 code --install-extension tirotirLang-1.1.0.vsix
 ```
 
-در تنظیمات VS Code، در صورت نیاز مسیر `tirotirLang.command` را به executable تیروتیر بدهید. فرمان‌های افزونه:
+امکانات فعلی شامل شناسایی `.t`، Syntax Highlighting، اجرای برنامه، Check، AST، خروجی RTL فارسی و Live Scene است.
 
-- اجرای فایل
-- بررسی فایل
-- نمایش AST
-- اجرا در پنل فارسی راست‌به‌چپ
+LSP و DAP کامل، completion پیشرفته، hover و debugger حرفه‌ای هنوز در نسخهٔ 1.1.0 وجود ندارند.
 
-در پنل RTL، خروجی متن با `dir="rtl"` و SVG صحنه در یک قاب جدا نمایش داده می‌شود؛ source code از نظر منطقی reorder نمی‌شود.
+---
 
-## ساخت EXE در Windows
+# ساخت EXE
 
-ساخت native Windows باید روی Windows انجام شود:
+Builder:
 
-```powershell
-py -m pip install .
-py -m pip install pyinstaller
-pyinstaller --clean --onefile --name tirotir --paths src tools\tirotir_launcher.py
+```bash
+tirotir builder
 ```
 
-خروجی در `dist\tirotir.exe` است. این bundling شامل Python و runtime لازم برای CLI است. GUI و backendهای optional باید روی خود Windows تست شوند؛ build Linux به‌عنوان Windows EXE ادعا نمی‌شود. راهنمای کامل در `docs/windows-exe-and-gui-fa.md` قرار دارد.
+ساخت native Windows EXE باید روی Windows انجام شود.
 
-## امنیت
+تفاوت سه فایل مهم:
 
-برنامهٔ تیروتیر import آزاد Python، `eval`، `exec`، shell، شبکه و دسترسی آزاد به filesystem ندارد. capabilityهای `graphics`، `audio`، `gui`، `project-files` و `network` جداگانه تعریف شده‌اند و حالت پیش‌فرض فقط `core` را فعال می‌کند.
+```text
+tirotir.exe
+```
 
-## چرا Tirotir؟
+اجرایی برای خود زبان و CLI.
 
-تیروتیر با هدف ارائهٔ یک زبان فارسی آموزشی و کاربردی ساخته شده است: شروع آن برای مبتدی با یک دستور چاپ ساده است، اما هستهٔ آن lexer، parser، AST، semantic analysis، runtime امن، تست، CLI، گرافیک، صدا، GUI و پروژهٔ چندفایلی دارد. تیروتیر ادعا نمی‌کند جایگزین زبان‌های عمومی یا frameworkهای بالغ است؛ تمایز آن تجربهٔ فارسی، مسیر یادگیری تدریجی و اتصال کنترل‌شدهٔ قابلیت‌های خلاقانه به یک زبان واقعی است.
+```text
+program.exe
+```
 
-## توسعه
+خروجی برنامه‌ای که کاربر با Tirotir ساخته است.
+
+```text
+Tirotir-1.1.0-Setup.exe
+```
+
+نصب‌کنندهٔ خود Tirotir.
+
+---
+
+# نمونه‌های آموزشی
+
+بستهٔ آموزشی مستقل شامل نمونه‌های `.t` برای شروع کار، متغیر، ورودی و خروجی، ریاضی، شرط، حلقه، فهرست، فرهنگ، تابع، GUI، Graphics و Audio است.
+
+در صورت دریافت:
+
+```text
+tirotir-examples-education-1.1.0.zip
+```
+
+آن را در پوشه‌ای مانند `Documents` استخراج کنید و نمونه‌ها را اجرا کنید:
+
+```bash
+tirotir run examples/basics/hello_world.t
+```
+
+---
+
+# امنیت و Capabilityها
+
+Tirotir به‌صورت پیش‌فرض دسترسی آزاد به Python، `eval`، `exec`، shell، شبکه و filesystem ندارد.
+
+قابلیت‌های پیرامونی:
+
+```text
+graphics
+audio
+gui
+project-files
+network
+```
+
+حالت پیش‌فرض فقط قابلیت‌های هسته را فعال می‌کند.
+
+این طراحی به معنی sandbox امنیتی کامل در سطح سیستم‌عامل نیست.
+
+---
+
+# محدودیت‌های نسخهٔ 1.1.0
+
+موارد زیر هنوز قابلیت کامل محسوب نمی‌شوند:
+
+- Class و Object Model
+- Inheritance
+- Exception Model عمومی
+- Type System کامل
+- Generator
+- Async/Await
+- Animation Runtime کامل
+- GUI Event System کامل
+- LSP کامل
+- DAP و Debugger کامل
+
+---
+
+# ساختار اصلی پروژه
+
+```text
+src/tirotir/core.py       # Lexer، Parser، AST و Interpreter
+src/tirotir/semantic.py   # تحلیل معنایی و Diagnostics
+src/tirotir/contracts.py  # قراردادهای معماری
+src/tirotir/cli.py        # CLI
+src/tirotir/audio.py      # Audio و WAV
+src/tirotir/builder.py    # Builder و EXE
+src/tirotir/modules/      # Project و Module System
+vscode-tirotirLang/       # افزونهٔ VS Code
+examples/                  # نمونه‌ها
+tests/                     # تست‌ها
+docs/                      # مستندات فنی
+```
+
+---
+
+# توسعه
 
 ```bash
 python -m pytest -q
+tirotir run hello.t
+tirotir check hello.t
+tirotir ast hello.t
+tirotir format hello.t
 ```
 
-جزئیات معماری و قراردادها در `docs/` و نمونه‌های اجرایی در `examples/` هستند. مشارکت‌ها باید تست regression و محدودیت امنیتی مربوط به هر قابلیت را نیز اضافه کنند.
+مستندات فنی در `docs/` قرار دارند.
+
+---
+
+# Tirotir 1.1.0
+
+**یک زبان برنامه‌نویسی فارسی برای یادگیری، ساخت و خلاقیت.**
+
+شروع کنید:
+
+```text
+چاپ -سلام دنیا-
+```
+
+🌐 https://tirotir.ir  
+🌐 https://tirotir.com
