@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tirotir"
+version = "1.1.0"
+description = "زبان برنامه‌نویسی فارسی تیروتیر"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{name="Tirotir Team"}]
+
+[project.scripts]
+tirotir = "tirotir.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

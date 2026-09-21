@@ -1,0 +1,53 @@
+{
+  "name": "tirotirlang",
+  "displayName": "TirotirLang فارسی",
+  "description": "پشتیبانی از زبان برنامه‌نویسی فارسی تیروتیر در VS Code",
+  "version": "1.1.0",
+  "publisher": "tirotir",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/tirotir/tirotir" },
+  "engines": { "vscode": ">=1.85.0" },
+  "categories": ["Programming Languages", "Formatters"],
+  "keywords": ["tirotir", "persian", "farsi", "language"],
+  "activationEvents": ["onLanguage:tirotirLang"],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [{
+      "id": "tirotirLang",
+      "aliases": ["TirotirLang", "تیروتیر"],
+      "extensions": [".t"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "tirotirLang",
+      "scopeName": "source.t",
+      "path": "./syntaxes/tirotir.tmLanguage.json"
+    }],
+    "commands": [
+      { "command": "tirotirLang.runFile", "title": "TirotirLang: اجرای فایل" },
+      { "command": "tirotirLang.checkFile", "title": "TirotirLang: بررسی فایل" },
+      { "command": "tirotirLang.showAst", "title": "TirotirLang: نمایش AST" },
+      { "command": "tirotirLang.runRTL", "title": "TirotirLang: اجرای زنده در پنل فارسی راست‌به‌چپ" },
+      { "command": "tirotirLang.runGraphics", "title": "TirotirLang: نمایش Graphics زنده" },
+      { "command": "tirotirLang.runAudio", "title": "TirotirLang: پخش Audio" },
+      { "command": "tirotirLang.runGui", "title": "TirotirLang: اجرای GUI" }
+    ],
+    "menus": {
+      "editor/context": [
+        { "command": "tirotirLang.runFile", "when": "editorLangId == tirotirLang", "group": "tirotirLang" },
+        { "command": "tirotirLang.checkFile", "when": "editorLangId == tirotirLang", "group": "tirotirLang" },
+        { "command": "tirotirLang.showAst", "when": "editorLangId == tirotirLang", "group": "tirotirLang" }
+        ,{ "command": "tirotirLang.runRTL", "when": "editorLangId == tirotirLang", "group": "tirotirLang" }
+        ,{ "command": "tirotirLang.runGraphics", "when": "editorLangId == tirotirLang", "group": "tirotirLang" }
+        ,{ "command": "tirotirLang.runAudio", "when": "editorLangId == tirotirLang", "group": "tirotirLang" }
+        ,{ "command": "tirotirLang.runGui", "when": "editorLangId == tirotirLang", "group": "tirotirLang" }
+      ]
+    },
+    "configuration": {
+      "title": "TirotirLang",
+      "properties": {
+        "tirotirLang.command": { "type": "string", "default": "tirotir", "description": "مسیر فرمان CLI تیروتیر" }
+      }
+    }
+  }
+}

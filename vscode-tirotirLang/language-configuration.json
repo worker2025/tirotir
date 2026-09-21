@@ -1,0 +1,10 @@
+{
+  "comments": { "lineComment": "#" },
+  "brackets": [["[", "]"], ["(", ")"]],
+  "autoClosingPairs": [{ "open": "[", "close": "]" }, { "open": "(", "close": ")" }],
+  "indentationRules": {
+    "increaseIndentPattern": "^(\\s*)(اگر|وگرنه|برای|تاوقتی|تابع).*:?$",
+    "decreaseIndentPattern": "^(\\s*)(وگرنه|وگرنه اگر)"
+  },
+  "wordPattern": "[\\p{L}_][\\p{L}\\p{N}_]*"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "TirotirLang",
+  "scopeName": "source.t",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#operators" },
+    { "include": "#constants" },
+    { "match": "\\b[\\p{L}_][\\p{L}\\p{N}_]*\\b", "name": "variable.other.tirotir" }
+  ],
+  "repository": {
+    "comments": { "patterns": [{ "match": "#.*$", "name": "comment.line.number-sign.tirotir" }] },
+    "strings": { "patterns": [{ "begin": "-", "end": "-", "name": "string.quoted.other.tirotir", "patterns": [{ "match": "\\\\-", "name": "constant.character.escape.tirotir" }] }] },
+    "numbers": { "patterns": [{ "match": "(?<![\\p{L}_])[۰-۹0-9]+(?:[٫.][۰-۹0-9]+)?", "name": "constant.numeric.tirotir" }] },
+    "constants": { "patterns": [{ "match": "\\b(درست|نادرست|تهی)\\b", "name": "constant.language.tirotir" }] },
+    "keywords": { "patterns": [{ "match": "\\b(بگذار|ثابت|اگر|وگرنه|برای|تاوقتی|تابع|بازگردان|بیرون|ادامه|چاپ|بخوان|در|با|برابر)\\b", "name": "keyword.control.tirotir" }, { "match": "\\b(و|یا|نه|بزرگتر|کوچکتر|مساوی|نا)\\b", "name": "keyword.operator.tirotir" }] },
+    "operators": { "patterns": [{ "match": "(==|!=|>=|<=|[+*/%=<>-])", "name": "keyword.operator.tirotir" }, { "match": "[\\[\\](),:]", "name": "punctuation.tirotir" }] }
+  }
+}
