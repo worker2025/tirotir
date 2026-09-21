@@ -8,7 +8,11 @@
 🌐 https://tirotir.com
 
 ---
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22874866.svg)](https://doi.org/10.5281/zenodo.22874866)
 
+> **Cite this project:** [https://doi.org/10.5281/zenodo.22874866](https://doi.org/10.5281/zenodo.22874866)
+
+---
 ## وضعیت فعلی
 
 **Tirotir 1.1.0 — Frozen Baseline**
