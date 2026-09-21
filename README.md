@@ -197,7 +197,7 @@ tirotir run
 
 # قابلیت‌های پیرامونی
 
-Graphics، Audio و GUI بخشی از **زبان پایه** نیستند؛ سرویس‌ها و ابزارهای پیرامونی Tirotir هستند.
+مواردی مانند Graphics، Audio و GUI بخشی از **زبان پایه** نیستند؛ سرویس‌ها و ابزارهای پیرامونی Tirotir هستند.
 
 ## Graphics
 
@@ -212,7 +212,7 @@ Graphics، Audio و GUI بخشی از **زبان پایه** نیستند؛ سر�
 tirotir graphics examples/graphics/hello_shape.t --scene scene.svg
 ```
 
-Graphics نسخهٔ 1.1.0 یک renderer مبتنی بر SVG است. Animation کامل در این نسخه وجود ندارد.
+مورد Graphics نسخهٔ 1.1.0 یک renderer مبتنی بر SVG است. Animation کامل در این نسخه فعلا وجود ندارد.
 
 ## Audio
 
@@ -243,7 +243,7 @@ tirotir run examples/audio/scale.t --play-audio
 tirotir gui examples/apps/hello_gui.t
 ```
 
-GUI فعلی بر پایهٔ Tkinter است و هنوز Framework کامل GUI محسوب نمی‌شود.
+مورد GUI فعلی بر پایهٔ Tkinter است و هنوز Framework کامل GUI محسوب نمی‌شود.
 
 ---
 
@@ -328,7 +328,7 @@ tirotir run examples/basics/hello_world.t
 
 # امنیت و Capabilityها
 
-Tirotir به‌صورت پیش‌فرض دسترسی آزاد به Python، `eval`، `exec`، shell، شبکه و filesystem ندارد.
+تیروتیر به‌صورت پیش‌فرض دسترسی آزاد به Python، `eval`، `exec`، shell، شبکه و filesystem ندارد.
 
 قابلیت‌های پیرامونی:
 
@@ -407,3 +407,4 @@ tirotir format hello.t
 
 🌐 https://tirotir.ir  
 🌐 https://tirotir.com
+🌐 https://github.com/worker2025/tirotir
