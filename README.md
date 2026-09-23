@@ -408,3 +408,48 @@ tirotir format hello.t
 🌐 https://tirotir.ir  
 🌐 https://tirotir.com
 🌐 https://github.com/worker2025/tirotir
+
+---
+
+## 🎓 Tirotir Learning Lab
+
+<div align="center">
+
+> 🚀 **آزمایشگاه یادگیری تعاملی تیروتیر**  
+> جایی که یادگیری با تجربه‌ی عملی گره می‌خوره!
+
+[![Website](https://img.shields.io/badge/🌐_Website-Live-brightgreen?style=for-the-badge)](https://worker2025.github.io/tirotir-learning-lab/)
+[![GitHub](https://img.shields.io/badge/GitHub-worker2025-blue?style=for-the-badge&logo=github)](https://github.com/worker2025)
+
+### 🔗 [**مشاهده‌ی پروژه به‌صورت زنده**](https://worker2025.github.io/tirotir-learning-lab/)
+
+</div>
+
+---
+
+### ✨ درباره‌ی پروژه
+
+**Tirotir Learning Lab** یک پلتفرم آموزشی تعاملی است که با هدف ساده‌سازی مفاهیم پیچیده و ارائه‌ی تجربه‌ای جذاب از یادگیری طراحی شده. این پروژه به‌صورت زنده روی GitHub Pages میزبانی می‌شه.
+
+### 🎯 ویژگی‌ها
+
+- 📚 محتوای آموزشی ساختارمند
+- 🎨 رابط کاربری ساده و کاربرپسند
+- ⚡ بارگذاری سریع و بهینه
+- 📱 ریسپانسیو و سازگار با موبایل
+- 🌐 دسترسی آزاد و رایگان
+
+### 🚀 دسترسی سریع
+
+| مورد | لینک |
+|------|------|
+| 🌍 نسخه‌ی آنلاین | [worker2025.github.io/tirotir-learning-lab](https://worker2025.github.io/tirotir-learning-lab/) |
+| 💻 مخزن گیت‌هاب | [github.com/worker2025](https://github.com/worker2025) |
+
+---
+
+<div align="center">
+
+**⭐ اگه این پروژه برات مفید بود، حتماً ستاره بده! ⭐**
+
+</div>
