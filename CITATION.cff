@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use Tirotir in academic work, please cite it using the metadata below."
+title: "Tirotir — Persian Programming Language"
+abstract: "Tirotir / تیروتیر is a Persian programming language created by Daryoush Alipour."
+type: software
+authors:
+
+* family-names: "Alipour"
+  given-names: "Daryoush"
+  repository-code: "https://github.com/worker2025/tirotir"
+  url: "https://tirotir.ir/"
+  license: "MIT"
+  version: "1.1.0"
+  date-released: "September 21, 2026"
+  doi: "10.5281/zenodo.22874866"
+  keywords:
+* Persian programming language
+* Tirotir
+* تیروتیر
+* programming language
+* open source
+  identifiers:
+* type: doi
+  value: "10.5281/zenodo.22874866"
+  description: "Zenodo DOI for this release"
