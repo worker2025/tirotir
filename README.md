@@ -1,15 +1,12 @@
 # تیروتیر — Tirotir
 
 <p align="center">
-  <img src="assets/logo/tirotir-logo.png" alt="Tirotir Logo" width="180">
-</p>
+<img src="assets/logo/tirotir-logo.png" alt="Tirotir Logo" width="180">
+</p> <p align="center">
+  <strong>تیروتیر (Tirotir)</strong>  
 
-<p align="center">
-  <strong>تیروتیر (Tirotir)</strong><br>
   یک زبان برنامه‌نویسی متنی فارسی و مفسری
-</p>
-
-<p align="center">
+</p> <p align="center">
   <a href="https://tirotir.ir/">Website</a> •
   <a href="https://tirotir.com/">Tirotir.com</a> •
   <a href="https://github.com/worker2025/tirotir">GitHub</a> •
@@ -24,21 +21,29 @@
 
 می‌توان با یک دستور ساده شروع کرد:
 
-```text
+```
 چاپ -سلام دنیا-
 ```
 
 و سپس به مفاهیمی مانند:
 
-* متغیر
-* شرط
-* حلقه
-* تابع
-* فهرست
-* فرهنگ
-* ورودی و خروجی
-* پروژه‌های چندفایلی
-* Module System
+- متغیر
+
+- شرط
+
+- حلقه
+
+- تابع
+
+- فهرست
+
+- فرهنگ
+
+- ورودی و خروجی
+
+- پروژه‌های چندفایلی
+
+- Module System
 
 رسید.
 
@@ -53,12 +58,12 @@
 ## DOI و استناد
 
 **DOI:**
-https://doi.org/10.5281/zenodo.22874866
+[https://doi.org/10.5281/zenodo.22874866](https://doi.org/10.5281/zenodo.22874866)
 
 اگر از تیروتیر در یک مقاله، پژوهش، پروژهٔ دانشگاهی یا آموزشی استفاده می‌کنید، لطفاً به پروژه استناد کنید:
 
 > Alipour, Daryoush. *Tirotir — Persian Programming Language*.
-> https://doi.org/10.5281/zenodo.22874866
+[https://doi.org/10.5281/zenodo.22874866](https://doi.org/10.5281/zenodo.22874866)
 
 ---
 
@@ -70,30 +75,49 @@ https://doi.org/10.5281/zenodo.22874866
 
 ویژگی‌های اصلی:
 
-* زبان برنامه‌نویسی مفسری فارسی
-* پسوند رسمی فایل: `.t`
-* پشتیبانی از شناسه‌های فارسی و Unicode
-* Lexer
-* Parser
-* AST
-* Semantic Analyzer
-* Diagnostics ساختاریافته
-* پیام‌های خطای فارسی
-* CLI
-* REPL
-* Project System
-* Module System چندفایلی
-* Graphics با خروجی SVG
-* Audio با تولید WAV
-* GUI مبتنی بر Tkinter
-* افزونهٔ VS Code
-* Builder برای ساخت EXE در Windows
-* Runtime با قابلیت‌های کنترل‌شده
-* **۲۴۴ تست موفق در baseline**
+- زبان برنامه‌نویسی مفسری فارسی
+
+- پسوند رسمی فایل: `.t`
+
+- پشتیبانی از شناسه‌های فارسی و Unicode
+
+- Lexer
+
+- Parser
+
+- AST
+
+- Semantic Analyzer
+
+- Diagnostics ساختاریافته
+
+- پیام‌های خطای فارسی
+
+- CLI
+
+- REPL
+
+- Project System
+
+- Module System چندفایلی
+
+- Graphics با خروجی SVG
+
+- Audio با تولید WAV
+
+- GUI مبتنی بر Tkinter
+
+- افزونهٔ VS Code
+
+- Builder برای ساخت EXE در Windows
+
+- Runtime با قابلیت‌های کنترل‌شده
+
+- **۲۴۴ تست موفق در baseline**
 
 پسوند قدیمی:
 
-```text
+```
 .tirotir
 ```
 
@@ -107,33 +131,37 @@ https://doi.org/10.5281/zenodo.22874866
 
 اگر فقط می‌خواهید تیروتیر را نصب و استفاده کنید، نصب‌کنندهٔ زیر را اجرا کنید:
 
-```text
+```
 Tirotir-1.1.0-Setup.exe
 ```
 
 در این روش نیازی به نصب موارد زیر ندارید:
 
-* Python
-* pip
-* Git
-* PyInstaller
-* Inno Setup
+- Python
+
+- pip
+
+- Git
+
+- PyInstaller
+
+- Inno Setup
 
 پس از نصب، یک **PowerShell** یا **Command Prompt** جدید باز کنید:
 
-```powershell
+```
 tirotir version
 ```
 
 خروجی:
 
-```text
+```
 Tirotir 1.1.0
 ```
 
 اگر `tirotir` در PATH قرار نگرفته بود:
 
-```powershell
+```
 & "C:\Program Files\Tirotir\tirotir.exe" version
 ```
 
@@ -171,7 +199,7 @@ python -m pytest -q
 
 یک فایل با نام `hello.t` ایجاد کنید:
 
-```text
+```
 چاپ -سلام دنیا-
 ```
 
@@ -183,7 +211,7 @@ tirotir run hello.t
 
 خروجی:
 
-```text
+```
 سلام دنیا
 ```
 
@@ -199,7 +227,7 @@ tirotir check hello.t
 
 ## متغیر
 
-```text
+```
 بگذار سن برابر ۲۰
 بگذار نام برابر -سارا-
 
@@ -209,7 +237,7 @@ tirotir check hello.t
 
 ## شرط
 
-```text
+```
 بگذار سن برابر ۲۰
 
 اگر سن بزرگتر یا مساوی ۱۸
@@ -220,14 +248,14 @@ tirotir check hello.t
 
 ## حلقه
 
-```text
+```
 تکرار ۴ بار
     چاپ -سلام-
 ```
 
 ## تابع
 
-```text
+```
 تابع مربع با عدد
     بازگردان عدد * عدد
 
@@ -242,7 +270,7 @@ tirotir check hello.t
 
 ساختار یک پروژهٔ نمونه:
 
-```text
+```
 my-project/
 ├── tirotir.toml
 ├── main.t
@@ -252,7 +280,7 @@ my-project/
 
 نمونهٔ `tirotir.toml`:
 
-```toml
+```
 [project]
 name = "my-project"
 entry = "main.t"
@@ -268,7 +296,7 @@ network = false
 
 وارد کردن یک ماژول:
 
-```text
+```
 وارد کن -lib/tools-
 ```
 
@@ -290,7 +318,7 @@ tirotir run
 
 نمونه:
 
-```text
+```
 پنجره بازکن با ۸۰۰ و ۶۰۰
 رنگ قلم برابر -آبی-
 ضخامت قلم برابر ۳
@@ -313,7 +341,7 @@ Graphics در نسخهٔ 1.1.0 از renderer مبتنی بر **SVG** استفا�
 
 نمونه:
 
-```text
+```
 نت بنواز با ۲۶۲ و ۰٫۰۲
 نت بنواز با ۲۹۴ و ۰٫۰۲
 نت بنواز با ۳۳۰ و ۰٫۰۲
@@ -339,7 +367,7 @@ tirotir run examples/audio/scale.t --play-audio
 
 نمونه:
 
-```text
+```
 پنجره بساز با -برنامهٔ من- و ۶۰۰ و ۴۰۰
 برچسب بساز با -به تیروتیر خوش آمدید-
 دکمه بساز با -اجرا-
@@ -363,19 +391,19 @@ GUI فعلی بر پایهٔ **Tkinter** است.
 
 افزونهٔ VS Code:
 
-```text
+```
 tirotirLang-1.1.0.vsix
 ```
 
 برای نصب از داخل VS Code:
 
-```text
+```
 Ctrl + Shift + P
 ```
 
 سپس:
 
-```text
+```
 Extensions: Install from VSIX
 ```
 
@@ -387,23 +415,96 @@ code --install-extension tirotirLang-1.1.0.vsix
 
 امکانات فعلی شامل:
 
-* شناسایی فایل‌های `.t`
-* Syntax Highlighting
-* اجرای برنامه
-* Check
-* AST
-* خروجی RTL فارسی
-* Live Scene
+- شناسایی فایل‌های `.t`
+
+- Syntax Highlighting
+
+- اجرای برنامه
+
+- Check
+
+- AST
+
+- خروجی RTL فارسی
+
+- Live Scene
 
 است.
 
 موارد زیر هنوز در نسخهٔ 1.1.0 کامل نیستند:
 
-* LSP کامل
-* Completion پیشرفته
-* Hover کامل
-* DAP
-* Debugger حرفه‌ای
+- LSP کامل
+
+- Completion پیشرفته
+
+- Hover کامل
+
+- DAP
+
+- Debugger حرفه‌ای
+
+## قابلیت‌های جدید افزونهٔ TirotirLang
+
+افزونهٔ TirotirLang برای VS Code علاوه بر قابلیت‌های پایهٔ اجرای فایل، Check، AST، خروجی راست‌به‌چپ و Live Scene، امکانات تعاملی زیر را نیز فراهم می‌کند. این قابلیت‌ها فقط در افزونه هستند و هستهٔ زبان Tirotir 1.1.0 را تغییر نمی‌دهند.
+
+### اجرای زندهٔ تعاملی و دریافت ورودی
+
+برنامه‌هایی که از `بخوان` استفاده می‌کنند، می‌توانند ورودی را مستقیماً از پنل اجرای زندهٔ فارسی دریافت کنند. پنل با `dir="rtl"` نمایش داده می‌شود و ورودی با دکمهٔ «ارسال ورودی» یا کلید Enter به برنامه فرستاده می‌شود.
+
+نمونه:
+
+```
+بگذار ورودی_فارنهایت برابر بخوان
+
+اگر (طول با ورودی_فارنهایت ) == ۰
+    چاپ -خطا: ورودی خالی است؛ لطفاً یک عدد برای فارنهایت وارد کنید.-
+وگرنه
+    بگذار فارنهایت برابر به_عدد با ورودی_فارنهایت
+    بگذار سانتیگراد برابر (فارنهایت - ۳۲) * ۵ / ۹
+    چاپ -دمای واردشده بر حسب فارنهایت:-
+    چاپ فارنهایت
+    چاپ -دمای معادل بر حسب سانتیگراد:-
+    چاپ سانتیگراد
+```
+
+در پنل اجرای زنده، مقدار فارنهایت را در کادر ورودی بنویسید و روی «ارسال ورودی» یا کلید Enter بزنید. افزونه برای اجرای زندهٔ Windows از UTF-8 استفاده می‌کند تا ورودی فارسی به شکل خراب‌شده‌ای مانند `Û¸...` به interpreter نرسد.
+
+### ساخت فایل جدید `.t` از Status Bar
+
+وقتی یک فایل `.t` فعال باشد، دکمهٔ ساخت فایل جدید فقط در **Status Bar پایین VS Code** نمایش داده می‌شود. با کلیک روی آن، افزونه ابتدا فایل را واقعاً روی دیسک می‌سازد و سپس آن را در VS Code باز می‌کند.
+
+شماره‌گذاری به‌صورت خودکار ادامه پیدا می‌کند:
+
+```
+program-001.t
+program-002.t
+program-003.t
+```
+
+فایل‌های قبلی حذف یا بازنویسی نمی‌شوند. این دکمه در WebView، منوی راست‌کلیک یا نوار عنوان قرار ندارد.
+
+### Snippetهای آموزشی
+
+افزونه ۱۴ snippet آموزشی دارد. در فایل `.t`، prefix را بنویسید و `Tab` بزنید:
+
+| نام | Prefix | کاربرد کوتاه |
+| --- | --- | --- |
+| سلام دنیا | `سلام` | چاپ پیام ساده |
+| متغیر | `متغیر` | ساخت متغیر |
+| چاپ | `چاپ` | چاپ متن |
+| اگر وگرنه | `اگر` | ساخت شرط دوشاخه |
+| تکرار | `تکرار` | تکرار تعداد مشخص |
+| تاوقتی | `تاوقتی` | ساخت حلقهٔ شرطی |
+| برای | `برای` | پیمایش فهرست |
+| تابع | `تابع` | ساخت تابع و بازگردان مقدار |
+| فهرست | `فهرست` | ساخت فهرست نمونه |
+| فرهنگ | `فرهنگ` | ساخت فرهنگ نمونه |
+| ورودی | `ورودی` | گرفتن و چاپ ورودی |
+| پنجره | `پنجره` | ساخت پنجرهٔ GUI |
+| نت صوتی | `نت` | ساخت دستور نت صوتی |
+| گرافیک مربع | `مربع` | رسم مربع SVG |
+
+فرمان‌های قبلی افزونه در منوی راست‌کلیک فایل‌های `.t` حفظ شده‌اند. این قابلیت‌های افزونه، زبان پایه، نسخهٔ زبان، Audio، GUI، Builder و EXE را تغییر نمی‌دهند.
 
 ---
 
@@ -437,23 +538,35 @@ tirotir builder
 
 بستهٔ آموزشی مستقل شامل نمونه‌های `.t` برای موضوعات زیر است:
 
-* شروع کار
-* Hello World
-* متغیر
-* ورودی و خروجی
-* ریاضی
-* شرط
-* حلقه
-* فهرست
-* فرهنگ
-* تابع
-* GUI
-* Graphics
-* Audio
+- شروع کار
+
+- Hello World
+
+- متغیر
+
+- ورودی و خروجی
+
+- ریاضی
+
+- شرط
+
+- حلقه
+
+- فهرست
+
+- فرهنگ
+
+- تابع
+
+- GUI
+
+- Graphics
+
+- Audio
 
 بستهٔ آموزشی:
 
-```text
+```
 tirotir-examples-education-1.1.0.zip
 ```
 
@@ -469,16 +582,21 @@ tirotir run examples/basics/hello_world.t
 
 تیروتیر به‌صورت پیش‌فرض دسترسی آزاد به موارد زیر ندارد:
 
-* Python
-* `eval`
-* `exec`
-* shell
-* network
-* filesystem
+- Python
+
+- `eval`
+
+- `exec`
+
+- shell
+
+- network
+
+- filesystem
 
 قابلیت‌های پیرامونی به‌صورت جداگانه تعریف می‌شوند:
 
-```text
+```
 graphics
 audio
 gui
@@ -496,17 +614,27 @@ network
 
 موارد زیر هنوز قابلیت کامل محسوب نمی‌شوند:
 
-* Class و Object Model
-* Inheritance
-* Exception Model عمومی
-* Type System کامل
-* Generator
-* Async/Await
-* Animation Runtime کامل
-* GUI Event System کامل
-* LSP کامل
-* DAP
-* Debugger کامل
+- Class و Object Model
+
+- Inheritance
+
+- Exception Model عمومی
+
+- Type System کامل
+
+- Generator
+
+- Async/Await
+
+- Animation Runtime کامل
+
+- GUI Event System کامل
+
+- LSP کامل
+
+- DAP
+
+- Debugger کامل
 
 این موارد می‌توانند در نسخه‌های آینده توسعه پیدا کنند.
 
@@ -514,7 +642,7 @@ network
 
 # ساختار اصلی پروژه
 
-```text
+```
 src/tirotir/
 ├── core.py          # Lexer، Parser، AST و Interpreter
 ├── semantic.py      # تحلیل معنایی و Diagnostics
@@ -566,7 +694,7 @@ tirotir format hello.t
 
 مستندات فنی در پوشهٔ زیر قرار دارند:
 
-```text
+```
 docs/
 ```
 
@@ -580,20 +708,25 @@ docs/
 
 ### ویژگی‌ها
 
-* 📚 محتوای آموزشی ساختارمند
-* 🎨 رابط کاربری ساده
-* ⚡ بارگذاری سریع
-* 📱 طراحی واکنش‌گرا
-* 🌐 دسترسی آزاد و رایگان
-* 🧪 تجربهٔ عملی و تعاملی
+- 📚 محتوای آموزشی ساختارمند
+
+- 🎨 رابط کاربری ساده
+
+- ⚡ بارگذاری سریع
+
+- 📱 طراحی واکنش‌گرا
+
+- 🌐 دسترسی آزاد و رایگان
+
+- 🧪 تجربهٔ عملی و تعاملی
 
 ### دسترسی
 
 🌍 **نسخهٔ آنلاین:**
-https://worker2025.github.io/tirotir-learning-lab/
+[https://worker2025.github.io/tirotir-learning-lab/](https://worker2025.github.io/tirotir-learning-lab/)
 
 💻 **GitHub:**
-https://github.com/worker2025
+[https://github.com/worker2025](https://github.com/worker2025)
 
 ---
 
@@ -601,7 +734,7 @@ https://github.com/worker2025
 
 برای شروع فقط کافی است:
 
-```text
+```
 چاپ -سلام دنیا-
 ```
 
@@ -616,7 +749,7 @@ https://github.com/worker2025
 🌐 **مشاهدهٔ آنلاین:** [worker2025.github.io/tirotir-new-examples](https://worker2025.github.io/tirotir-new-examples/)
 
 | نمونه | توضیح | لینک |
-|---|---|---|
+| --- | --- | --- |
 | 🎨 نقاشی با تیروتیر | ۲۳ برنامهٔ گرافیکی — رسم شکل و خروجی SVG | [مشاهده](https://worker2025.github.io/tirotir-new-examples/graphics.html) |
 | 🎵 موسیقی با تیروتیر | ملودی‌ها و آموزش — تولید فایل WAV | [مشاهده](https://worker2025.github.io/tirotir-new-examples/sound.html) |
 | 📄 فرم و تبدیل‌ها | ۱۵ برنامهٔ کاربردی — فرم، تبدیل واحد و متن | [مشاهده](https://worker2025.github.io/tirotir-new-examples/form.html) |
@@ -628,14 +761,10 @@ https://github.com/worker2025
 # Tirotir 1.1.0
 
 <p align="center">
-  <img src="assets/logo/tirotir-logo.png" alt="Tirotir" width="120">
-</p>
-
-<p align="center">
+<img src="assets/logo/tirotir-logo.png" alt="Tirotir" width="120">
+</p> <p align="center">
   <strong>یک زبان برنامه‌نویسی فارسی برای یادگیری، ساخت و خلاقیت.</strong>
-</p>
-
-<p align="center">
+</p> <p align="center">
   <a href="https://tirotir.ir/">🌐 Website</a> ·
   <a href="https://tirotir.com/">🌐 Tirotir.com</a> ·
   <a href="https://github.com/worker2025/tirotir">💻 GitHub</a> ·
