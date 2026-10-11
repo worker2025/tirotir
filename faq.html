@@ -1,0 +1,1316 @@
+<!-- faq.html -->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرسش‌های پرتکرار تیروتیر (Tirotir) | نسخه 1.1.0</title>
+    <meta name="description" content="مستندات و پرسش‌های پرتکرار زبان برنامه‌نویسی تیروتیر">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                            950: '#1e1b4b',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.4s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 6px; border: 2px solid #f1f5f9; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: sweep .35s ease-in-out; }
+        @keyframes sweep {
+            0%    { opacity: 0; transform: translateY(-8px); }
+            100%  { opacity: 1; transform: translateY(0); }
+        }
+
+        pre { direction: ltr; text-align: left; position: relative; }
+
+        .highlight { background-color: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #a5b4fc 0%, #f0abfc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.15);
+        }
+
+        .toc-scroll::-webkit-scrollbar { height: 4px; }
+        .toc-scroll::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 4px; }
+
+        /* Back to top */
+        #backToTop {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Copy button */
+        .copy-btn {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        pre:hover .copy-btn { opacity: 1; }
+
+        /* Search no-results */
+        #noResults { display: none; }
+        #noResults.visible { display: block; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed antialiased">
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800 text-white pt-12 pb-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Decorative grid -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#grid)"/></svg>
+        </div>
+        <!-- Glow blobs -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10 text-center animate-fade-in">
+            <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-slow"></span>
+                نسخهٔ مبنا: Tirotir 1.1.0
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4">
+                پرسش‌های پرتکرار <span class="gradient-text">تیروتیر</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-primary-100 max-w-2xl mx-auto mb-8">
+                FAQ فارسی برای کاربران، دانشجویان و مصاحبه‌کنندگان فنی
+            </p>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-3 max-w-lg mx-auto mb-8">
+                <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-3 py-3">
+                    <div class="text-2xl font-extrabold text-white" id="questionCount">۶۱</div>
+                    <div class="text-[11px] text-primary-200 mt-0.5">پرسش</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-3 py-3">
+                    <div class="text-2xl font-extrabold text-white">۹</div>
+                    <div class="text-[11px] text-primary-200 mt-0.5">بخش</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-3 py-3">
+                    <div class="text-2xl font-extrabold text-white">۱.۱.۰</div>
+                    <div class="text-[11px] text-primary-200 mt-0.5">نسخه</div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 text-sm">
+                <span class="bg-white/10 px-3 py-1 rounded-lg border border-white/10">تاریخ بررسی: ۱ اکتبر ۲۰۲۶</span>
+                <a href="https://github.com/worker2025/tirotir" target="_blank" class="bg-white/10 hover:bg-white/20 transition px-3 py-1 rounded-lg border border-white/10 flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    github.com/worker2025/tirotir
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN ==================== -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20 pb-24">
+
+        <!-- Warning Box -->
+        <div class="bg-amber-50 border-r-4 border-amber-400 p-6 rounded-lg shadow-sm mb-8 text-amber-900 animate-slide-up">
+            <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <div>
+                    <h3 class="font-bold text-lg mb-1">نکتهٔ مهم دربارهٔ وضعیت</h3>
+                    <p class="text-sm leading-7">پاسخ‌ها بر اساس README و کد مخزن در commit <code class="bg-amber-100 px-1 rounded text-amber-800 font-mono text-xs">806eb53</code> تنظیم شده‌اند. هرجا از نقشهٔ راه صحبت می‌شود، آن را وعده یا قابلیت موجود تلقی نکنید. گزارش انتشار مخزن از ۲۴۴ تست موفق نام می‌برد؛ این عدد گزارش خود پروژه است و در محیط تهیهٔ این FAQ به دلیل نصب‌نبودن pytest دوباره اجرا نشد.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="sticky top-4 z-30 mb-6">
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </div>
+                <input type="text" id="searchInput" placeholder="جستجو در پرسش‌ها (مثلاً: کامپایلر، متغیر، گرافیک)..." 
+                    class="w-full pr-12 pl-12 py-4 bg-white border border-slate-200 rounded-2xl shadow-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition text-slate-700 placeholder-slate-400">
+                <button id="clearSearch" class="absolute inset-y-0 left-0 flex items-center pl-4 pr-2 text-slate-400 hover:text-slate-600 transition opacity-0 pointer-events-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="mb-10 -mx-2">
+            <div class="toc-scroll flex gap-2 overflow-x-auto pb-2 px-2">
+                <a href="#sec-1" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">شروع سریع</a>
+                <a href="#sec-2" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">آشنایی با تیروتیر</a>
+                <a href="#sec-3" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">ساختار و نحو</a>
+                <a href="#sec-4" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">معماری و اصطلاحات</a>
+                <a href="#sec-5" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">قابلیت‌ها، نصب و امنیت</a>
+                <a href="#sec-6" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">محدودیت‌ها و آینده</a>
+                <a href="#sec-7" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">مصاحبهٔ فنی</a>
+                <a href="#sec-8" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">واژه‌نامه</a>
+                <a href="#sec-9" class="toc-link flex-shrink-0 bg-white border border-slate-200 hover:border-primary-400 hover:text-primary-700 text-slate-600 text-sm px-4 py-2 rounded-full transition">منابع و مشارکت</a>
+            </div>
+        </nav>
+
+        <!-- No Results -->
+        <div id="noResults" class="text-center py-16">
+            <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-slate-500 text-lg">نتیجه‌ای یافت نشد</p>
+            <p class="text-slate-400 text-sm mt-1">عبارت دیگری را امتحان کنید</p>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-14" id="faqContainer">
+
+            <!-- ==================== SECTION 1: شروع سریع ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="شروع سریع" id="sec-1">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۱</span>
+                    شروع سریع
+                </h2>
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱) روی Windows چه چیزی لازم است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3">
+                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <p><strong>برای کاربر نهایی:</strong> Setup مستقل Tirotir نیاز به Python، pip، Git یا PyInstaller ندارد. کافی است بستهٔ نصب ویندوز را از پوشهٔ <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">install/</code> مخزن دریافت و اجرا کنید.</p>
+                            <p class="mt-2"><strong>برای توسعه‌دهنده:</strong> می‌توان از Python و نصب بستهٔ پروژه استفاده کرد:</p>
+                            <pre class="mt-3"><code class="language-shell">python -m pip install .
+tirotir version</code></pre>
+                        </div>
+                    </details>
+
+                    <!-- Q2 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲) چگونه فایل EXE بسازم؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3">
+                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <p><strong>Tirotir Builder</strong> یک ابزار گرافیکی است که به شما امکان می‌دهد یک فایل <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">.t</code> را انتخاب کرده و خروجی اجرایی Windows (EXE) بسازید. این ابزار از <strong>PyInstaller</strong> در پشت صحنه استفاده می‌کند.</p>
+                            <div class="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-900">
+                                <strong>توجه:</strong> خروجی Builder را با «کامپایلر بومی» اشتباه نگیرید؛ این فرآیند بسته‌بندی (packaging) است، نه ترجمه به کد ماشین.
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Q3 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳) چرا Graphics، Audio یا GUI در شبیه‌ساز مرورگر کامل نیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3">
+                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <p>آزمایشگاه مرورگر یک <strong>شبیه‌ساز آموزشی client-only</strong> است و خروجی متنی توصیفی می‌دهد. اجرای واقعی SVG، WAV و Tkinter در runtime نصب‌شدهٔ Tirotir و افزونهٔ VS Code انجام می‌شود. بنابراین اگر در مرورگر گرافیک یا صدا را کامل ندیدید، به معنای نبود قابلیت در نسخهٔ اصلی نیست.</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 2: آشنایی ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="آشنایی با تیروتیر" id="sec-2">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۲</span>
+                    آشنایی با تیروتیر
+                </h2>
+                <div class="space-y-4">
+                    <!-- Q4 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴) تیروتیر چیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            تیروتیر یک <strong>زبان برنامه‌نویسی متنی با واژگان و شناسه‌های فارسی</strong> است. کاربر برنامه‌ای با پسوند رسمی <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono text-slate-800">.t</code> می‌نویسد و مفسر تیروتیر آن را اجرا می‌کند. این زبان برای یادگیری مفاهیم برنامه‌نویسی، آزمایش ایده‌ها و ساخت برنامه‌های کوچک و خلاقانه طراحی شده است. امکاناتی برای محاسبه، ورودی و خروجی، گرافیک SVG، تولید صدای WAV و رابط گرافیکی پایه نیز در مخزن وجود دارد.
+                        </div>
+                    </details>
+
+                    <!-- Q5 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵) چرا تیروتیر «زبان برنامه‌نویسی» است و فقط مجموعه‌ای از دستورها یا ترجمهٔ فارسی Python نیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            چون رفتار یک زبان را فقط نام کلیدواژه‌ها تعیین نمی‌کند. تیروتیر قواعد نوشتار (نحو)، تفسیر عبارت‌ها، متغیر و دامنه، کنترل جریان، تابع، داده‌ها، خطاها و روش اجرای مشخص خودش را دارد. پیاده‌سازی آن شامل توکن‌ساز، تجزیه‌گر، AST و مفسر است. دستورها به کد Python ترجمه نمی‌شوند تا Python اجرا کند؛ مفسر تیروتیر مستقیماً ساختار و رفتار برنامه را مدیریت می‌کند.
+                        </div>
+                    </details>
+
+                    <!-- Q6 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۶) آیا تیروتیر از زبان دیگری ساخته شده است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            بله، از دید <strong>پیاده‌سازی</strong>، مفسر و ابزارهای فعلی عمدتاً با Python نوشته شده‌اند. این موضوع به‌تنهایی به این معنی نیست که زبان تیروتیر «زیرمجموعهٔ Python» یا transpiler آن است. زبان‌های زیادی با زبان دیگری پیاده‌سازی می‌شوند (زبان میزبان یا Host Language). باید بین «زبانی که برنامه‌نویس با آن کد می‌نویسد» و «زبانی که مفسر با آن ساخته شده» تفاوت قائل شد.
+                        </div>
+                    </details>
+
+                    <!-- Q7 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۷) اگر مفسر با Python نوشته شده، چرا خود برنامهٔ تیروتیر Python محسوب نمی‌شود؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            چون کد اجراشونده در فایل <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">.t</code> قواعد تیروتیر را دنبال می‌کند (مثل <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">چاپ</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">بگذار</code>). مفسرِ Python-نوشته این متن را می‌خواند، به اجزای قابل‌فهم تبدیل می‌کند و طبق معنای تیروتیر اجرا می‌کند.
+                        </div>
+                    </details>
+
+                    <!-- Q8 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۸) آیا تیروتیر کامپایلر دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            در نسخهٔ 1.1.0 مسیر اصلی اجرا <strong>مفسری (interpreted)</strong> است، نه کامپایل به کد ماشین. ابزارهایی مانند <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">run</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">check</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">ast</code> وجود دارند. قابلیت ساخت EXE در پروژه به بسته‌بندی (Builder) مربوط است و نباید آن را با کامپایلر بومی یکی دانست.
+                        </div>
+                    </details>
+
+                    <!-- Q9 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۹) تیروتیر برای چه کسانی مناسب است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            برای فارسی‌زبانانی که می‌خواهند با مفاهیم پایه (متغیر، شرط، حلقه، تابع) شروع کنند؛ برای مدرس و دانشجو جهت نمایش مفاهیم محاسباتی؛ و برای ساخت نمونه‌های کوچک آموزشی، گرافیکی، صوتی یا GUI پایه. برای سامانه‌های بزرگ یا نرم‌افزارهای production-critical باید محدودیت‌های نسخهٔ فعلی را در نظر گرفت.
+                        </div>
+                    </details>
+
+                    <!-- Q10 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۰) هدف تیروتیر جایگزین‌کردن Python، Java یا C++ است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            از اطلاعات نسخهٔ فعلی چنین ادعایی برنمی‌آید. هدف برجستهٔ پروژه، برنامه‌نویسی فارسی و تجربهٔ آموزشی/خلاقانه است. ابزارهای زبان‌های بالغ‌تر، کتابخانه‌ها و کارایی آن‌ها را نباید با دامنهٔ فعلی تیروتیر یکسان فرض کرد.
+                        </div>
+                    </details>
+
+                    <!-- Q11 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۱) نام و پسوند فایل آن چیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            نام لاتین پروژه <strong>Tirotir</strong> و نام فارسی آن <strong>تیروتیر</strong> است. پسوند رسمی برنامه‌ها <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">.t</code> است. پسوند قدیمی <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">.tirotir</code> برای سازگاری با فایل‌های قبلی نگه داشته شده است.
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 3: ساختار و نحو ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="ساختار و نحو زبان" id="sec-3">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۳</span>
+                    ساختار و نحو زبان
+                </h2>
+                <div class="space-y-4">
+                    <!-- Q12 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۲) یک برنامهٔ ساده در تیروتیر چه شکلی است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <pre><code class="language-tirotir">چاپ -سلام دنیا-</code></pre>
+                            <p class="mt-3">برای تعریف متغیر و شرط:</p>
+                            <pre><code class="language-tirotir">بگذار سن برابر ۲۰
+
+اگر سن بزرگتر یا مساوی ۱۸
+    چاپ -بزرگسال-
+وگرنه
+    چاپ -نابالغ-</code></pre>
+                        </div>
+                    </details>
+
+                    <!-- Q13 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۳) چرا دستورها فارسی‌اند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            برای پایین‌آوردن مانع زبانی در شروع برنامه‌نویسی و فراهم‌کردن راهی برای نوشتن مثال‌ها و آموزش به فارسی. فارسی‌بودن واژگان، جایگزین مفاهیم CS یا استانداردهای فنی نیست؛ هدف این است که زبانِ بیان الگوریتم برای مخاطب فارسی‌زبان آشناتر باشد.
+                        </div>
+                    </details>
+
+                    <!-- Q14 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۴) آیا فقط حروف فارسی قابل استفاده‌اند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            خیر. مخزن از شناسه‌های Unicode پشتیبانی می‌کند و ارقام فارسی و لاتین را می‌پذیرد. در پیاده‌سازی، بعضی صورت‌های Unicode نرمال می‌شوند (مثلاً «ي» به «ی»، «ك» به «ک»). بهتر است در یک پروژه شیوهٔ نوشتن نام‌ها را یکدست نگه دارید.
+                        </div>
+                    </details>
+
+                    <!-- Q15 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۵) بلوک‌های شرط، حلقه و تابع با چه چیزی مشخص می‌شوند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            با <strong>تورفتگی (indentation)</strong>، نه آکولاد. طبق تصمیم طراحی پروژه، تورفتگی استاندارد چهار فاصله است و تورفتگی ناسازگار خطا می‌دهد:
+                            <pre class="mt-3"><code class="language-tirotir">تکرار ۳ بار
+    چاپ -درود-</code></pre>
+                        </div>
+                    </details>
+
+                    <!-- Q16 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۶) متن یا رشته چگونه نوشته می‌شود؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            در نحو فعلی، متن معمولاً بین دو خط تیره قرار می‌گیرد: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">-سلام-</code>. اگر خود متن خط تیره داشته باشد، می‌توان آن را با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">\-</code> گریز داد. این نحو ساده است، اما ممکن است در بعضی عبارت‌ها با عملگر تفریق اشتباه‌پذیر باشد.
+                        </div>
+                    </details>
+
+                    <!-- Q17 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۷) کامنت چطور نوشته می‌شود؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            کامنت با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">#</code> آغاز می‌شود و آن بخش از خط برای اجرا نیست:
+                            <pre class="mt-3"><code class="language-tirotir"># این یک توضیح برای خواننده است
+چاپ -سلام-</code></pre>
+                        </div>
+                    </details>
+
+                    <!-- Q18 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۸) چه نوع داده‌هایی دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            عدد، متن، مقدار منطقی (<code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">درست</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">نادرست</code>)، مقدار تهی (<code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">تهی</code>)، فهرست و فرهنگ. تیپ‌دهی پویا است (هنگام نوشتن اعلان نوع اجباری نیست).
+                        </div>
+                    </details>
+
+                    <!-- Q19 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۱۹) متغیر و ثابت چگونه تعریف می‌شوند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            متغیر با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">بگذار</code> و ثابت با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">ثابت</code> تعریف می‌شود:
+                            <pre class="mt-3"><code class="language-tirotir">بگذار امتیاز برابر ۱۰
+ثابت سقف برابر ۱۰۰</code></pre>
+                            تغییر ثابت باید با خطا روبه‌رو شود.
+                        </div>
+                    </details>
+
+                    <!-- Q20 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۰) چه عملگرهایی وجود دارند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            عملگرهای عددی اصلی <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">+</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">-</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">*</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">/</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">%</code>. مقایسه با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">==</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">>=</code> یا صورت‌هایی مانند <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">بزرگتر یا مساوی</code>. منطق با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">و</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">یا</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">نه</code>.
+                        </div>
+                    </details>
+
+                    <!-- Q21 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۱) شرط و حلقه چه دستورهایی دارند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            شرط‌ها با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">اگر</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">وگرنه اگر</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">وگرنه</code>. حلقه‌های <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">برای</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">تاوقتی</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">تکرار ... بار</code>. <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">بیرون</code> برای خروج از حلقه و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">ادامه</code> برای تکرار بعدی.
+                        </div>
+                    </details>
+
+                    <!-- Q22 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۲) تابع، پارامتر و بازگشت مقدار چگونه‌اند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            تابع با <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">تابع</code> تعریف می‌شود:
+                            <pre class="mt-3"><code class="language-tirotir">تابع مربع با عدد
+    بازگردان عدد * عدد
+
+چاپ مربع با ۵</code></pre>
+                        </div>
+                    </details>
+
+                    <!-- Q23 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۳) دامنه یا scope چیست و آیا تیروتیر دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            بله. مفسر محیط متغیرها و محیط والد برای تابع دارد و semantic analyzer نیز جدول نماد و scopeهای تابع را مدل می‌کند. این مفهوم برای فهم متغیر محلی، سراسری و خطای نام تعریف‌نشده مهم است.
+                        </div>
+                    </details>
+
+                    <!-- Q24 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۴) ورودی و خروجی چه هستند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">چاپ</code> برای خروجی و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">بخوان</code> برای خواندن ورودی استفاده می‌شود. رابط prompt و اعتبارسنجی را باید خود برنامه مدیریت کند.
+                        </div>
+                    </details>
+
+                    <!-- Q25 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۵) فهرست و فرهنگ چه کاربردی دارند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            فهرست برای نگهداری چند مقدار به ترتیب و فرهنگ برای نگهداری مقدارهایی با کلید نام‌دار. توابعی مانند <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">طول</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">افزودن</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">حذف</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">به_عدد</code> و <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">به_متن</code> در مستندها معرفی شده‌اند.
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 4: معماری ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="معماری و اصطلاحات فنی" id="sec-4">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۴</span>
+                    معماری و اصطلاحات فنی
+                </h2>
+                <div class="space-y-4">
+                    <!-- Q26 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۶) برنامهٔ تیروتیر چگونه از متن به اجرا می‌رسد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <pre class="bg-slate-100 text-slate-700 p-4 rounded-lg text-sm font-mono">متن برنامه
+   ↓
+نرمال‌سازی و توکن‌سازی (Lexer/Tokenizer)
+   ↓
+تجزیهٔ نحوی (Parser)
+   ↓
+درخت نحو انتزاعی (AST)
+   ↓
+تحلیل معنایی و تشخیص خطاهای قابل‌بررسی
+   ↓
+مفسر و سرویس‌های runtime
+   ↓
+خروجی، اثر گرافیکی/صوتی یا خطا</pre>
+                        </div>
+                    </details>
+
+                    <!-- Q27 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۷) Lexer یا Tokenizer چیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            بخشی است که متن خام را به واحدهای کوچک‌تر معنادار، یعنی <strong>توکن (token)</strong>، تبدیل می‌کند (واژه، عدد، رشته، عملگر، نشانهٔ تورفتگی).
+                        </div>
+                    </details>
+
+                    <!-- Q28 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۸) Parser و AST چه می‌کنند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            Parser توکن‌ها را طبق قواعد زبان به ساختار برنامه تبدیل می‌کند. <strong>AST</strong> (درخت نحو انتزاعی) نمایش ساختاری برنامه است. فرمان <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">tirotir ast</code> می‌تواند نمایش JSON درخت را نشان دهد.
+                        </div>
+                    </details>
+
+                    <!-- Q29 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۲۹) تحلیل نحوی و تحلیل معنایی چه تفاوتی دارند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            تحلیل نحوی می‌پرسد آیا ساختار جمله طبق دستور زبان معتبر است. تحلیل معنایی می‌پرسد آیا ساختار از نظر معنا قابل‌قبول است (مثلاً آیا نام متغیر تعریف شده است).
+                        </div>
+                    </details>
+
+                    <!-- Q30 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۰) Interpreter یا مفسر چیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            برنامه‌ای است که ساختار برنامهٔ تیروتیر را می‌خواند و دستوراتش را اجرا می‌کند. مفسر فعلی محیط متغیرها، توابع، شرط‌ها، حلقه‌ها و فراخوانی سرویس‌هایی مانند گرافیک و صدا را مدیریت می‌کند.
+                        </div>
+                    </details>
+
+                    <!-- Q31 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۱) Runtime چیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <strong>زمان‌اجرا (runtime)</strong> محیط و سرویس‌هایی است که اجرای برنامه به آن‌ها متکی است: مفسر، محیط متغیرها، توابع داخلی، خطاها و backendهایی مانند SVG یا Tkinter.
+                        </div>
+                    </details>
+
+                    <!-- Q32 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۲) Diagnostic، Source Span و Symbol Table یعنی چه؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <ul class="list-disc list-inside space-y-2 mr-2">
+                                <li><strong>Diagnostic:</strong> گزارش ساختاریافتهٔ خطا/هشدار با کد، شدت، پیام و گاهی پیشنهاد اصلاح.</li>
+                                <li><strong>Source span:</strong> بازه یا محل وقوع یک توکن/خطا در متن منبع (خط و ستون).</li>
+                                <li><strong>Symbol table:</strong> جدولی از نام‌های تعریف‌شده مثل متغیر، پارامتر و تابع و scope مربوط به آن‌ها.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Q33 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۳) CLI، REPL و formatter چیستند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <ul class="list-disc list-inside space-y-2 mr-2">
+                                <li><strong>CLI:</strong> ابزار خط فرمان (مثل <code class="bg-slate-100 px-1 rounded">run</code>، <code class="bg-slate-100 px-1 rounded">check</code>).</li>
+                                <li><strong>REPL:</strong> محیط تعاملیِ خواندن، اجرا و نمایش نتیجه، دستوربه‌دستور.</li>
+                                <li><strong>Formatter:</strong> ابزار یکدست‌کردن قالب کد (فرمان <code class="bg-slate-100 px-1 rounded">format</code>).</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Q34 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۴) افزونهٔ VS Code چه امکاناتی دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            شناسایی فایل، syntax highlighting و فرمان‌های اجرا/بررسی/نمایش AST. همچنین خروجی RTL و نمایش صحنهٔ زنده در WebView. این افزونه هنوز یک محیط توسعهٔ کامل با LSP، تکمیل هوشمند پیشرفته یا debugger حرفه‌ای نیست.
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 5: قابلیت‌ها، نصب و امنیت ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="قابلیت‌های فعلی، نصب و امنیت" id="sec-5">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۵</span>
+                    قابلیت‌های فعلی، نصب و امنیت
+                </h2>
+                <div class="space-y-4">
+                    <!-- Q35 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۵) چگونه تیروتیر را نصب یا امتحان کنم؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <pre><code class="language-shell">python -m pip install .
+tirotir version
+tirotir run hello.t</code></pre>
+                            <p class="mt-2">مخزن بسته‌های Windows و افزونهٔ VS Code را در مسیر <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">install/</code> فهرست می‌کند. برای مرور کد، پوشهٔ <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">examples2/</code> را ببینید.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q36 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۶) فرمان‌های اصلی خط فرمان کدام‌اند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <pre><code class="language-shell">tirotir version
+tirotir run hello.t
+tirotir check hello.t
+tirotir ast hello.t
+tirotir format hello.t
+tirotir repl</code></pre>
+                        </div>
+                    </details>
+
+                    <!-- Q37 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۷) آیا گرافیک دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            بله، دستورات گرافیکی پایه وجود دارد و مسیر گزارش‌شدهٔ نسخهٔ 1.1.0 صحنه را به <strong>SVG</strong> تبدیل می‌کند (مربع، مستطیل، مثلث، دایره و حرکت قلم). این قابلیت را با موتور بازی اشتباه نگیرید.
+                        </div>
+                    </details>
+
+                    <!-- Q38 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۸) آیا انیمیشن یا ساخت بازی دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            در نسخهٔ 1.1.0، <strong>انیمیشن کامل و runtime بازی‌سازی کامل</strong> قابلیت تثبیت‌شده محسوب نمی‌شوند. نقشهٔ راه دربارهٔ event runtime صحبت می‌کند، اما نباید آن را آمادهٔ تولید فرض کرد.
+                        </div>
+                    </details>
+
+                    <!-- Q39 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۳۹) آیا صدا و موسیقی دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            مخزن تولید توالی نت و فایل WAV را پشتیبانی می‌کند. نت‌های فارسی مانند دو، ر، می، فا و سل به WAV تبدیل می‌شوند و برای ملودی‌های کوتاه امکان پخش ترتیبی وجود دارد. پخش واقعی به ابزار/سیستم‌عامل وابسته است و ممکن است در محیط headless کار نکند.
+                        </div>
+                    </details>
+
+                    <!-- Q40 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۰) آیا رابط گرافیکی (GUI) دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            یک backend پایهٔ GUI بر مبنای <strong>Tkinter</strong> وجود دارد (پنجره، label، button، ورودی، چک‌باکس، فهرست). اجرای GUI به محیط desktop نیاز دارد. callback کامل و event system در سطح زبان در وضعیت فعلی تضمین نشده‌اند.
+                        </div>
+                    </details>
+
+                    <!-- Q41 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۱) آیا برنامهٔ تیروتیر می‌تواند Python، shell یا شبکه را آزادانه اجرا کند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            خیر؛ طراحی پروژه بر پرهیز از <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">eval</code>/<code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">exec</code> عمومی، import آزاد Python و دسترسی بی‌قید به شبکه تأکید دارد. بااین‌حال این طراحی به معنی <strong>sandbox امنیتی کامل در سطح سیستم‌عامل نیست</strong>.
+                        </div>
+                    </details>
+
+                    <!-- Q42 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۲) Capability-based چیست؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            یعنی برنامه فقط در صورت فعال‌بودن مجوز مشخص به یک سرویس بیرونی دسترسی بگیرد (مثل <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">graphics</code>، <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">audio</code>). این مدل کمک می‌کند سرویس‌ها از هسته جدا شوند. اجرای قابلیت‌ها باید از Runtime API و Capability Registry عبور کند.
+                        </div>
+                    </details>
+
+                    <!-- Q43 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۳) پروژهٔ چندفایلی و ماژول دارد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            مخزن <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">tirotir.toml</code>، loader و module graph را معرفی می‌کند. import به شکل <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">وارد کن -نام-</code> است. اما package manager خارجی وجود ندارد.
+                        </div>
+                    </details>
+
+                    <!-- Q44 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۴) آیا تیروتیر در Windows، Linux و macOS کار می‌کند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            کد Python و ابزارهای خط فرمان با هدف قابل‌حمل‌بودن عرضه شده‌اند. برخی پذیرش‌های واقعی desktop، GUI و ساخت EXE نیازمند آزمون دستی/بومی هستند.
+                        </div>
+                    </details>
+
+                    <!-- Q45 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۵) چند تست دارد؟ آیا این FAQ تست‌ها را اجرا کرده است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            گزارش آمادگی انتشار برای نسخهٔ 1.1.0، <strong>۲۴۴ تست موفق</strong> را گزارش می‌کند. در محیط تهیهٔ این FAQ ماژول pytest نصب نبود، بنابراین این عدد مستقل بازاجرا نشد.
+                        </div>
+                    </details>
+
+                    <!-- Q46 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۶) آیا می‌توان از تیروتیر برای محصول تجاری استفاده کرد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            مجوز مخزن MIT اعلام شده است (permissive). بااین‌حال پیش از توزیع تجاری، متن <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">LICENSE</code> همان نسخه را بررسی کنید. این مجوز هیچ تضمینی دربارهٔ پشتیبانی یا کیفیت production ایجاد نمی‌کند.
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 6: محدودیت‌ها و آینده ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="محدودیت‌ها و مسیر آینده" id="sec-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۶</span>
+                    محدودیت‌ها و مسیر آینده
+                </h2>
+                <div class="space-y-4">
+                    <!-- Q47 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۷) کدام قابلیت‌ها در نسخهٔ 1.1.0 کامل نیستند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            مدل شیء/کلاس و وراثت، سیستم نوع‌دهی کامل، exception model عمومی، generator، async/await، انیمیشن کامل، event system/callbackهای کامل GUI، LSP کامل، DAP و debugger حرفه‌ای.
+                        </div>
+                    </details>
+
+                    <!-- Q48 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۸) معماری ۲٫۰ شامل چه بخش‌هایی است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <p class="mb-3"><strong>بخش‌های تثبیت‌شده در نقشهٔ معماری ۲٫۰:</strong></p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <span class="bg-primary-50 border border-primary-100 text-primary-800 text-sm px-3 py-1.5 rounded-lg">Contract Freeze</span>
+                                <span class="bg-primary-50 border border-primary-100 text-primary-800 text-sm px-3 py-1.5 rounded-lg">Diagnostic</span>
+                                <span class="bg-primary-50 border border-primary-100 text-primary-800 text-sm px-3 py-1.5 rounded-lg">Semantic Layer</span>
+                                <span class="bg-primary-50 border border-primary-100 text-primary-800 text-sm px-3 py-1.5 rounded-lg">SymbolTable</span>
+                                <span class="bg-primary-50 border border-primary-100 text-primary-800 text-sm px-3 py-1.5 rounded-lg">Module System</span>
+                                <span class="bg-primary-50 border border-primary-100 text-primary-800 text-sm px-3 py-1.5 rounded-lg">Sandbox Path</span>
+                                <span class="bg-primary-50 border border-primary-100 text-primary-800 text-sm px-3 py-1.5 rounded-lg">تشخیص چرخهٔ وابستگی</span>
+                            </div>
+                            <p class="mt-4 mb-2"><strong>بخش‌های نقشهٔ راه بعدی:</strong></p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-amber-50 border border-amber-200 text-amber-800 text-sm px-3 py-1.5 rounded-lg">Event Runtime</span>
+                                <span class="bg-amber-50 border border-amber-200 text-amber-800 text-sm px-3 py-1.5 rounded-lg">Object Model</span>
+                                <span class="bg-amber-50 border border-amber-200 text-amber-800 text-sm px-3 py-1.5 rounded-lg">LSP</span>
+                                <span class="bg-amber-50 border border-amber-200 text-amber-800 text-sm px-3 py-1.5 rounded-lg">Debugger</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Q49 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۴۹) LSP و DAP چه هستند و چرا اهمیت دارند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <strong>LSP</strong> راه استاندارد ارتباط editor با سرویس تحلیل زبان است (تکمیل کد، خطایابی لحظه‌ای). <strong>DAP</strong> استاندارد ارتباط editor با debugger است. این‌ها در مخزن به‌عنوان کار آینده/محدودیت ذکر شده‌اند.
+                        </div>
+                    </details>
+
+                    <!-- Q50 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۰) آیا نسخهٔ 2.0 آماده یا تضمین‌شده است؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            خیر، نقشهٔ راه 2.0 سند برنامه‌ریزی معماری است، نه اعلام آمادگی. هر مورد را باید تا زمان merge و release، «پیشنهاد یا کار آینده» دانست.
+                        </div>
+                    </details>
+
+                    <!-- Q51 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۱) فازهای بعدی توسعه چه می‌توانند باشند؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            تثبیت قراردادها و diagnostics، تکمیل semantic analysis و formatter، پروژه و ماژول، event loop، طراحی object model، debugger/LSP و سرویس‌های استاندارد.
+                        </div>
+                    </details>
+
+                    <!-- Q52 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۲) آیا باید مفسر را با transpiler یا VM جایگزین کرد؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            در مستندهای طراحی، مفسر مستقیم به‌عنوان مسیر ساده و مناسب آموزش حفظ شده است. transpiler به Python می‌تواند دسترسی را آسان‌تر کند ولی مرز امنیت و خطاها را پیچیده می‌کند.
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 7: مصاحبهٔ فنی ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="پرسش‌های مناسب برای مصاحبهٔ فنی" id="sec-7">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۷</span>
+                    پرسش‌های مناسب برای مصاحبهٔ فنی
+                </h2>
+                <div class="space-y-4">
+                    <!-- Q53 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۳) اگر بپرسند «زبان برنامه‌نویسی دقیقاً از چه ساخته می‌شود؟» چه پاسخی بدهیم؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            زبان دست‌کم قرارداد قابل مشاهده‌ای از نحو و معنا دارد؛ برای اجرا هم پیاده‌سازی لازم است. در تیروتیر متن به توکن‌ها تبدیل، با parser به AST تبدیل، و توسط مفسر اجرا می‌شود.
+                        </div>
+                    </details>
+
+                    <!-- Q54 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۴) «آیا هر زبان با زبان دیگری ساخته می‌شود؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            خیر. یک زبان می‌تواند با زبان دیگری پیاده‌سازی شود، با خودش پیاده‌سازی شود (self-hosting)، یا با ترکیبی از زبان‌ها و ابزارها ساخته شود. تیروتیر فعلاً عمدتاً با Python پیاده‌سازی شده است.
+                        </div>
+                    </details>
+
+                    <!-- Q55 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۵) «آیا تیروتیر فقط syntax sugar روی Python است؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            در نسخهٔ حاضر کد تیروتیر مستقیماً به Python transpile نمی‌شود؛ پیاده‌سازی یک parser/AST و interpreter برای اجرای خود نحو تیروتیر دارد.
+                        </div>
+                    </details>
+
+                    <!-- Q56 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۶) «آیا زبان کامپایل‌شده سریع‌تر از مفسری است؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            این مقایسه به پیاده‌سازی، workload و بهینه‌سازی وابسته است. تیروتیر 1.1.0 مسیر مفسری دارد و برای آموزش و پروژه‌های کوچک طراحی شده است.
+                        </div>
+                    </details>
+
+                    <!-- Q57 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۷) «تیروتیر static typing دارد یا dynamic typing؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            در استفادهٔ فعلی، اعلان نوع اجباری نیست و داده‌ها در زمان اجرا مدیریت می‌شوند؛ پس باید آن را پویا (dynamic) توصیف کرد.
+                        </div>
+                    </details>
+
+                    <!-- Q58 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۸) «آیا مفسر sandbox امنی است؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            طراحی، دسترسی آزاد به shell و Python را محدود می‌کند؛ اما خود مخزن هشدار می‌دهد که این <strong>sandbox کامل در سطح سیستم‌عامل نیست</strong>.
+                        </div>
+                    </details>
+
+                    <!-- Q59 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۵۹) «چطور ثابت می‌کنید که تیروتیر یک زبان است؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            به‌جای تکیه بر نام، شواهد فنی را نشان می‌دهیم: دستور زبان، lexer/parser، AST، semantics و interpreter مستقل، ابزار اجرا/بررسی و تست‌های زبان.
+                        </div>
+                    </details>
+
+                    <!-- Q60 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۶۰) «بزرگ‌ترین trade-off طراحی تیروتیر چیست؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            سادگی و دسترس‌پذیری برای شروع در برابر قابلیت‌ها و اکوسیستم پیشرفته. نحو فارسی شروع را آسان می‌کند، اما کارایی و ابزارهای IDE نیازمند کار بیشترند.
+                        </div>
+                    </details>
+
+                    <!-- Q61 -->
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۶۱) «چطور دربارهٔ قابلیت‌های آینده پاسخ دقیق بدهیم؟»</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            وضعیت را به سه دسته تقسیم کنید: <strong>پیاده‌سازی و مستندشده در نسخهٔ فعلی</strong>، <strong>نمونه/آزمایشی با محدودیت مشخص</strong>، و <strong>طرح یا نقشهٔ راه</strong>.
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 8: واژه‌نامه ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="واژه‌نامهٔ کوتاه" id="sec-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۸</span>
+                    واژه‌نامهٔ کوتاه
+                </h2>
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden card-hover">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">اصطلاح</th>
+                                    <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">معنی ساده</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-slate-200 text-sm text-slate-700">
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">زبان میزبان (Host language)</td><td class="px-6 py-4">زبانی که مفسر یا کامپایلر با آن پیاده‌سازی شده (در تیروتیر عمدتاً Python).</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">مفسر (Interpreter)</td><td class="px-6 py-4">برنامه‌ای که کد زبان را می‌خواند و طبق معنای آن اجرا می‌کند.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">کامپایلر (Compiler)</td><td class="px-6 py-4">برنامه‌ای که کد را به نمایش/کد دیگری برای اجرا تبدیل می‌کند.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">توکن (Token)</td><td class="px-6 py-4">جزء کوچک معنادار متن برنامه، مانند عدد، واژه یا عملگر.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Lexer/Tokenizer</td><td class="px-6 py-4">بخش تشخیص‌دهندهٔ توکن‌ها از متن خام.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Parser</td><td class="px-6 py-4">بخش بررسی ترتیب توکن‌ها طبق قواعد نحوی و ساختاردهی برنامه.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">AST</td><td class="px-6 py-4">درخت نحوی انتزاعی؛ نمایش ساختاری برنامه برای ابزار و مفسر.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Semantic analysis</td><td class="px-6 py-4">بررسی معنای ساختار، مانند نام تعریف‌نشده یا استفادهٔ نامعتبر.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Scope</td><td class="px-6 py-4">محدوده‌ای که در آن نام متغیر/تابع قابل دسترسی است.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Symbol table</td><td class="px-6 py-4">داده‌ساختاری برای ثبت نمادها، نوع نماد و scope آن‌ها.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Runtime</td><td class="px-6 py-4">محیط و سرویس‌های لازم برای اجرای برنامه.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">CLI</td><td class="px-6 py-4">رابط خط فرمان برای اجرا و ابزارهای زبان.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">REPL</td><td class="px-6 py-4">محیط تعاملی برای اجرای دستورها به‌صورت زنده.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Module</td><td class="px-6 py-4">فایل/واحدی از برنامه که در پروژهٔ چندفایلی به آن ارجاع داده می‌شود.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Capability</td><td class="px-6 py-4">مجوز کنترل‌شده برای دسترسی به سرویس بیرونی مانند GUI یا graphics.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Backend</td><td class="px-6 py-4">پیاده‌سازی زیرساختی یک سرویس؛ مثلاً SVG برای رسم یا Tkinter برای پنجره.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">LSP</td><td class="px-6 py-4">پروتکل استاندارد ارتباط editor با سرویس زبان.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">DAP</td><td class="px-6 py-4">پروتکل استاندارد ارتباط editor با debugger.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Unicode</td><td class="px-6 py-4">استاندارد نمایش حروف و نویسه‌های زبان‌های مختلف.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">RTL</td><td class="px-6 py-4">راست‌به‌چپ؛ جهت نمایش متن.</td></tr>
+                                <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 font-semibold font-mono text-slate-900">Sandbox</td><td class="px-6 py-4">محدودسازی محیط اجرا؛ قدرت آن به سطح پیاده‌سازی و جداسازی سیستم‌عامل وابسته است.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== SECTION 9: منابع و مشارکت ==================== -->
+            <section class="faq-section scroll-mt-24" data-section="منابع و مشارکت" id="sec-9">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="bg-gradient-to-br from-primary-500 to-primary-700 text-white w-9 h-9 flex items-center justify-center rounded-xl text-sm font-bold shadow-md shadow-primary-500/30">۹</span>
+                    منابع و مشارکت
+                </h2>
+
+                <!-- Contribute Q -->
+                <div class="space-y-4 mb-6">
+                    <details class="group bg-white rounded-xl border border-slate-200 shadow-sm open:ring-1 open:ring-primary-500/20 transition-all card-hover">
+                        <summary class="flex justify-between items-center p-5 cursor-pointer font-semibold text-slate-800 hover:text-primary-700 transition-colors">
+                            <span>۶۲) چگونه در پروژه مشارکت کنم؟</span>
+                            <span class="transform group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mr-3"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></span>
+                        </summary>
+                        <div class="px-5 pb-5 text-slate-600 leading-8 border-t border-slate-100 pt-4">
+                            <p>کد منبع، گزارش‌ها، مثال‌ها و artifactها را در مخزن GitHub ببینید. مسیر پیشنهادی:</p>
+                            <ol class="list-decimal list-inside space-y-2 mt-3 mr-2">
+                                <li>ابتدا یک <strong>issue</strong> یا پیشنهاد کوچک ثبت کنید.</li>
+                                <li>سپس <strong>تست، مستندات یا مثال سازگار</strong> اضافه کنید.</li>
+                                <li>پیش از افزودن ویژگی تازه، نحو، معنای دقیق، خطاها، API فارسی، مجوزها، سازگاری نسخه‌ای و آزمون‌ها را روشن کنید.</li>
+                            </ol>
+                            <p class="mt-3">پیشنهادهای دقیق همراه با مثال قابل اجرا ارزشمندترند.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 card-hover">
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="https://github.com/worker2025/tirotir" target="_blank" class="flex items-center gap-2 text-primary-600 hover:text-primary-800 hover:underline transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                مخزن رسمی Tirotir در GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/worker2025/tirotir/blob/main/README.md" target="_blank" class="flex items-center gap-2 text-primary-600 hover:text-primary-800 hover:underline transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                README پروژه
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/worker2025/tirotir/blob/main/docs/design-decisions.md" target="_blank" class="flex items-center gap-2 text-primary-600 hover:text-primary-800 hover:underline transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                تصمیم‌های طراحی
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/worker2025/tirotir/blob/main/docs/public-release-readiness-fa.md" target="_blank" class="flex items-center gap-2 text-primary-600 hover:text-primary-800 hover:underline transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                گزارش آمادگی انتشار عمومی 1.1.0
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/worker2025/tirotir/blob/main/docs/tirotir-2-architecture-roadmap-fa.md" target="_blank" class="flex items-center gap-2 text-primary-600 hover:text-primary-800 hover:underline transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                نقشهٔ معماری Tirotir 2.0
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/worker2025/tirotir/tree/main/examples2" target="_blank" class="flex items-center gap-2 text-primary-600 hover:text-primary-800 hover:underline transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                                مثال‌های رسمی و آموزشی
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200 text-sm text-slate-600 flex gap-3">
+                        <svg class="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <p><strong>یادآوری:</strong> برای پاسخ دربارهٔ یک نصب مشخص، نسخهٔ نصب‌شده و مستندات همان tag/release را مبنا قرار دهید؛ شاخهٔ <code class="bg-slate-200 px-1 rounded font-mono text-xs">main</code> ممکن است نسبت به بسته‌ای که کاربر نصب کرده تغییر کرده باشد.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm">
+        <div class="max-w-5xl mx-auto px-4">
+            <p>مستندات پرسش‌های پرتکرار تیروتیر (Tirotir) | بر اساس مخزن رسمی در اکتبر ۲۰۲۶</p>
+            <p class="mt-2 text-slate-500">طراحی شده با ❤️ برای جامعهٔ فارسی‌زبان برنامه‌نویسی</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="fixed bottom-6 left-6 z-40 bg-primary-600 hover:bg-primary-700 text-white w-11 h-11 rounded-full shadow-lg shadow-primary-600/30 flex items-center justify-center transition" aria-label="بازگشت به بالا">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+    </button>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // Initialize Highlight.js
+        hljs.highlightAll();
+
+        // ===== Search =====
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const faqContainer = document.getElementById('faqContainer');
+        const detailsElements = faqContainer.querySelectorAll('details');
+        const noResults = document.getElementById('noResults');
+
+        function performSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+
+            // Toggle clear button
+            if (query) {
+                clearSearch.style.opacity = '1';
+                clearSearch.style.pointerEvents = 'auto';
+            } else {
+                clearSearch.style.opacity = '0';
+                clearSearch.style.pointerEvents = 'none';
+            }
+
+            let visibleCount = 0;
+
+            detailsElements.forEach(detail => {
+                const summaryText = detail.querySelector('summary').textContent.toLowerCase();
+                const contentText = detail.querySelector('div').textContent.toLowerCase();
+
+                if (query === '') {
+                    detail.style.display = '';
+                    detail.removeAttribute('open');
+                } else {
+                    if (summaryText.includes(query) || contentText.includes(query)) {
+                        detail.style.display = '';
+                        detail.setAttribute('open', 'true');
+                        visibleCount++;
+                    } else {
+                        detail.style.display = 'none';
+                    }
+                }
+            });
+
+            // Hide empty sections
+            document.querySelectorAll('.faq-section').forEach(section => {
+                const allDetails = section.querySelectorAll('details');
+                const hiddenDetails = section.querySelectorAll('details[style="display: none;"]');
+                if (query !== '' && allDetails.length > 0 && hiddenDetails.length === allDetails.length) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = '';
+                }
+            });
+
+            // No results
+            if (query !== '' && visibleCount === 0) {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+        }
+
+        searchInput.addEventListener('input', performSearch);
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            performSearch();
+            searchInput.focus();
+        });
+
+        // ===== Copy Buttons =====
+        document.querySelectorAll('pre').forEach(pre => {
+            const button = document.createElement('button');
+            button.className = 'copy-btn absolute top-2 left-2 bg-slate-700 hover:bg-slate-600 text-white text-xs px-2.5 py-1 rounded-md transition-colors';
+            button.textContent = 'کپی';
+
+            pre.style.position = 'relative';
+            pre.appendChild(button);
+
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const code = pre.querySelector('code');
+                const text = code ? code.innerText : pre.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = '✓ کپی شد';
+                    setTimeout(() => {
+                        button.textContent = 'کپی';
+                    }, 2000);
+                }).catch(() => {
+                    button.textContent = 'خطا';
+                    setTimeout(() => {
+                        button.textContent = 'کپی';
+                    }, 2000);
+                });
+            });
+        });
+
+        // ===== Back to Top =====
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== TOC active state =====
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const sections = document.querySelectorAll('.faq-section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    tocLinks.forEach(link => {
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('bg-primary-600', 'text-white', 'border-primary-600');
+                            link.classList.remove('bg-white', 'text-slate-600');
+                        } else {
+                            link.classList.remove('bg-primary-600', 'text-white', 'border-primary-600');
+                            link.classList.add('bg-white', 'text-slate-600');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+
+        sections.forEach(section => observer.observe(section));
+
+        // ===== Smooth TOC scroll with offset =====
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ===== Update question count dynamically =====
+        const totalQuestions = document.querySelectorAll('#faqContainer details').length;
+        const countEl = document.getElementById('questionCount');
+        if (countEl) {
+            countEl.textContent = totalQuestions.toLocaleString('fa-IR');
+        }
+    </script>
+</body>
+</html>

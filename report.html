@@ -1,0 +1,1061 @@
+<!-- report.html -->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>گزارش جامع پروژهٔ Tirotir 1.1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --bg-card: #1c2230;
+    --bg-code: #0a0e14;
+    --border: #2a3140;
+    --border-soft: #232a37;
+    --text: #e6edf3;
+    --text-dim: #9aa5b1;
+    --text-mute: #6e7681;
+    --accent: #58a6ff;
+    --accent-2: #7ee787;
+    --accent-3: #ffa657;
+    --accent-4: #d2a8ff;
+    --danger: #ff7b72;
+    --shadow: 0 8px 28px rgba(0,0,0,.35);
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{
+    font-family:'Vazirmatn',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 100% -10%, rgba(88,166,255,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 20%, rgba(210,168,255,.08), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    line-height:1.9;
+    font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+
+  /* Header */
+  header.hero{
+    padding:60px 0 30px;
+    text-align:center;
+    position:relative;
+  }
+  .badge-version{
+    display:inline-flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,rgba(88,166,255,.15),rgba(126,231,135,.12));
+    border:1px solid rgba(88,166,255,.35);
+    color:var(--accent);
+    padding:6px 16px;border-radius:999px;
+    font-size:13px;font-weight:600;letter-spacing:.3px;
+    margin-bottom:20px;
+  }
+  .badge-version .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent-2);
+    box-shadow:0 0 10px var(--accent-2);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  h1.title{
+    font-size:clamp(28px,5vw,44px);
+    font-weight:800;
+    background:linear-gradient(120deg,#e6edf3 20%,#58a6ff 60%,#d2a8ff 90%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:14px;letter-spacing:-.5px;
+  }
+  .subtitle{color:var(--text-dim);font-size:16px;max-width:720px;margin:0 auto 24px}
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+    font-size:13px;color:var(--text-mute);
+  }
+  .meta-row span{
+    background:var(--bg-card);border:1px solid var(--border-soft);
+    padding:6px 14px;border-radius:10px;
+  }
+
+  /* Sticky nav */
+  nav.toc{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,17,23,.85);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border-soft);
+    margin:0 -20px 40px;padding:12px 20px;
+    overflow-x:auto;white-space:nowrap;
+  }
+  nav.toc::-webkit-scrollbar{height:6px}
+  nav.toc::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+  nav.toc a{
+    display:inline-block;
+    color:var(--text-dim);text-decoration:none;
+    font-size:13px;font-weight:500;
+    padding:6px 12px;margin:0 2px;
+    border-radius:8px;transition:.2s;
+  }
+  nav.toc a:hover{color:var(--accent);background:rgba(88,166,255,.1)}
+
+  /* Sections */
+  section{
+    background:var(--bg-soft);
+    border:1px solid var(--border-soft);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    margin-bottom:26px;
+    box-shadow:var(--shadow);
+    scroll-margin-top:80px;
+  }
+  section h2{
+    font-size:22px;font-weight:700;margin-bottom:20px;
+    padding-bottom:14px;
+    border-bottom:2px solid var(--border);
+    display:flex;align-items:center;gap:12px;
+    color:var(--text);
+  }
+  section h2::before{
+    content:'';width:6px;height:26px;border-radius:3px;
+    background:linear-gradient(180deg,var(--accent),var(--accent-4));
+    flex-shrink:0;
+  }
+  section h3{
+    font-size:17px;font-weight:600;margin:26px 0 12px;
+    color:var(--accent-2);
+    display:flex;align-items:center;gap:8px;
+  }
+  section h3::before{
+    content:'◆';color:var(--accent-3);font-size:11px;
+  }
+  p{margin-bottom:14px;color:var(--text-dim)}
+  strong{color:var(--text);font-weight:600}
+
+  /* Inline code */
+  code{
+    font-family:'JetBrains Mono','Vazirmatn',monospace;
+    font-size:.88em;
+    background:var(--bg-code);
+    color:var(--accent-3);
+    padding:2px 7px;border-radius:6px;
+    border:1px solid var(--border-soft);
+    direction:ltr;display:inline-block;
+    white-space:nowrap;
+  }
+
+  /* Code blocks */
+  pre{
+    background:var(--bg-code);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:18px 20px;
+    margin:14px 0;
+    overflow-x:auto;
+    direction:ltr;text-align:left;
+    position:relative;
+    font-size:13.5px;line-height:1.8;
+  }
+  pre code{
+    background:none;border:none;padding:0;
+    color:#c9d1d9;direction:ltr;display:block;
+    white-space:pre;font-size:13.5px;
+  }
+  pre::-webkit-scrollbar{height:8px}
+  pre::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+  /* Persian code block (syntax .t) */
+  pre.rtl-code{
+    direction:rtl;text-align:right;
+  }
+  pre.rtl-code code{
+    direction:rtl;text-align:right;font-family:'Vazirmatn','JetBrains Mono',monospace;
+  }
+
+  /* Copy button */
+  .code-wrap{position:relative;margin:14px 0}
+  .code-wrap pre{margin:0}
+  .copy-btn{
+    position:absolute;top:10px;left:10px;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:6px 10px;border-radius:8px;
+    font-family:'Vazirmatn',sans-serif;
+    font-size:11.5px;font-weight:600;
+    cursor:pointer;transition:.2s;
+    display:flex;align-items:center;gap:6px;
+    z-index:5;
+  }
+  .copy-btn:hover{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+  .copy-btn.copied{background:var(--accent-2);color:#0d1117;border-color:var(--accent-2)}
+  .copy-btn svg{width:13px;height:13px}
+
+  /* Tables */
+  .table-wrap{overflow-x:auto;margin:16px 0;border-radius:10px;border:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:480px}
+  thead{background:var(--bg-code)}
+  th{
+    padding:12px 16px;text-align:right;
+    color:var(--accent);font-weight:600;
+    border-bottom:1px solid var(--border);
+    font-size:13.5px;white-space:nowrap;
+  }
+  td{
+    padding:11px 16px;
+    border-bottom:1px solid var(--border-soft);
+    color:var(--text-dim);
+    vertical-align:top;
+  }
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(88,166,255,.04)}
+  td code{font-size:12.5px}
+
+  /* Commands table special */
+  .cmd-table td:first-child{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--accent-2);
+    font-weight:600;
+    direction:ltr;text-align:left;
+    white-space:nowrap;
+  }
+  .cmd-table td:first-child code{
+    background:rgba(126,231,135,.08);
+    border-color:rgba(126,231,135,.25);
+    color:var(--accent-2);
+    cursor:pointer;
+    transition:.2s;
+  }
+  .cmd-table td:first-child code:hover{
+    background:rgba(126,231,135,.2);
+    border-color:var(--accent-2);
+  }
+  .cmd-table td:first-child code::after{
+    content:'⧉';margin-right:6px;opacity:.5;font-size:11px;
+  }
+
+  /* Lists */
+  ul,ol{margin:12px 0 16px 24px;color:var(--text-dim)}
+  li{margin-bottom:8px;padding-right:6px}
+  li::marker{color:var(--accent)}
+  ul.checklist{list-style:none;margin-right:0}
+  ul.checklist li{position:relative;padding-right:26px}
+  ul.checklist li::before{
+    content:'✓';position:absolute;right:0;
+    color:var(--accent-2);font-weight:700;
+  }
+
+  /* Callouts */
+  .callout{
+    border-right:3px solid var(--accent);
+    background:linear-gradient(90deg,rgba(88,166,255,.08),transparent);
+    padding:16px 20px;border-radius:0 10px 10px 0;
+    margin:16px 0;
+    color:var(--text-dim);
+    font-style:italic;
+  }
+  .callout.warn{
+    border-color:var(--accent-3);
+    background:linear-gradient(90deg,rgba(255,166,87,.08),transparent);
+  }
+  .callout.danger{
+    border-color:var(--danger);
+    background:linear-gradient(90deg,rgba(255,123,114,.08),transparent);
+  }
+  .callout strong{font-style:normal}
+
+  /* Diagram */
+  .diagram{
+    background:var(--bg-code);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:24px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;line-height:2.1;
+    text-align:center;color:var(--text-dim);
+    direction:ltr;
+    margin:16px 0;overflow-x:auto;
+  }
+  .diagram .step{color:var(--accent)}
+  .diagram .arrow{color:var(--text-mute)}
+  .diagram .svc{color:var(--accent-4)}
+
+  /* Grid cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:16px 0}
+  .card{
+    background:var(--bg-card);border:1px solid var(--border-soft);
+    border-radius:10px;padding:16px;transition:.2s;
+  }
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .card .k{font-size:12px;color:var(--text-mute);margin-bottom:4px}
+  .card .v{font-size:14px;color:var(--text);font-weight:600}
+  .card .v code{font-size:12.5px}
+
+  /* Footer */
+  footer{
+    text-align:center;padding:40px 20px;
+    color:var(--text-mute);font-size:13px;
+    border-top:1px solid var(--border-soft);
+    margin-top:40px;
+  }
+  footer .quote{
+    font-size:15px;color:var(--accent);
+    font-style:italic;margin-bottom:16px;
+    font-weight:500;
+  }
+
+  /* Toast */
+  .toast{
+    position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);
+    background:var(--accent-2);color:#0d1117;
+    padding:12px 24px;border-radius:10px;
+    font-weight:600;font-size:14px;
+    box-shadow:0 8px 24px rgba(126,231,135,.4);
+    transition:.3s;opacity:0;z-index:100;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  @media (max-width:640px){
+    section{padding:22px 18px}
+    section h2{font-size:19px}
+    body{font-size:14.5px}
+    .wrap{padding:0 14px 60px}
+    nav.toc{margin:0 -14px 30px;padding:10px 14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="badge-version"><span class="dot"></span> Frozen Baseline · v1.1.0</div>
+    <h1 class="title">گزارش جامع پروژهٔ Tirotir</h1>
+    <p class="subtitle">یک زبان برنامه‌نویسی متنی فارسی با مفسر واقعی، ابزار CLI، تحلیل معنایی، سیستم پروژه و ماژول، خروجی گرافیکی SVG، تولید صدای WAV، primitiveهای GUI، افزونهٔ VS Code و Builder ساخت EXE.</p>
+    <div class="meta-row">
+      <span>📅 ۲۱ سپتامبر ۲۰۲۶</span>
+      <span>🔒 Frozen baseline 1.1.0</span>
+      <span>✅ ۲۴۴ تست موفق</span>
+      <span>📄 پسوند رسمی: .t</span>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="toc">
+    <a href="#commands">⚡ فرمان‌ها</a>
+    <a href="#executive">خلاصهٔ اجرایی</a>
+    <a href="#identity">هویت محصول</a>
+    <a href="#architecture">معماری</a>
+    <a href="#core">هستهٔ زبان</a>
+    <a href="#semantic">تحلیل معنایی</a>
+    <a href="#contracts">قراردادها</a>
+    <a href="#cli">CLI</a>
+    <a href="#repl">REPL و AST</a>
+    <a href="#modules">پروژه و ماژول</a>
+    <a href="#runtime">Runtime و امنیت</a>
+    <a href="#graphics">Graphics</a>
+    <a href="#audio">Audio</a>
+    <a href="#gui">GUI</a>
+    <a href="#vscode">VS Code</a>
+    <a href="#builder">Builder و EXE</a>
+    <a href="#install">نصب و انتشار</a>
+    <a href="#examples">مثال‌ها</a>
+    <a href="#tests">تست و کیفیت</a>
+    <a href="#limits">محدودیت‌ها</a>
+    <a href="#next">مرحلهٔ بعد</a>
+  </nav>
+
+  <!-- COMMANDS (TOP PRIORITY) -->
+  <section id="commands">
+    <h2>⚡ فرمان‌های فعلی CLI</h2>
+    <p>برای <strong>کپی</strong> هر فرمان، کافیست روی خودِ دستور کلیک کنید. فرمان اصلی پس از نصب بسته، <code>tirotir</code> است.</p>
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <thead>
+          <tr><th>فرمان</th><th>کاربرد</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>tirotir version</code></td><td>نمایش نسخه</td></tr>
+          <tr><td><code>tirotir help</code></td><td>نمایش راهنمای کوتاه</td></tr>
+          <tr><td><code>tirotir run FILE</code></td><td>اجرای برنامه</td></tr>
+          <tr><td><code>tirotir check FILE</code></td><td>parse و semantic check بدون اجرای اثر اصلی</td></tr>
+          <tr><td><code>tirotir format FILE</code></td><td>مرتب‌سازی پایهٔ خطوط و whitespace</td></tr>
+          <tr><td><code>tirotir format FILE --write</code></td><td>نوشتن نتیجهٔ formatter در فایل</td></tr>
+          <tr><td><code>tirotir ast FILE</code></td><td>نمایش AST به‌صورت JSON</td></tr>
+          <tr><td><code>tirotir graphics FILE</code></td><td>اجرای برنامه و ذخیرهٔ SVG</td></tr>
+          <tr><td><code>tirotir audio FILE</code></td><td>اجرای برنامه با مسیر صوتی و تولید WAV</td></tr>
+          <tr><td><code>tirotir gui FILE</code></td><td>اجرای برنامهٔ GUI</td></tr>
+          <tr><td><code>tirotir project PATH</code></td><td>خواندن مشخصات پروژه</td></tr>
+          <tr><td><code>tirotir run</code></td><td>اجرای entry پروژهٔ جاری</td></tr>
+          <tr><td><code>tirotir builder</code></td><td>بازکردن ابزار GUI ساخت EXE</td></tr>
+          <tr><td><code>tirotir repl</code></td><td>اجرای تعاملی</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      گزینه‌های عمومی شامل <code>--scene</code> برای مسیر SVG، <code>--play-audio</code> برای تلاش جهت پخش صوت و <code>--live-scene</code> برای خروجی JSON شامل صحنه هستند.
+    </div>
+  </section>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section id="executive">
+    <h2>خلاصهٔ اجرایی</h2>
+    <p>Tirotir یک <strong>زبان برنامه‌نویسی متنی فارسی</strong> است، نه فریمورک. نسخهٔ 1.1.0 یک مفسر واقعی، زبان مبتنی بر Unicode، ابزار خط فرمان، تحلیل معنایی، سیستم پروژه و ماژول، خروجی گرافیکی SVG، تولید صدای WAV، primitiveهای GUI، افزونهٔ VS Code و Builder ساخت EXE را در یک محصول واحد گرد آورده است.</p>
+    <p>هدف اصلی زبان، فراهم‌کردن مسیر ساده برای شروع و حفظ امکان ساخت برنامه‌های واقعی است. نخستین برنامه می‌تواند فقط این باشد:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>کپی</button>
+      <pre class="rtl-code"><code>چاپ -سلام دنیا-</code></pre>
+    </div>
+    <p>اما هستهٔ فعلی از متغیر، شرط، حلقه، تابع، فهرست، فرهنگ، ورودی و خروجی، فایل‌های چندماژوله و diagnostics ساختاریافته نیز پشتیبانی می‌کند.</p>
+    <p>نسخهٔ 1.1.0 در baseline فعلی با <strong>۲۴۴ تست موفق</strong> تثبیت شده است. این baseline immutable است. پسوند رسمی زبان <code>.t</code> است و <code>.tirotir</code> فقط برای backward compatibility نگه داشته شده است.</p>
+    <div class="callout warn">
+      <strong>نتیجهٔ کوتاه:</strong> Tirotir اکنون یک زبان برنامه‌نویسی فارسی قابل نصب و قابل استفاده در Windows است که ابزارهای پیرامونی خلاقانه دارد؛ اما هنوز نباید آن را یک framework کامل، یک محیط توسعهٔ کامل مانند IDEهای بالغ، یا یک زبان دارای animation و object model کامل معرفی کرد.
+    </div>
+  </section>
+
+  <!-- PRODUCT IDENTITY -->
+  <section id="identity">
+    <h2>هویت محصول</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ویژگی</th><th>وضعیت نسخهٔ 1.1.0</th></tr></thead>
+        <tbody>
+          <tr><td>نوع محصول</td><td>زبان برنامه‌نویسی متنی فارسی با مفسر</td></tr>
+          <tr><td>نسخه</td><td><code>1.1.0</code></td></tr>
+          <tr><td>پسوند رسمی</td><td><code>.t</code></td></tr>
+          <tr><td>سازگاری قدیمی</td><td><code>.tirotir</code> برای پروژه‌های legacy</td></tr>
+          <tr><td>روش اجرا</td><td>CLI، REPL، VS Code و فایل اجرایی Windows</td></tr>
+          <tr><td>خروجی متن</td><td>Unicode و خروجی فارسی، با پشتیبانی UTF-8 در Windows/PowerShell</td></tr>
+          <tr><td>مدل اجرا</td><td>Interpreter چندمرحله‌ای با parse و semantic check پیش از اجرا</td></tr>
+          <tr><td>وضعیت baseline</td><td>Frozen و محافظت‌شده</td></tr>
+          <tr><td>برند</td><td><code>tirotir.ir</code> و <code>tirotir.com</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture">
+    <h2>معماری کلی</h2>
+    <p>مسیر اصلی اجرای source به این شکل است:</p>
+    <div class="diagram">
+      <span class="step">Source .t</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">Normalization و Unicode handling</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">Lexer / Tokenizer</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">Parser و AST</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">Semantic Analyzer و SymbolTable</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">Diagnostics ساختاریافته</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">Interpreter</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="svc">Core / Graphics / Audio / GUI / Project services</span>
+    </div>
+    <p>هستهٔ زبان در <code>src/tirotir/core.py</code> قرار دارد. تحلیل معنایی در <code>semantic.py</code> از interpreter جداست. قراردادهای معماری در <code>contracts.py</code> تعریف شده‌اند. سرویس Audio در <code>audio.py</code> و Builder در <code>builder.py</code> قرار دارد. سیستم پروژه و ماژول در پوشهٔ <code>src/tirotir/modules/</code> پیاده‌سازی شده است.</p>
+    <p>این جداسازی مهم است، زیرا Graphics، Audio و GUI به‌عنوان قابلیت‌های پیرامونی و runtime service دیده می‌شوند، نه به‌عنوان syntaxهای مستقل و غیرقابل‌توسعهٔ زبان.</p>
+  </section>
+
+  <!-- CORE LANGUAGE -->
+  <section id="core">
+    <h2>هستهٔ زبان</h2>
+
+    <h3>شناسه و متن فارسی</h3>
+    <p>Lexer از شناسه‌های Unicode پشتیبانی می‌کند. نام متغیر، تابع و کلید فرهنگ می‌تواند فارسی باشد. اعداد فارسی مانند <code>۲۰</code> و جداکنندهٔ اعشار فارسی نیز normalize می‌شوند. متن‌های رشته‌ای در syntax فعلی با دو خط تیره نوشته می‌شوند:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>چاپ -سلام دنیا-</code></pre>
+    </div>
+    <p>نرمال‌سازی داخلی، شکل‌هایی مانند <code>ي</code> و <code>ك</code> را به شکل فارسی استاندارد نزدیک می‌کند و Zero Width Non-Joiner را برای سازگاری syntax به underscore تبدیل می‌کند.</p>
+
+    <h3>مقداردهی و متغیر</h3>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>بگذار سن برابر ۲۰
+بگذار نام برابر -سارا-</code></pre>
+    </div>
+    <p>مقدار یک متغیر با همان ساختار قابل تغییر است:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>بگذار امتیاز برابر ۱۰
+بگذار امتیاز برابر امتیاز + ۵</code></pre>
+    </div>
+    <p>ثابت نیز در semantic layer به‌صورت نماد جداگانه شناخته می‌شود و تغییر آن diagnostic تولید می‌کند.</p>
+
+    <h3>چاپ و ورودی</h3>
+    <p>برای چاپ از <code>چاپ</code> و برای دریافت ورودی از <code>بخوان</code> استفاده می‌شود:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>چاپ -نامت چیست؟-
+بخوان</code></pre>
+    </div>
+    <p><code>بخوان</code> می‌تواند به‌صورت statement اجرا شود و در expression نیز به‌عنوان builtin ورودی استفاده شود. CLI و runtime از streamهای UTF-8 پشتیبانی می‌کنند.</p>
+
+    <h3>عبارت‌ها و عملگرها</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>گروه</th><th>عملگرها</th></tr></thead>
+        <tbody>
+          <tr><td>حسابی</td><td><code>+</code>، <code>-</code>، <code>*</code>، <code>/</code>، <code>%</code></td></tr>
+          <tr><td>مقایسه</td><td><code>==</code>، <code>!=</code>، <code>&gt;</code>، <code>&lt;</code>، <code>&gt;=</code>، <code>&lt;=</code></td></tr>
+          <tr><td>فارسی</td><td><code>بزرگتر از</code>، <code>کوچکتر از</code>، <code>بزرگتر یا مساوی</code>، <code>کوچکتر یا مساوی</code>، <code>برابر با</code></td></tr>
+          <tr><td>منطقی</td><td><code>و</code> و <code>یا</code></td></tr>
+          <tr><td>یکانی</td><td><code>نه</code> و منفی عددی</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>شرط</h3>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>اگر نمره بزرگتر یا مساوی ۱۸
+    چاپ -عالی-
+وگرنه اگر نمره بزرگتر یا مساوی ۱۲
+    چاپ -خوب-
+وگرنه
+    چاپ -نیاز به تمرین-</code></pre>
+    </div>
+    <p>تورفتگی بخشی از syntax است و تورفتگی ناهماهنگ با خطای فارسی متوقف می‌شود.</p>
+
+    <h3>حلقه و کنترل جریان</h3>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>بگذار شمارنده برابر ۰
+تاوقتی شمارنده کوچکتر از ۵
+    بگذار شمارنده برابر شمارنده + ۱
+    چاپ شمارنده</code></pre>
+    </div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>بگذار نام‌ها برابر [-سارا-، -مینا-]
+برای نام در نام‌ها
+    چاپ نام</code></pre>
+    </div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>تکرار ۵ بار
+    چاپ -سلام-</code></pre>
+    </div>
+    <p>دستورات <code>بیرون</code> و <code>ادامه</code> برای کنترل حلقه تعریف شده‌اند.</p>
+
+    <h3>فهرست</h3>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>بگذار اعداد برابر [۱، ۲، ۳]
+چاپ اعداد[۰]
+اعداد[۱] = ۹</code></pre>
+    </div>
+    <p>builtinهای <code>طول</code>، <code>افزودن</code> و <code>حذف</code> نیز وجود دارند:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>افزودن با اعداد و ۴
+چاپ طول با اعداد</code></pre>
+    </div>
+
+    <h3>فرهنگ</h3>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>بگذار شخص برابر فرهنگ
+    نام برابر -سارا-
+    سن برابر ۲۴
+
+چاپ شخص[نام]
+چاپ شخص[سن]</code></pre>
+    </div>
+
+    <h3>تابع و بازگردان</h3>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>تابع مربع با عدد
+    بازگردان عدد * عدد
+
+چاپ مربع با ۵</code></pre>
+    </div>
+    <p>تابع‌ها می‌توانند مقدار بازگردانند، تابع پیش از محل فراخوانی تعریف شود یا در semantic analysis برای forward call و recursion ثبت شود. تعداد آرگومان‌ها پیش از اجرا بررسی می‌شود.</p>
+
+    <h3>قابلیت‌هایی که عمداً ادعا نمی‌شوند</h3>
+    <div class="callout danger">
+      در Tirotir 1.1.0 syntax و runtime کامل برای <strong>کلاس، شیء، inheritance، constructor، method dispatch، exception handling عمومی، generator، async/await و type system</strong> وجود ندارد. این موارد نباید به‌عنوان قابلیت موجود معرفی شوند.
+    </div>
+  </section>
+
+  <!-- SEMANTIC -->
+  <section id="semantic">
+    <h2>تحلیل معنایی و diagnostics</h2>
+    <p>Semantic layer مستقل از interpreter است و بدون side effect روی AST عبور می‌کند. این لایه موارد زیر را بررسی می‌کند:</p>
+    <ul>
+      <li>نام تعریف‌نشده؛</li>
+      <li>تعریف تکراری؛</li>
+      <li>تغییر ثابت؛</li>
+      <li>استفادهٔ نامعتبر از <code>بازگردان</code> بیرون تابع؛</li>
+      <li>استفادهٔ نامعتبر از <code>بیرون</code> یا <code>ادامه</code> بیرون حلقه؛</li>
+      <li>تعداد آرگومان نادرست تابع؛</li>
+      <li>builtinهای مربوط به GUI، Graphics و Audio.</li>
+    </ul>
+    <p>diagnosticها ساختاریافته‌اند و شامل code، severity، type، message، SourceSpan و suggestion می‌شوند. کدهای ثبت‌شدهٔ semantic در محدودهٔ <code>TIR2001</code> تا <code>TIR2007</code> هستند. خطاهای ماژول در محدودهٔ <code>TIR3001</code> تا <code>TIR3003</code> قرار دارند و خطای محیط GUI با <code>TIR4001</code> گزارش می‌شود.</p>
+    <div class="callout">
+      نمونهٔ خطای طراحی‌شده برای کاربر فارسی:<br><br>
+      متغیر «نتیچه» پیدا نشد.<br>
+      پیشنهاد: ابتدا آن را با «بگذار» تعریف کن.
+    </div>
+  </section>
+
+  <!-- CONTRACTS -->
+  <section id="contracts">
+    <h2>قراردادهای معماری 2.0</h2>
+    <p>بخش Contract Freeze در کنار زبان نسخهٔ 1.1 تثبیت شده است و شامل این مفاهیم است:</p>
+    <ul>
+      <li><code>SourceSpan</code> برای مکان منبع؛</li>
+      <li><code>Diagnostic</code> برای خطاهای قابل مصرف توسط CLI و ابزارها؛</li>
+      <li><code>NodeId</code> برای شناسهٔ پایدار AST؛</li>
+      <li><code>RuntimeService</code> به‌عنوان قرارداد سرویس‌های runtime؛</li>
+      <li><code>Capability</code> و <code>CapabilityRegistry</code> برای کنترل قابلیت‌ها؛</li>
+      <li>قرارداد سازگاری <code>LANGUAGE_V1 = 1.1</code>.</li>
+    </ul>
+    <p>حالت پیش‌فرض capability فقط <code>core</code> را فعال می‌کند. قابلیت‌های <code>graphics</code>، <code>audio</code>، <code>gui</code>، <code>project-files</code> و <code>network</code> به‌صورت مفهومی جدا شده‌اند و می‌توانند در sandbox یا project configuration کنترل شوند.</p>
+  </section>
+
+  <!-- CLI -->
+  <section id="cli">
+    <h2>CLI و ابزار خط فرمان</h2>
+    <p>پس از نصب بسته، فرمان اصلی <code>tirotir</code> است. جدول کامل فرمان‌ها در بخش <a href="#commands" style="color:var(--accent)">⚡ فرمان‌ها</a> در بالای همین صفحه آمده است.</p>
+    <p>گزینه‌های عمومی شامل <code>--scene</code> برای مسیر SVG، <code>--play-audio</code> برای تلاش جهت پخش صوت و <code>--live-scene</code> برای خروجی JSON شامل صحنه هستند.</p>
+  </section>
+
+  <!-- REPL / AST -->
+  <section id="repl">
+    <h2>REPL، AST و formatter</h2>
+    <p>REPL با <code>tirotir repl</code> باز می‌شود و کاربر می‌تواند عبارت‌ها را به‌صورت تعاملی اجرا کند. برای خروج از REPL مقدار <code>خروج</code> نوشته می‌شود.</p>
+    <p>فرمان AST، ساختار parseشده را به JSON تبدیل می‌کند و برای آموزش parser، ابزارهای توسعه و بررسی syntax قابل استفاده است. Formatter فعلی یک formatter سبک است که trailing whitespace و line ending را یکدست می‌کند؛ formatter عمیق و style engine کامل در این نسخه ادعا نمی‌شود.</p>
+  </section>
+
+  <!-- MODULES -->
+  <section id="modules">
+    <h2>سیستم پروژه و ماژول</h2>
+    <p>پروژهٔ چندفایلی با <code>tirotir.toml</code> تعریف می‌شود:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre><code>[project]
+name = "my-project"
+entry = "main.t"
+language = "2.0"
+
+[capabilities]
+graphics = false
+audio = false
+gui = false
+project-files = false
+network = false</code></pre>
+    </div>
+    <p>واردکردن ماژول با syntax زیر انجام می‌شود:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>وارد کن -lib/tools-</code></pre>
+    </div>
+    <p>سیستم ماژول اجزای زیر را دارد:</p>
+    <ul>
+      <li><code>ModuleId</code> برای هویت canonical ماژول؛</li>
+      <li><code>ModuleSpec</code> برای source و importها؛</li>
+      <li><code>ModuleGraph</code> برای node و edge؛</li>
+      <li><code>ModuleLoader</code> برای resolve و load؛</li>
+      <li><code>ModuleGraphBuilder</code> برای ساخت graph پیش از اجرای source؛</li>
+      <li><code>ModuleCache</code> برای cache؛</li>
+      <li>sandbox path برای جلوگیری از خروج از project root؛</li>
+      <li>namespace بر پایهٔ مسیر نسبی؛</li>
+      <li>تشخیص cycle با diagnostic <code>TIR3001</code>؛</li>
+      <li>تشخیص module not found با <code>TIR3002</code>؛</li>
+      <li>تشخیص مسیر module نامعتبر با <code>TIR3003</code>.</li>
+    </ul>
+    <p>Graph ابتدا ساخته و بررسی می‌شود و سپس ماژول‌ها در topological order اجرا می‌شوند.</p>
+  </section>
+
+  <!-- RUNTIME -->
+  <section id="runtime">
+    <h2>Runtime و امنیت</h2>
+    <p>runtime از import آزاد Python، <code>eval</code>، <code>exec</code>، shell، شبکه و دسترسی آزاد به filesystem پشتیبانی نمی‌کند. سرویس‌ها باید از capabilityهای مشخص عبور کنند.</p>
+    <div class="callout warn">
+      این ویژگی به‌معنای sandbox امنیتی کامل در سطح سیستم‌عامل نیست. برای اجرای فایل‌های ناشناس یا پروژه‌های غیرقابل اعتماد همچنان باید از حساب کاربری محدود و محیط ایزولهٔ Windows استفاده شود.
+    </div>
+  </section>
+
+  <!-- GRAPHICS -->
+  <section id="graphics">
+    <h2>Graphics</h2>
+    <p>Graphics سرویس تولید صحنهٔ SVG است. primitiveهای فعلی:</p>
+    <div class="grid">
+      <div class="card"><div class="k">پنجره</div><div class="v">بازکردن پنجرهٔ منطقی</div></div>
+      <div class="card"><div class="k">حرکت</div><div class="v">جابجایی قلم</div></div>
+      <div class="card"><div class="k">عقب‌رفتن</div><div class="v">حرکت معکوس</div></div>
+      <div class="card"><div class="k">چرخش</div><div class="v">تغییر زاویه</div></div>
+      <div class="card"><div class="k">تعیین جهت</div><div class="v">جهت قلم</div></div>
+      <div class="card"><div class="k">قلم</div><div class="v">پایین و بالا</div></div>
+      <div class="card"><div class="k">رنگ قلم</div><div class="v">رنگ SVG</div></div>
+      <div class="card"><div class="k">ضخامت قلم</div><div class="v">stroke-width</div></div>
+      <div class="card"><div class="k">مربع</div><div class="v">primitive</div></div>
+      <div class="card"><div class="k">مستطیل</div><div class="v">primitive</div></div>
+      <div class="card"><div class="k">دایره</div><div class="v">primitive</div></div>
+      <div class="card"><div class="k">مثلث</div><div class="v">primitive</div></div>
+      <div class="card"><div class="k">پاک‌کردن صحنه</div><div class="v">reset</div></div>
+      <div class="card"><div class="k">پرکردن</div><div class="v">بدون renderer پیچیده</div></div>
+    </div>
+    <p>نمونه:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>پنجره بازکن با ۸۰۰ و ۶۰۰
+رنگ قلم برابر -آبی-
+ضخامت قلم برابر ۳
+مربع با ۱۲۰</code></pre>
+    </div>
+    <p>رنگ‌های فارسی به مقدار معتبر SVG نگاشت می‌شوند و نام فارسی رنگ نیز در attribute داده‌ای حفظ می‌شود. renderer برای مختصات منفی و fit-to-scene viewport padding دارد.</p>
+    <h3>محدودیت Graphics</h3>
+    <div class="callout danger">
+      Graphics نسخهٔ 1.1.0 یک renderer استاتیک SVG است. timeline animation، event animation، motion system کامل و نمایش پیشرفتهٔ تعاملی در این نسخه وجود ندارد. این حوزه در baseline به‌عنوان <strong>Known Limitation</strong> ثبت شده و رفع آن نباید Audio، GUI، Builder، EXE یا <code>.t</code> را تغییر دهد.
+    </div>
+  </section>
+
+  <!-- AUDIO -->
+  <section id="audio">
+    <h2>Audio</h2>
+    <p>Audio بدون dependency اجباری، موج صوتی را با کتابخانهٔ استاندارد <code>wave</code> تولید می‌کند. <code>render_sequence</code> نت‌ها را به یک WAV پیوسته تبدیل می‌کند. نرخ پیش‌فرض 44,100 هرتز و خروجی mono با sample width دو بایت است.</p>
+    <p>نت‌های فارسی فعلی: <code>دو</code>، <code>ر</code>، <code>رِ</code>، <code>می</code>، <code>فا</code>، <code>سل</code>، <code>لا</code>، <code>سی</code>.</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>نت بنواز با ۴۴۰ و ۰٫۱۵
+نت بنواز با -دو- و ۰٫۱۵</code></pre>
+    </div>
+    <p>پخش مستقیم به backend سیستم‌عامل وابسته است:</p>
+    <ul>
+      <li><strong>Windows:</strong> <code>PowerShell Media.SoundPlayer</code>؛</li>
+      <li><strong>macOS:</strong> <code>afplay</code>؛</li>
+      <li><strong>Linux:</strong> <code>aplay</code>، <code>paplay</code> یا <code>ffplay</code> در صورت نصب.</li>
+    </ul>
+    <p>اگر backend پخش وجود نداشته باشد، فایل WAV حفظ می‌شود و runtime پیام فارسی مناسب می‌دهد.</p>
+  </section>
+
+  <!-- GUI -->
+  <section id="gui">
+    <h2>GUI</h2>
+    <p>GUI backend اختیاری Tkinter است و فقط هنگام اجرای primitiveهای GUI فعال می‌شود. primitiveهای موجود:</p>
+    <div class="grid">
+      <div class="card"><div class="v"><code>پنجره بساز</code></div></div>
+      <div class="card"><div class="v"><code>برچسب بساز</code></div></div>
+      <div class="card"><div class="v"><code>دکمه بساز</code></div></div>
+      <div class="card"><div class="v"><code>ورودی بساز</code></div></div>
+      <div class="card"><div class="v"><code>چک‌باکس بساز</code></div></div>
+      <div class="card"><div class="v"><code>لیست بساز</code></div></div>
+      <div class="card"><div class="v"><code>منوی انتخاب بساز</code></div></div>
+      <div class="card"><div class="v"><code>متن چندخطی بساز</code></div></div>
+      <div class="card"><div class="v"><code>نوار لغزش بساز</code></div></div>
+      <div class="card"><div class="v"><code>نمایش پنجره</code></div></div>
+      <div class="card"><div class="v">بستن پنجره</div></div>
+    </div>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre class="rtl-code"><code>پنجره بساز با -برنامهٔ من- و ۶۰۰ و ۴۰۰
+برچسب بساز با -به تیروتیر خوش آمدید-
+ورودی بساز
+دکمه بساز با -اجرا-
+نمایش پنجره</code></pre>
+    </div>
+    <h3>محدودیت GUI</h3>
+    <div class="callout danger">
+      primitiveهای ساخت پنجره و widgetهای پایه موجودند. سیستم event کامل، callback فارسی برای دکمه، binding داده، designer بصری، layout engine پیشرفته و canvas مشترک با SVG در این نسخه کامل نشده‌اند. اجرای GUI به desktop واقعی و Tkinter نیاز دارد. در محیط headless diagnostic <code>TIR4001</code> تولید می‌شود.
+    </div>
+  </section>
+
+  <!-- VSCODE -->
+  <section id="vscode">
+    <h2>VS Code و افزونهٔ tirotirLang</h2>
+    <p>افزونهٔ مستقل با نام <code>tirotirLang</code> ساخته شده است. association رسمی آن برای پسوند <code>.t</code> است. امکانات فعلی:</p>
+    <ul class="checklist">
+      <li>شناسایی فایل‌های <code>.t</code>؛</li>
+      <li>syntax highlighting؛</li>
+      <li>فرمان اجرا؛</li>
+      <li>فرمان check؛</li>
+      <li>نمایش AST؛</li>
+      <li>خروجی فارسی راست‌به‌چپ؛</li>
+      <li>نمایش live scene در WebView؛</li>
+      <li>اتصال به CLI نصب‌شده؛</li>
+      <li>نمایش خروجی متن و قاب صحنهٔ SVG.</li>
+    </ul>
+    <p>WebView با Content Security Policy و <code>JSON.parse</code> برای پروتکل live scene سخت‌سازی شده است. خروجی متن با <code>dir="rtl"</code> نمایش داده می‌شود و source code از نظر منطقی reorder نمی‌شود.</p>
+    <div class="callout warn">
+      افزونهٔ VS Code، LSP کامل، completion پیشرفته، hover، definition/reference و DAP debugger کامل نیست. این موارد در roadmap ابزار توسعهٔ 2.0 قرار دارند.
+    </div>
+  </section>
+
+  <!-- BUILDER -->
+  <section id="builder">
+    <h2>Tirotir Builder و ساخت EXE</h2>
+    <p><code>tirotir builder</code> ابزار GUI ساخت EXE است. Builder فایل اصلی <code>.t</code>، نام برنامه، حالت one-file یا folder، نمایش console، icon و مسیر خروجی را دریافت می‌کند.</p>
+    <p>Builder source برنامه را در entrypoint موقت جاسازی می‌کند و آن را به PyInstaller می‌دهد.</p>
+    <div class="diagram">
+      <span class="step">program.t</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">Tirotir Builder</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">PyInstaller</span><br>
+      <span class="arrow">↓</span><br>
+      <span class="step">program.exe</span> <span class="svc">برای Windows</span>
+    </div>
+    <h3>محدودیت EXE</h3>
+    <div class="callout danger">
+      native Windows build باید روی خود Windows انجام شود، زیرا PyInstaller به‌طور معمول برای سیستم‌عامل مقصد build می‌کند. Builder prototype عملیاتی است، اما installer کامل و امضاشدهٔ Windows با نام <code>Tirotir-1.1.0-Setup.exe</code> باید جداگانه با ابزارهایی مانند Inno Setup بسته‌بندی شود.
+    </div>
+    <p>سه artifact متمایز:</p>
+    <ul>
+      <li><code>tirotir.exe</code> ابزار زبان است؛</li>
+      <li><code>program.exe</code> خروجی یک برنامهٔ کاربر است؛</li>
+      <li><code>Setup.exe</code> نصب‌کنندهٔ محصول است.</li>
+    </ul>
+  </section>
+
+  <!-- INSTALL -->
+  <section id="install">
+    <h2>نصب و انتشار</h2>
+    <h3>نصب توسعه‌دهنده</h3>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre><code>py -m pip install tirotir-1.1.0-py3-none-any.whl
+tirotir version</code></pre>
+    </div>
+    <h3>نصب کاربر نهایی</h3>
+    <p>برای کاربر عادی Windows، Setup مستقل مناسب‌تر است: <code>Tirotir-1.1.0-Setup.exe</code>. در این وضعیت Python، pip، Git، PyInstaller و Inno Setup برای کاربر نهایی لازم نیستند. کاربر پس از نصب می‌تواند <code>tirotir version</code> را اجرا کند و در VS Code افزونهٔ <code>tirotirLang-1.1.0.vsix</code> را نصب کند.</p>
+    <h3>Artifactهای موجود</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>artifact</th><th>کاربرد</th></tr></thead>
+        <tbody>
+          <tr><td><code>tirotir-1.1.0-py3-none-any.whl</code></td><td>بستهٔ نصب Python</td></tr>
+          <tr><td><code>tirotir-1.1.0.tar.gz</code></td><td>source archive</td></tr>
+          <tr><td><code>tirotirLang-1.1.0.vsix</code></td><td>افزونهٔ VS Code</td></tr>
+          <tr><td><code>tirotir-examples-1.1.0.zip</code></td><td>بستهٔ مثال‌های baseline</td></tr>
+          <tr><td><code>tirotir-examples-education-1.1.0.zip</code></td><td>بستهٔ آموزشی مستقل با مثال‌های بیشتر</td></tr>
+          <tr><td><code>Tirotir-1.1.0-Setup.exe</code></td><td>نصب‌کنندهٔ Windows</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- EXAMPLES -->
+  <section id="examples">
+    <h2>مثال‌ها و محتوای آموزشی</h2>
+    <p>baseline اصلی شامل مثال‌های عمومی، Audio، Graphics و GUI است. بستهٔ آموزشی مستقل شامل <strong>۴۱ فایل <code>.t</code></strong>، راهنماهای فارسی و گزارش validation است.</p>
+    <p>دسته‌های آموزشی: شروع کار، متغیر، ورودی، خروجی، ریاضی، شرط، حلقه، تکرار، فهرست، فرهنگ، تابع، GUI، Graphics و Audio. مثال کلاس و شیء اضافه نشده است، زیرا قابلیت فعلی زبان برای آن کافی نیست.</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre><code>TOTAL=82 PASS=82 FAIL=0</code></pre>
+    </div>
+  </section>
+
+  <!-- TESTS -->
+  <section id="tests">
+    <h2>تست و کیفیت</h2>
+    <p>تست‌ها در هشت فایل اصلی دسته‌بندی شده‌اند:</p>
+    <ul>
+      <li><code>test_core.py</code> برای هسته، parser و interpreter؛</li>
+      <li><code>test_acceptance.py</code> برای رفتارهای قابل مشاهدهٔ زبان؛</li>
+      <li><code>test_semantic.py</code> برای SymbolTable و diagnostics؛</li>
+      <li><code>test_contracts.py</code> برای قراردادهای معماری؛</li>
+      <li><code>test_modules.py</code> برای project و module graph؛</li>
+      <li><code>test_creative.py</code> برای Graphics، Audio و emoji؛</li>
+      <li><code>test_release_integration.py</code> برای integration، Builder، VS Code، GUI و live scene؛</li>
+      <li><code>test_bulk_regression.py</code> برای regression روی مجموعهٔ نمونه‌ها.</li>
+    </ul>
+    <p>آخرین quality gate baseline:</p>
+    <div class="code-wrap">
+      <button class="copy-btn" onclick="copyCode(this)">کپی</button>
+      <pre><code>244 passed</code></pre>
+    </div>
+    <p>موارد مهم تأییدشده:</p>
+    <ul class="checklist">
+      <li>چهار خط واقعی برای مربع Graphics؛</li>
+      <li>نگاشت رنگ فارسی آبی و قرمز به SVG معتبر؛</li>
+      <li>viewport fit-to-scene با padding؛</li>
+      <li>پشتیبانی مختصات منفی؛</li>
+      <li>تولید WAV پیوستهٔ sequence؛</li>
+      <li>نرخ 44,100 هرتز؛</li>
+      <li>diagnostics فارسی GUI در headless؛</li>
+      <li>ارتباط live scene با VS Code؛</li>
+      <li>association فقط برای <code>.t</code>؛</li>
+      <li>سازگاری legacy <code>.tirotir</code>؛</li>
+      <li>ساخت entrypoint مستقل Builder بدون source خارجی؛</li>
+      <li>UTF-8 output در محیط شبیه Windows CP1252؛</li>
+      <li>تشخیص cycle و path خطا در module graph.</li>
+    </ul>
+  </section>
+
+  <!-- LIMITATIONS -->
+  <section id="limits">
+    <h2>محدودیت‌های شناخته‌شده</h2>
+    <h3>محدودیت‌های زبان</h3>
+    <p>کلاس، شیء، inheritance، exception model عمومی، type system، async runtime و generator در نسخهٔ فعلی وجود ندارند.</p>
+    <h3>محدودیت‌های Graphics</h3>
+    <p>renderer فعلی SVG است و animation timeline یا event-driven motion کامل وجود ندارد.</p>
+    <h3>محدودیت‌های Audio</h3>
+    <p>تولید WAV مستقل است، اما پخش مستقیم به backend سیستم‌عامل و ابزارهای موجود وابسته است.</p>
+    <h3>محدودیت‌های GUI</h3>
+    <p>Tkinter و desktop نیاز است و event/callback کامل هنوز وجود ندارد.</p>
+    <h3>محدودیت‌های VS Code</h3>
+    <p>LSP و DAP کامل، completion عمیق، hover و navigation حرفه‌ای هنوز ساخته نشده‌اند.</p>
+    <h3>محدودیت‌های EXE و Setup</h3>
+    <p>ساخت native EXE و Setup باید روی Windows انجام و روی Windows پاک آزمایش شود. Builder فعلی با installer عمومی یکی نیست و امضای Authenticode به‌صورت خودکار وجود ندارد.</p>
+    <h3>محدودیت‌های مستندات تاریخی</h3>
+    <p>برخی مستندات قدیمی repository ممکن است اعداد تاریخی مانند ۲۴۰ تست یا ۷۱ نمونه را ذکر کنند. برای وضعیت فعلی، Baseline Freeze و آخرین quality gate مرجع هستند: ۲۴۴ تست در baseline و بستهٔ آموزشی مستقل با ۴۱ فایل <code>.t</code>.</p>
+  </section>
+
+  <!-- NEXT -->
+  <section id="next">
+    <h2>معماری پیشنهادی مرحلهٔ بعد</h2>
+    <p>پس از freeze، مرحلهٔ بعد باید در branch مستقل و فقط روی scope تأییدشده انجام شود. برای Examples، اولویت مناسب افزایش آموزش و پوشش کاربردی بدون تغییر runtime است.</p>
+    <p>برای توسعهٔ زبان در مسیر 2.0، ترتیب منطقی:</p>
+    <ol>
+      <li>تثبیت قراردادهای موجود؛</li>
+      <li>تکمیل semantic spans و diagnostics؛</li>
+      <li>تکمیل module semantics؛</li>
+      <li>تبدیل Event Runtime پایه به runtime قابل استفاده از source؛</li>
+      <li>طراحی object model واقعی؛</li>
+      <li>LSP؛</li>
+      <li>debugger و DAP؛</li>
+      <li>سپس بررسی IR، bytecode و VM اختیاری.</li>
+    </ol>
+    <div class="callout">
+      <code>EventLoop</code>، <code>EventQueue</code> و <code>HandlerRegistry</code> اکنون به‌صورت زیرساخت مستقل Python وجود دارند و تست شده‌اند؛ اما syntax رویدادمحور کامل و اتصال عمومی آن‌ها به برنامه‌های Tirotir هنوز جزو قابلیت نهایی 1.1.0 نیست.
+    </div>
+  </section>
+
+  <!-- FILE MAP -->
+  <section id="filemap">
+    <h2>نقشهٔ فایل‌های مهم</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>مسیر</th><th>نقش</th></tr></thead>
+        <tbody>
+          <tr><td><code>src/tirotir/core.py</code></td><td>lexer، parser، AST و interpreter و runtimeهای creative</td></tr>
+          <tr><td><code>src/tirotir/semantic.py</code></td><td>تحلیل معنایی و diagnostics</td></tr>
+          <tr><td><code>src/tirotir/contracts.py</code></td><td>SourceSpan، Diagnostic، Capability و قراردادها</td></tr>
+          <tr><td><code>src/tirotir/cli.py</code></td><td>فرمان‌های CLI، UTF-8 و live scene</td></tr>
+          <tr><td><code>src/tirotir/audio.py</code></td><td>تولید WAV و backend پخش</td></tr>
+          <tr><td><code>src/tirotir/builder.py</code></td><td>Builder GUI و entrypoint مستقل PyInstaller</td></tr>
+          <tr><td><code>src/tirotir/events.py</code></td><td>EventQueue، HandlerRegistry و EventLoop پایه</td></tr>
+          <tr><td><code>src/tirotir/modules/</code></td><td>model، loader، graph، cache، sandbox و project</td></tr>
+          <tr><td><code>vscode-tirotirLang/</code></td><td>افزونهٔ VS Code</td></tr>
+          <tr><td><code>tools/tirotir_launcher.py</code></td><td>launcher برای PyInstaller</td></tr>
+          <tr><td><code>tools/build_windows_exe.ps1</code></td><td>اسکریپت ساخت Windows EXE</td></tr>
+          <tr><td><code>tests/</code></td><td>unit، acceptance، semantic، integration و regression</td></tr>
+          <tr><td><code>docs/baseline-freeze-fa.md</code></td><td>سند freeze و قواعد protected</td></tr>
+          <tr><td><code>docs/windows-user-package-readme-fa.md</code></td><td>راهنمای کاربر نهایی Windows</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CONCLUSION -->
+  <section id="conclusion">
+    <h2>جمع‌بندی نهایی</h2>
+    <p>Tirotir 1.1.0 اکنون از مرحلهٔ نمونهٔ ساده عبور کرده و یک زبان برنامه‌نویسی فارسی واقعی با مفسر، semantic layer، پروژهٔ چندفایلی، CLI، VS Code، Graphics SVG، Audio WAV، GUI Tkinter و Builder EXE است.</p>
+    <p>مهم‌ترین ارزش محصول در این مرحله، ترکیب مسیر شروع ساده با هستهٔ واقعی و قابل تست است. کاربر می‌تواند از <code>چاپ -سلام دنیا-</code> شروع کند، سپس به متغیر، شرط، حلقه، تابع، فهرست، فرهنگ و پروژهٔ چندفایلی برسد.</p>
+    <p>در کنار این توانایی‌ها، مرزهای محصول نیز روشن هستند. Graphics هنوز Known Limitation دارد. GUI یک backend اولیه است. Audio playback محیط‌محور است. LSP، DAP، class/object و animation کامل هنوز وجود ندارند. این محدودیت‌ها بخشی از صداقت release هستند و نباید در معرفی عمومی پنهان شوند.</p>
+  </section>
+
+  <!-- REFERENCES -->
+  <section id="references">
+    <h2>منابع و اسناد مرتبط</h2>
+    <ul>
+      <li><a href="baseline-freeze-fa.md" style="color:var(--accent)">سند Baseline Freeze</a></li>
+      <li><a href="public-release-readiness-fa.md" style="color:var(--accent)">گزارش آمادگی انتشار عمومی</a></li>
+      <li><a href="windows-exe-and-gui-fa.md" style="color:var(--accent)">راهنمای Windows، GUI و EXE</a></li>
+      <li><a href="windows-setup-installer-fa.md" style="color:var(--accent)">راهنمای ساخت Setup.exe مستقل</a></li>
+      <li><a href="windows-user-package-readme-fa.md" style="color:var(--accent)">راهنمای کاربر Windows و VS Code</a></li>
+      <li><a href="tirotir-2-architecture-roadmap-fa.md" style="color:var(--accent)">نقشهٔ معماری Tirotir 2.0</a></li>
+    </ul>
+    <h3>References</h3>
+    <ul style="direction:ltr;text-align:left;margin-left:0;margin-right:24px">
+      <li><a href="https://docs.python.org/3/" style="color:var(--accent)">Python 3 Documentation</a></li>
+      <li><a href="https://pyinstaller.org/" style="color:var(--accent)">PyInstaller Documentation</a></li>
+      <li><a href="https://code.visualstudio.com/api" style="color:var(--accent)">Visual Studio Code Extension API</a></li>
+      <li><a href="https://docs.python.org/3/library/tkinter.html" style="color:var(--accent)">Python tkinter Documentation</a></li>
+      <li><a href="https://jrsoftware.org/isinfo.php" style="color:var(--accent)">Inno Setup Official Information</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="quote">« Tirotir 1.1.0 یک زبان برنامه‌نویسی فارسی برای یادگیری، ساخت و خلاقیت است؛ این تازه شروع Tirotir است. »</div>
+    <div>گزارش جامع پروژهٔ Tirotir · Frozen Baseline 1.1.0 · ۲۱ سپتامبر ۲۰۲۶</div>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast">✓ کپی شد</div>
+
+<script>
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 1600);
+}
+
+function copyText(text, btn){
+  const done = ()=>{
+    showToast('✓ کپی شد');
+    if(btn){
+      btn.classList.add('copied');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:13px;height:13px"><polyline points="20 6 9 17 4 12"/></svg>کپی شد';
+      setTimeout(()=>{btn.classList.remove('copied'); btn.innerHTML = orig;}, 1500);
+    }
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallback(text,done));
+  } else {
+    fallback(text, done);
+  }
+}
+
+function fallback(text, done){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){ showToast('⚠ کپی نشد'); }
+  document.body.removeChild(ta);
+}
+
+function copyCode(btn){
+  const pre = btn.parentElement.querySelector('pre');
+  const code = pre.querySelector('code');
+  copyText(code.innerText, btn);
+}
+
+// Clickable command cells in the commands table
+document.querySelectorAll('.cmd-table td:first-child code').forEach(el=>{
+  el.title = 'برای کپی کلیک کنید';
+  el.addEventListener('click', ()=>copyText(el.innerText.trim(), null));
+});
+
+// Smooth active nav (optional)
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav.toc a');
+window.addEventListener('scroll', ()=>{
+  let current = '';
+  sections.forEach(s=>{
+    if(window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a=>{
+    a.style.color = a.getAttribute('href')==='#'+current ? 'var(--accent)' : '';
+    a.style.background = a.getAttribute('href')==='#'+current ? 'rgba(88,166,255,.1)' : '';
+  });
+});
+</script>
+</body>
+</html>
