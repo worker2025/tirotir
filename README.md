@@ -67,6 +67,16 @@
 
 ---
 
+## 🤖 مشاور هوشمند زبان برنامه‌نویسی — Tirotir AI
+
+**به Tirotir AI خوش آمدید**
+
+مشاور فارسی‌زبان شما برای یادگیری و ساخت با زبان برنامه‌نویسی Tirotir؛ از کدهای `.t` تا GUI، Graphics، Audio، VS Code و EXE Builder.
+
+🌐 **دسترسی:** [https://ai.tirotir.com/](https://ai.tirotir.com/)
+
+---
+
 # وضعیت فعلی
 
 ## Tirotir 1.1.0 — Frozen Baseline
