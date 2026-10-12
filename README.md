@@ -756,6 +756,32 @@ docs/
 
 ---
 
+## 📘 جزوه‌های آموزشی تیروتیر
+
+جزوهٔ معرفی و آموزش سریع تیروتیر، با طراحی رنگی، کد، نکته و راهنما، در چند قالب آماده در پوشهٔ [`tirOtir-Booklets`](tirOtir-Booklets) قرار دارد:
+
+| فایل | قالب | کاربرد |
+| --- | --- | --- |
+| [`Tirotir-Booklet.pdf`](tirOtir-Booklets/Tirotir-Booklet.pdf) | PDF رنگی (۸ صفحه) | مطالعهٔ آنلاین و اشتراک‌گذاری |
+| [`Tirotir-Booklet-Print.pdf`](tirOtir-Booklets/Tirotir-Booklet-Print.pdf) | PDF چاپی (۸ صفحه) | چاپ؛ پس‌زمینهٔ سفید و حاشیهٔ صحافی |
+| [`Tirotir-Booklet.docx`](tirOtir-Booklets/Tirotir-Booklet.docx) | Word | ویرایش و شخصی‌سازی |
+| [`Tirotir-Slides.pptx`](tirOtir-Booklets/Tirotir-Slides.pptx) | PowerPoint (۸ اسلاید) | تدریس و ارائه در کلاس |
+
+### 📖 محتوا
+
+- معرفی تیروتیر، نصب، اولین برنامه و دستورهای CLI
+- مبانی زبان: متغیر، شرط، حلقه و تابع
+- مثال‌های کاربردی: فهرست، فرهنگ، تابع ترکیبی، ورودی و خروجی
+- پروژهٔ چندفایلی، Graphics، Audio، GUI و Capabilityها
+- معرفی [Tirotir AI](https://ai.tirotir.com/) و قابلیت‌های آن
+- تمرین‌ها با پاسخ‌نامه
+- مخزن [tirotir-new-examples](https://github.com/worker2025/tirotir-new-examples) و افزونهٔ VS Code
+- QR لینک‌های مهم
+
+> 💡 نمونه‌کدهای جزوه با Tirotir 1.1.0 آزمایش شده‌اند. برای ظاهر دقیق‌تر، فایل Word را در Microsoft Word باز کنید.
+
+---
+
 # Tirotir Learning Lab
 
 ## 🎓 آزمایشگاه یادگیری تعاملی تیروتیر
