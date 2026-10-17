@@ -311,7 +311,11 @@ cross-platform/package verification unverified
 
 در مرحلهٔ ممیزی بعدی، هفت آزمون مستقل characterization در `tests/test_known_issues.py` اضافه شد. نتیجهٔ کامل پس از این آزمون‌ها `252 passed in 0.86s` است. این هفت آزمون علت KI-1، bypass فعلی KI-5 و collision نام `مربع` در KI-9 را ثبت می‌کنند و هیچ‌کدام اصلاح semantics این سه مورد نیستند.
 
-## ۱۴. نتیجه
+## ۱۴. checkpoint پس از اصلاح KI-9
+
+در commit مستقل بعدی، collision نام تابع `مربع` با primitive گرافیکی اصلاح شد. تغییر فقط dispatch graphics را محدود می‌کند تا اگر تابع کاربر با همان نام وجود داشت، تابع کاربر اولویت بگیرد؛ primitive بدون collision unchanged است. focused tests با `3 passed`، آزمون‌های acceptance/graphics با `32 passed` و full suite با `253 passed in 0.64s` موفق شدند. این اصلاح هنوز release-verified یا روی cross-platform تأییدشده نیست.
+
+## ۱۵. نتیجه
 
 دارایی اصلی پروژه حفظ شده و توسعهٔ نسخهٔ ۲٫۰ در مسیر مستقل آماده است. مهم‌ترین نتیجهٔ baseline این است که repository واقعی با نسخهٔ checkout قبلی جلسه یکسان نیست: HEAD فعلی روی commit جدیدتر قرار دارد، چند لایهٔ معماری ۲٫۰ از قبل در source وجود دارند، اما بعضی از آن‌ها فقط contract یا scaffold هستند و هنوز رفتار end-to-end و امنیتی آن‌ها اثبات نشده است.
 

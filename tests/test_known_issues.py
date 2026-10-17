@@ -58,16 +58,22 @@ def test_ki5_graphics_execution_path_is_not_currently_bound_to_registry(tmp_path
     assert "<line" in output.read_text(encoding="utf8")
 
 
-def test_ki9_square_example_is_a_builtin_name_collision():
+def test_ki9_user_function_takes_precedence_over_graphics_name_collision():
     source = "تابع مربع با عدد\n    بازگردان عدد * عدد\nچاپ مربع با ۵"
     tree = parse(source)
     assert isinstance(tree.body[0], Func)
     assert isinstance(tree.body[1].expr, Call)
     assert tree.body[1].expr.name == "مربع"
 
-    # The function body and return expression are valid; the observed None is
-    # caused by Interpreter.val dispatching the builtin graphics name first.
+    # The function body and return expression are valid; the user function
+    # now takes precedence over the graphics primitive with the same name.
     output = []
     execute(source, output.append)
-    assert output == [None]
+    assert output == [25]
     assert ast_json(tree.body[0].body[0].expr)["op"] == "*"
+
+
+def test_ki9_graphics_primitive_still_runs_without_name_collision(tmp_path):
+    output = tmp_path / "scene.svg"
+    execute("مربع با ۱۰", output=lambda _: None, scene_path=str(output))
+    assert output.read_text(encoding="utf8").count("<line") == 4

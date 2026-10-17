@@ -30,7 +30,7 @@
 | KI-6 | import و namespace | `OPEN` | P1 | ندارد |
 | KI-7 | formatter خروجی | `OPEN` | P1 | ندارد |
 | KI-8 | scope تابع | `OPEN` | P1 | ندارد |
-| KI-9 | مثال‌ها و بازگشت تابع | `REPRODUCED` | P0 | diagnosis only |
+| KI-9 | مثال‌ها و بازگشت تابع | `FIXED LOCALLY` | P0 | pending checkpoint |
 | KI-10 | Windows artifact | `BLOCKED` | P1 | ندارد |
 | KI-11 | حداقل Python | `REPRODUCED` | P1 | ندارد |
 | KI-12 | metadata و انتشار | `OPEN` | P2 | ندارد |
@@ -251,11 +251,15 @@
 
 **آزمون ثبت‌شده:** `tests/test_known_issues.py::test_ki9_square_example_is_a_builtin_name_collision` AST معتبر و خروجی فعلی `None` را characterization می‌کند. اصلاح collision هنوز انجام نشده؛ پیش از هر تغییر باید قرارداد اولویت نام تابع کاربر و primitiveها تصمیم‌گیری شود.
 
-**وضعیت:** `REPRODUCED`.
+**وضعیت:** `FIXED LOCALLY`. قرارداد این checkpoint این است که تابع کاربرِ هم‌نام بر primitive گرافیکی اولویت دارد؛ primitive گرافیکی وقتی تابع هم‌نام تعریف نشده باشد بدون تغییر اجرا می‌شود. کوچک‌ترین تغییر فقط شرط dispatch graphics را به `n.name not in self.funcs` محدود کرد.
 
-**Migration risk:** متوسط تا زیاد؛ اصلاح parser می‌تواند syntax قدیمی را تغییر دهد.
+**آزمون‌ها:** `tests/test_known_issues.py::test_ki9_user_function_takes_precedence_over_graphics_name_collision`، `test_ki9_graphics_primitive_still_runs_without_name_collision` و آزمون موجود تابع جمع.
 
-**Commit و verification:** ندارد.
+**Verification:** focused `3 passed`، acceptance/graphics `32 passed`، full suite `253 passed`. این مورد هنوز `VERIFIED` release اعلام نمی‌شود؛ رفتار سایر نام‌های builtin و cross-platform باید جداگانه ارزیابی شود.
+
+**Migration risk:** متوسط؛ برنامه‌ای که عمداً تابعی با نام primitive گرافیکی تعریف کرده باشد اکنون اولویت تابع کاربر را دریافت می‌کند. برنامه‌های بدون collision unchanged هستند.
+
+**Commit و verification:** commit اصلاحی در checkpoint بعدی ثبت می‌شود.
 
 ## KI-10 — بستهٔ Windows و ادعای اجرای مستقل
 
@@ -410,4 +414,4 @@
 6. اثبات bypass مسیر graphics در نبود context؛
 7. اثبات collision نام `مربع` با primitive graphics در KI-9.
 
-این آزمون‌ها characterization هستند و به‌جز KI-2 هیچ semantics جدیدی اضافه نکرده‌اند. موارد KI-1، KI-5 و KI-9 هنوز اصلاح نشده‌اند.
+این آزمون‌ها characterization هستند؛ KI-2 و KI-9 در checkpointهای جداگانه اصلاح شده‌اند، اما هنوز release-verified نیستند. KI-1 و KI-5 هنوز اصلاح نشده‌اند.
