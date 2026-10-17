@@ -23,7 +23,7 @@
 | ID | حوزه | وضعیت فعلی | اولویت | commit اصلاحی |
 |---|---|---|---|---|
 | KI-1 | متن و تفریق | `VERIFIED` | P0 | e333c67 |
-| KI-2 | Unicode و نیم‌فاصله | `FIXED LOCALLY` | P0 | 3749e69 |
+| KI-2 | Unicode و نیم‌فاصله | `VERIFIED` | P0 | 3749e69 / dc110f3 |
 | KI-3 | شکل‌های مقایسهٔ فارسی | `OPEN` | P1 | ندارد |
 | KI-4 | diagnostics ساختاریافته | `REPRODUCED` | P1 | ندارد |
 | KI-5 | enforcement قابلیت‌ها | `VERIFIED` | P0 | 20f01ab |
@@ -91,11 +91,11 @@
 
 **اصلاح پیشنهادی:** جداسازی normalization شناسه از literal؛ افزودن تست حروف فارسی/عربی، نیم‌فاصله، کشیده، combining marks، ارقام فارسی و mixed script.
 
-**وضعیت:** `FIXED LOCALLY`. `parse()` دیگر کل منبع را با `replace(\u200c, _)` تغییر نمی‌دهد؛ normalization شناسه در `norm()` باقی مانده است. Regression جدید در `tests/test_core.py::test_zero_width_non_joiner_is_preserved_in_string` اضافه شد.
+**وضعیت:** `VERIFIED` در candidate/review scope. `parse()` دیگر کل منبع را با `replace(\u200c, _)` تغییر نمی‌دهد؛ normalization شناسه در `norm()` باقی مانده است و lexer اکنون U+200C داخلی را نیز می‌پذیرد. این وضعیت به‌معنای release نهایی یا تأیید native Windows/دستگاه صوتی نیست. Regressionهای literal و identifier در `tests/test_core.py::test_zero_width_non_joiner_is_preserved_in_string` و `tests/test_u200c_identifiers.py` ثبت شده‌اند.
 
 **Migration risk:** متوسط؛ برنامه‌هایی که به underscore فعلی در literal تکیه دارند باید شناسایی شوند، اما aliasهای دارای نیم‌فاصله با تست integration حفظ شدند.
 
-**Verification:** پس از checkpoint اولیه `245 passed in 0.80s`؛ پس از افزودن تست‌های مستقل characterization، `252 passed in 0.86s`. آزمون‌ها حفظ متن و نیم‌فاصله، نرمال‌سازی `ك/ي` برای شناسه و alias نیم‌فاصله‌دار را پوشش می‌دهند. اصلاح در commit `3749e69` ثبت شده است؛ هنوز `VERIFIED` release نیست.
+**Verification:** پس از checkpoint اولیه `245 passed in 0.80s`؛ پس از افزودن تست‌های مستقل characterization، `252 passed in 0.86s`؛ و در review نهایی `282 passed`. آزمون‌ها حفظ متن و نیم‌فاصله، نرمال‌سازی `ك/ي` برای شناسه، alias نیم‌فاصله‌دار و پذیرش U+200C داخلی در identifier را پوشش می‌دهند. اصلاح literal در commit `3749e69` و اصلاح identifier در `dc110f3` ثبت شده‌اند؛ release نهایی هنوز جداگانه تأیید نشده است.
 
 **افزونهٔ ممیزی U+200C در شناسه‌ها:** سند محصول نیم‌فاصله را در شناسه‌ها مجاز و معادل underscore تعریف می‌کند، اما lexer پیش از این آن را در الگوی شناسه نمی‌پذیرفت. در شاخهٔ مستقل `audit/u200c-identifier-fix`، الگوی lexer با کمترین تغییر در `src/tirotir/core.py` اصلاح شد؛ `norm()` همچنان `نام‌گذاری` را به `نام_گذاری` تبدیل می‌کند و مسیر literal دست‌نخورده است. آزمون مستقل `tests/test_u200c_identifiers.py` شامل ۹ مورد regression است: انتساب/استفاده، تابع و return، شش مثال رسمی، و حفظ literal/escape. نتیجه: `9 passed` و full suite برابر `282 passed`. این افزونه در commit `dc110f3` ثبت شده و تا زمان انتقال و بازبینی انسانی، وضعیت آن `VERIFIED در audit branch؛ غیر release` است.
 
