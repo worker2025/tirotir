@@ -1,9 +1,10 @@
 # ردیابی مسائل شناخته‌شدهٔ Tirotir 2.0
 
-**مبنای بررسی:** `18a1d2d767b55361b8e3a3fa9792f9be82eb4395`  
-**baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`  
-**محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1  
-**نتیجهٔ regression baseline:** `244 passed in 1.46s`  
+**مبنای بررسی:** `18a1d2d767b55361b8e3a3fa9792f9be82eb4395`
+**baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`
+**محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1
+**نتیجهٔ regression baseline:** `244 passed in 1.46s`
+**نتیجهٔ پس از characterization:** `252 passed in 0.86s`؛ شامل ۱ تست KI-2 در commit `3749e69` و ۷ تست مستقل در worktree فعلی.
 **قاعده:** هیچ موردی بدون regression test و شواهد اجرای مرتبط `VERIFIED` اصلاح‌شده علامت نمی‌خورد.
 
 ## وضعیت‌های مجاز
@@ -21,15 +22,15 @@
 
 | ID | حوزه | وضعیت فعلی | اولویت | commit اصلاحی |
 |---|---|---|---|---|
-| KI-1 | متن و تفریق | `REPRODUCED` | P0 | ندارد |
-| KI-2 | Unicode و نیم‌فاصله | `FIXED LOCALLY` | P0 | pending checkpoint |
+| KI-1 | متن و تفریق | `REPRODUCED` | P0 | characterization tests added |
+| KI-2 | Unicode و نیم‌فاصله | `FIXED LOCALLY` | P0 | 3749e69 |
 | KI-3 | شکل‌های مقایسهٔ فارسی | `OPEN` | P1 | ندارد |
 | KI-4 | diagnostics ساختاریافته | `REPRODUCED` | P1 | ندارد |
-| KI-5 | enforcement قابلیت‌ها | `OPEN` | P0 | ندارد |
+| KI-5 | enforcement قابلیت‌ها | `REPRODUCED` | P0 | characterization tests added |
 | KI-6 | import و namespace | `OPEN` | P1 | ندارد |
 | KI-7 | formatter خروجی | `OPEN` | P1 | ندارد |
 | KI-8 | scope تابع | `OPEN` | P1 | ندارد |
-| KI-9 | مثال‌ها و بازگشت تابع | `REPRODUCED` | P0 | ندارد |
+| KI-9 | مثال‌ها و بازگشت تابع | `REPRODUCED` | P0 | diagnosis only |
 | KI-10 | Windows artifact | `BLOCKED` | P1 | ندارد |
 | KI-11 | حداقل Python | `REPRODUCED` | P1 | ندارد |
 | KI-12 | metadata و انتشار | `OPEN` | P2 | ندارد |
@@ -41,7 +42,7 @@
 
 ## KI-1 — ابهام متن با خط تیره و عملگر تفریق
 
-**شرح اصلی:** قرارداد متن `-متن-` با عملگر `-` هم‌پوشانی دارد.
+**شرح اصلی:** قرارداد سالم متن `-متن-` باید حفظ شود، اما delimiter فعلی با عملگر `-` در عبارت حسابیِ بدون فاصله هم‌پوشانی دارد.
 
 **Reproduction فعلی:**
 
@@ -50,17 +51,17 @@
 چاپ ۵-۳+۲-۱
 ```
 
-**Actual:** عبارت فاصله‌دار خروجی `3` و عبارت فشرده خروجی `5` تولید کرد. در حالت فشرده parser بخشی از عبارت را به literal متن تبدیل می‌کند.
+**Actual:** نمونهٔ سالم `چاپ -سلام دنیا-` همچنان خروجی `سلام دنیا` می‌دهد. عبارت فاصله‌دار `چاپ ۵ - ۳ + ۲ - ۱` خروجی `3` و عبارت فشرده `چاپ ۵-۳+۲-۱` خروجی `5` تولید کرد؛ در حالت فشرده parser بخشی از عبارت را به literal متن تبدیل می‌کند.
 
 **Expected:** دو عبارت حسابی معادل باید یا نتیجهٔ یکسان بدهند، یا حالت مبهم با diagnostic دقیق رد شود. متن معتبر legacy باید تا حد امکان حفظ شود.
 
 **Evidence:** `src/tirotir/core.py` در tokenizer/parser؛ smoke test ثبت‌شده در baseline report.
 
-**Root cause:** هنوز به‌صورت خط‌به‌خط isolate نشده، اما محل اولیهٔ مسئله تشخیص token متن در lexer و precedence/parser است.
+**Root cause:** در سطح lexer اثبات شد: در `tokenize`، هر `-` که پس از آن فاصله نباشد تا خط تیرهٔ بعدی به‌عنوان `STRING` مصرف می‌شود؛ بنابراین `۵-۳+۲-۱` به توکن‌های متن/عدد تبدیل می‌شود، اما خط‌های جداشده با فاصله `OP` تفریق می‌سازند. علت precedence مستقل هنوز جداگانه لازم نیست.
 
 **اثر امنیتی:** خروجی اشتباه بدون خطا؛ مسئلهٔ correctness با اولویت P0.
 
-**اصلاح پیشنهادی:** افزودن regression برای حالت spaced، compact، متن دارای فاصله، متن دارای خط تیره و عملگر unary. بررسی delimiter صریح فقط با migration analysis. از replacement متنی ad hoc استفاده نشود.
+**آزمون ثبت‌شده:** `tests/test_known_issues.py::test_ki1_legacy_text_and_arithmetic_tokenization_are_characterized` و `test_ki1_existing_function_program_remains_unchanged`. اصلاح semantics هنوز انجام نشده است؛ delimiter سالم باید در هر راه‌حل حفظ شود.
 
 **وضعیت:** `REPRODUCED`؛ هنوز اصلاح نشده.
 
@@ -84,7 +85,7 @@
 
 **Evidence:** `src/tirotir/core.py` و smoke test baseline.
 
-**Root cause:** احتمالاً یک normalization مشترک برای identifier و text literal؛ خط دقیق normalization باید در مرحلهٔ implementation با token dump و تست U+200C مشخص شود.
+**Root cause:** اثبات‌شده در `parse()`: پیش از tokenization کل source با `src.replace('\u200c', '_')` تغییر می‌کرد. `norm()` همچنان فقط روی tokenهای عدد/شناسه اعمال می‌شود؛ literal رشته مستقیماً از buffer token ساخته می‌شود.
 
 **اثر امنیتی:** امنیت مستقیم ندارد، اما محتوای کاربر تغییر می‌کند و می‌تواند در متن آموزشی یا دادهٔ فارسی زیان‌بار باشد.
 
@@ -94,7 +95,7 @@
 
 **Migration risk:** متوسط؛ برنامه‌هایی که به underscore فعلی در literal تکیه دارند باید شناسایی شوند، اما aliasهای دارای نیم‌فاصله با تست integration حفظ شدند.
 
-**Verification:** full suite: `245 passed in 0.80s`; smoke مستقیم مقدار U+200C را حفظ کرد. Commit اصلاحی در checkpoint بعدی ثبت می‌شود.
+**Verification:** پس از checkpoint اولیه `245 passed in 0.80s`؛ پس از افزودن تست‌های مستقل characterization، `252 passed in 0.86s`. آزمون‌ها حفظ متن و نیم‌فاصله، نرمال‌سازی `ك/ي` برای شناسه و alias نیم‌فاصله‌دار را پوشش می‌دهند. اصلاح در commit `3749e69` ثبت شده است؛ هنوز `VERIFIED` release نیست.
 
 ## KI-3 — پشتیبانی ناقص از شکل‌های مقایسهٔ فارسی
 
@@ -150,21 +151,23 @@
 
 **شرح اصلی:** registry و whitelist وجود دارد، اما enforcement همهٔ backendها به‌صورت end-to-end ثابت نشده است.
 
-**Actual:** `CapabilityRegistry()` فقط `core` را فعال می‌کند و `require()` قابلیت غیرفعال را رد می‌کند. جستجوی source استفادهٔ گسترده از `require()` در graphics/audio/gui را نشان نداد.
+**Actual:** registry در حالت پیش‌فرض فقط `core` را فعال می‌کند و `require()` برای GUI غیرفعال خطا می‌دهد. اما مسیر واقعی `execute()` به هیچ registry/context دسترسی ندارد؛ `execute("مربع با ۱۰", scene_path=...)` بدون capability و بدون خطا SVG می‌سازد. هیچ فراخوانی `.require()` در مسیر graphics/audio/gui پیدا نشد.
 
 **Expected:** هر عملیات بیرونی قبل از اجرا capability مناسب را require کند؛ bypass از CLI، module، GUI و builder ممکن نباشد.
 
 **Evidence:** `src/tirotir/contracts.py`، `src/tirotir/core.py`، `src/tirotir/audio.py`، `src/tirotir/builder.py`.
 
-**Root cause:** contract registry از service binding و interpreter execution جداست.
+**Root cause:** اثبات‌شده: `CapabilityRegistry` فقط در `contracts.py` تعریف و در تست contract مصرف می‌شود؛ `Interpreter.__init__`، `execute()`، `graphics()`، `audio_note()` و `gui_command()` registry نمی‌گیرند و `require()` فراخوانی نمی‌کنند.
 
 **اصلاح پیشنهادی:** RuntimeContext واحد با registry، service adapterها، تست active/disabled برای هر capability و تست path traversal. این سازوکار sandbox کامل OS نیست.
 
-**وضعیت:** `OPEN`.
+**وضعیت:** `REPRODUCED`; enforcement end-to-end وجود ندارد و هنوز اصلاح نشده است.
+
+**آزمون‌ها:** `tests/test_known_issues.py::test_ki5_registry_has_positive_and_negative_decisions` و `test_ki5_graphics_execution_path_is_not_currently_bound_to_registry`.
 
 **Migration risk:** متوسط؛ رفتارهایی که اکنون بدون permission اجرا می‌شوند ممکن است بعد از اصلاح رد شوند.
 
-**Commit و verification:** ندارد.
+**Commit و verification:** ندارد؛ این مرحله فقط characterization است و capability جدیدی اضافه نشده است.
 
 ## KI-6 — اتصال module system به namespace و اجرای پروژه کامل
 
@@ -244,9 +247,9 @@
 
 **Evidence:** `README.md`، `src/tirotir/core.py`، smoke test baseline.
 
-**Root cause:** هنوز بین parser function call و semantics پارامتر تک‌نامی isolate نشده است.
+**Root cause:** اثبات‌شده و مربوط به پارامتر/Return نیست. `parse()` برای نمونهٔ مربع AST درست با `Func(args=["عدد"])`، `Return` و `Call(args=[5])` می‌سازد. در `Interpreter.val()`، نام `مربع` پیش از lookup تابع کاربر در فهرست primitiveهای graphics بررسی می‌شود؛ `Scene.command("مربع", ...)` مقدار `None` می‌دهد و تابع کاربر اصلاً اجرا نمی‌شود. تابع جمع با همان مسیر Return مقدار `5` می‌دهد.
 
-**اصلاح پیشنهادی:** acceptance test برای تمام code blockهای README، تصمیم دربارهٔ grammar تک‌پارامتری، جلوگیری از انتشار مثال اجرا نشده.
+**آزمون ثبت‌شده:** `tests/test_known_issues.py::test_ki9_square_example_is_a_builtin_name_collision` AST معتبر و خروجی فعلی `None` را characterization می‌کند. اصلاح collision هنوز انجام نشده؛ پیش از هر تغییر باید قرارداد اولویت نام تابع کاربر و primitiveها تصمیم‌گیری شود.
 
 **وضعیت:** `REPRODUCED`.
 
@@ -390,3 +393,21 @@
 10. محیط و output verification.
 
 تا پیش از آن، عبارت‌هایی مانند «حل شد»، «امن شد»، «سازگار شد» یا «آمادهٔ انتشار» نباید در README یا release note استفاده شوند.
+
+## وضعیت مستندات مرجع
+
+فایل `known-issues-fa.md` در ریشهٔ repository عمداً به‌عنوان گزارش تاریخی نسخهٔ منتشرشدهٔ 1.1.0 باقی مانده است؛ خود فایل commit مبنای `481f15fcd18b21d38fc9161b69489d4560ce091b` را اعلام می‌کند. این سند traceability وضعیت worktree توسعه و شواهد جدید را ثبت می‌کند و بدون انتشار نسخهٔ جدید، ادعاهای سند تاریخی را بازنویسی نمی‌کند.
+
+## checkpoint آزمون مستقل این مرحله
+
+فایل `tests/test_known_issues.py` هفت آزمون مستقل دارد:
+
+1. حفظ literal فارسی و U+200C؛
+2. استمرار نرمال‌سازی `ك/ي` در شناسه‌ها؛
+3. characterization توکن‌های متن سالم و تفریق فاصله‌دار/فشرده؛
+4. حفظ برنامهٔ تابع جمع موجود؛
+5. تصمیم مثبت/منفی registry؛
+6. اثبات bypass مسیر graphics در نبود context؛
+7. اثبات collision نام `مربع` با primitive graphics در KI-9.
+
+این آزمون‌ها characterization هستند و به‌جز KI-2 هیچ semantics جدیدی اضافه نکرده‌اند. موارد KI-1، KI-5 و KI-9 هنوز اصلاح نشده‌اند.

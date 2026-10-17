@@ -1,9 +1,9 @@
 # گزارش baseline مهندسی Tirotir 2.0
 
-**تاریخ بررسی:** ۱۷ اکتبر ۲۰۲۶  
-**مخزن:** `https://github.com/worker2025/tirotir`  
-**checkout مرجع:** `/home/ubuntu/tirotir-upstream-inspection`  
-**worktree توسعه:** `/home/ubuntu/tirotir-2-worktree-20261017T110755Z`  
+**تاریخ بررسی:** ۱۷ اکتبر ۲۰۲۶
+**مخزن:** `https://github.com/worker2025/tirotir`
+**checkout مرجع:** `/home/ubuntu/tirotir-upstream-inspection`
+**worktree توسعه:** `/home/ubuntu/tirotir-2-worktree-20261017T110755Z`
 **شاخهٔ توسعه:** `development/tirotir-2.0-20261017T110755Z`
 
 این گزارش پیش از هر تغییر کدی تهیه شده است. هدف آن ثبت وضعیت واقعی checkout فعلی، تفکیک ادعاهای مستنداتی از شواهد قابل اجرا و ایجاد مبنای قابل بازیابی برای توسعهٔ نسخهٔ ۲٫۰ است.
@@ -309,7 +309,9 @@ cross-platform/package verification unverified
 
 این نتیجه یک checkpoint پس از baseline است و نباید با baseline تاریخی ۲۴۴ تست خلط شود. اصلاح هنوز به‌عنوان release یا تغییر سازگارشدهٔ عمومی منتشر نشده است.
 
-## ۱۳. نتیجه
+در مرحلهٔ ممیزی بعدی، هفت آزمون مستقل characterization در `tests/test_known_issues.py` اضافه شد. نتیجهٔ کامل پس از این آزمون‌ها `252 passed in 0.86s` است. این هفت آزمون علت KI-1، bypass فعلی KI-5 و collision نام `مربع` در KI-9 را ثبت می‌کنند و هیچ‌کدام اصلاح semantics این سه مورد نیستند.
+
+## ۱۴. نتیجه
 
 دارایی اصلی پروژه حفظ شده و توسعهٔ نسخهٔ ۲٫۰ در مسیر مستقل آماده است. مهم‌ترین نتیجهٔ baseline این است که repository واقعی با نسخهٔ checkout قبلی جلسه یکسان نیست: HEAD فعلی روی commit جدیدتر قرار دارد، چند لایهٔ معماری ۲٫۰ از قبل در source وجود دارند، اما بعضی از آن‌ها فقط contract یا scaffold هستند و هنوز رفتار end-to-end و امنیتی آن‌ها اثبات نشده است.
 
