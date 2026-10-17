@@ -31,7 +31,17 @@ def tokenize(src:str):
    if c=='#':break
    col=i+1
    if c=='-':
-    # متن با -...-؛ خط تیرهٔ جدا از دو طرف عملگر تفریق است
+    # Prototype C: derive string positions from parser roles instead of a
+    # broad keyword list. After an expression terminator '-' is subtraction;
+    # after a statement/argument/module string introducer it may open text.
+    prev=next((t for t in reversed(out) if t.kind not in ('NEWLINE','INDENT','DEDENT')),None)
+    before_prev=next((t for t in reversed(out[:-1]) if t.kind not in ('NEWLINE','INDENT','DEDENT')),None) if prev is not None else None
+    text_position=(prev is None or prev.kind=='STRING' or
+                   (prev.kind=='WORD' and prev.value in ('چاپ','برابر','با','و','بازگردان','اگر','تاوقتی','در','تکرار')) or
+                   (prev.kind=='WORD' and prev.value=='کن' and before_prev is not None and before_prev.value=='وارد') or
+                   (prev.kind=='OP' and prev.value in ('(','[',',',':')))
+    if not text_position:
+     out.append(Tok('OP','-',ln,col));i+=1;continue
     j=i+1; escaped=False; buf=[]
     while j<len(raw):
      if raw[j]=='-' and not escaped:break
