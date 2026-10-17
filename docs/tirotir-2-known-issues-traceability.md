@@ -1,10 +1,10 @@
 # ردیابی مسائل شناخته‌شدهٔ Tirotir 2.0
 
-**مبنای بررسی:** `18a1d2d767b55361b8e3a3fa9792f9be82eb4395`
+**مبنای بررسی:** `e333c670f1b9b20b147900b5131a2fe73c99cc80`
 **baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`
 **محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1
 **نتیجهٔ regression baseline:** `244 passed in 1.46s`
-**نتیجهٔ پس از characterization:** `252 passed in 0.86s`؛ شامل ۱ تست KI-2 در commit `3749e69` و ۷ تست مستقل در worktree فعلی.
+**نتیجهٔ پس از KI-5:** `273 passed`؛ شامل ۱۴ تست مستقل enforcement و regressionهای KI-1، KI-2، KI-9، module و release.
 **قاعده:** هیچ موردی بدون regression test و شواهد اجرای مرتبط `VERIFIED` اصلاح‌شده علامت نمی‌خورد.
 
 ## وضعیت‌های مجاز
@@ -26,7 +26,7 @@
 | KI-2 | Unicode و نیم‌فاصله | `FIXED LOCALLY` | P0 | 3749e69 |
 | KI-3 | شکل‌های مقایسهٔ فارسی | `OPEN` | P1 | ندارد |
 | KI-4 | diagnostics ساختاریافته | `REPRODUCED` | P1 | ندارد |
-| KI-5 | enforcement قابلیت‌ها | `REPRODUCED` | P0 | characterization tests added |
+| KI-5 | enforcement قابلیت‌ها | `VERIFIED` | P0 | 20f01ab |
 | KI-6 | import و namespace | `OPEN` | P1 | ندارد |
 | KI-7 | formatter خروجی | `OPEN` | P1 | ندارد |
 | KI-8 | scope تابع | `OPEN` | P1 | ندارد |
@@ -151,23 +151,27 @@
 
 **شرح اصلی:** registry و whitelist وجود دارد، اما enforcement همهٔ backendها به‌صورت end-to-end ثابت نشده است.
 
-**Actual:** registry در حالت پیش‌فرض فقط `core` را فعال می‌کند و `require()` برای GUI غیرفعال خطا می‌دهد. اما مسیر واقعی `execute()` به هیچ registry/context دسترسی ندارد؛ `execute("مربع با ۱۰", scene_path=...)` بدون capability و بدون خطا SVG می‌سازد. هیچ فراخوانی `.require()` در مسیر graphics/audio/gui پیدا نشد.
+**Actual پیش از اصلاح:** registry در حالت پیش‌فرض فقط `core` را فعال می‌کرد، اما مسیر واقعی `execute()` به registry/context دسترسی نداشت و `execute("مربع با ۱۰", scene_path=...)` بدون capability SVG می‌ساخت. هیچ فراخوانی `.require()` در مسیر graphics/audio/gui وجود نداشت.
+
+**Actual پس از اصلاح:** `RuntimeContext` با پیش‌فرض core-only به `execute()` و `Interpreter` منتقل می‌شود. graphics، audio و GUI درست پیش از اثر جانبی capability متناظر را require می‌کنند. CLI commandهای explicit، project config و launcher builder policy را به runtime می‌رسانند.
 
 **Expected:** هر عملیات بیرونی قبل از اجرا capability مناسب را require کند؛ bypass از CLI، module، GUI و builder ممکن نباشد.
 
 **Evidence:** `src/tirotir/contracts.py`، `src/tirotir/core.py`، `src/tirotir/audio.py`، `src/tirotir/builder.py`.
 
-**Root cause:** اثبات‌شده: `CapabilityRegistry` فقط در `contracts.py` تعریف و در تست contract مصرف می‌شود؛ `Interpreter.__init__`، `execute()`، `graphics()`، `audio_note()` و `gui_command()` registry نمی‌گیرند و `require()` فراخوانی نمی‌کنند.
+**Root cause پیش از اصلاح:** اثبات‌شده؛ `CapabilityRegistry` فقط در `contracts.py` تعریف شده بود و `Interpreter.__init__`، `execute()`، `graphics()`، `audio_note()` و `gui_command()` registry نمی‌گرفتند.
 
 **اصلاح پیشنهادی:** RuntimeContext واحد با registry، service adapterها، تست active/disabled برای هر capability و تست path traversal. این سازوکار sandbox کامل OS نیست.
 
-**وضعیت:** `REPRODUCED`; enforcement end-to-end وجود ندارد و هنوز اصلاح نشده است.
+**وضعیت:** `VERIFIED` در branch KI-5؛ enforcement runtime برای scope graphics/audio/gui و مسیرهای مستقیم، CLI، project و builder launcher تأیید شده است.
 
-**آزمون‌ها:** `tests/test_known_issues.py::test_ki5_registry_has_positive_and_negative_decisions` و `test_ki5_graphics_execution_path_is_not_currently_bound_to_registry`.
+**آزمون‌ها:** `tests/test_ki5_capability_enforcement.py` شامل ۱۴ تست مثبت/منفی؛ `tests/test_known_issues.py::test_ki5_graphics_execution_requires_registry`؛ تست‌های module و release integration.
 
 **Migration risk:** متوسط؛ رفتارهایی که اکنون بدون permission اجرا می‌شوند ممکن است بعد از اصلاح رد شوند.
 
-**Commit و verification:** ندارد؛ این مرحله فقط characterization است و capability جدیدی اضافه نشده است.
+**Verification:** تست اختصاصی `14 passed`، full regression `273 passed`، و module/release integration `28 passed`. تست‌های منفی نبود SVG/WAV و رد GUI پیش از ساخت backend را بررسی می‌کنند. تست parse-only و اجرای native Windows/دستگاه صوتی همچنان خارج از این verification هستند.
+
+**Commit و verification:** `20f01ab5cb8eb998fd12fa215977baa994f87e51`؛ طراحی مسیر اجرا در `4cbee2400f8a44828918764b4829bde66a528f90` ثبت شده است.
 
 ## KI-6 — اتصال module system به namespace و اجرای پروژه کامل
 
