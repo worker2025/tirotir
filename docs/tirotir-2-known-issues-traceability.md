@@ -22,7 +22,7 @@
 | ID | حوزه | وضعیت فعلی | اولویت | commit اصلاحی |
 |---|---|---|---|---|
 | KI-1 | متن و تفریق | `REPRODUCED` | P0 | ندارد |
-| KI-2 | Unicode و نیم‌فاصله | `REPRODUCED` | P0 | ندارد |
+| KI-2 | Unicode و نیم‌فاصله | `FIXED LOCALLY` | P0 | pending checkpoint |
 | KI-3 | شکل‌های مقایسهٔ فارسی | `OPEN` | P1 | ندارد |
 | KI-4 | diagnostics ساختاریافته | `REPRODUCED` | P1 | ندارد |
 | KI-5 | enforcement قابلیت‌ها | `OPEN` | P0 | ندارد |
@@ -90,11 +90,11 @@
 
 **اصلاح پیشنهادی:** جداسازی normalization شناسه از literal؛ افزودن تست حروف فارسی/عربی، نیم‌فاصله، کشیده، combining marks، ارقام فارسی و mixed script.
 
-**وضعیت:** `REPRODUCED`؛ هنوز اصلاح نشده.
+**وضعیت:** `FIXED LOCALLY`. `parse()` دیگر کل منبع را با `replace(\u200c, _)` تغییر نمی‌دهد؛ normalization شناسه در `norm()` باقی مانده است. Regression جدید در `tests/test_core.py::test_zero_width_non_joiner_is_preserved_in_string` اضافه شد.
 
-**Migration risk:** متوسط؛ برنامه‌هایی که به underscore فعلی تکیه دارند باید شناسایی شوند.
+**Migration risk:** متوسط؛ برنامه‌هایی که به underscore فعلی در literal تکیه دارند باید شناسایی شوند، اما aliasهای دارای نیم‌فاصله با تست integration حفظ شدند.
 
-**Commit و verification:** ندارد.
+**Verification:** full suite: `245 passed in 0.80s`; smoke مستقیم مقدار U+200C را حفظ کرد. Commit اصلاحی در checkpoint بعدی ثبت می‌شود.
 
 ## KI-3 — پشتیبانی ناقص از شکل‌های مقایسهٔ فارسی
 

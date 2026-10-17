@@ -6,6 +6,8 @@ def run(s):
 def test_regression(n):
  assert run("بگذار x برابر ۲ + ۳\nچاپ x")==[5]
 def test_farsi_numbers(): assert run("چاپ ۱۲۳")==[123]
+def test_zero_width_non_joiner_is_preserved_in_string():
+ assert run("چاپ -فارسی‌زبان-")==["فارسی‌زبان"]
 def test_loop(): assert run("برای x در [۱،۲،۳]\n    چاپ x")==[1,2,3]
 def test_if(): assert run("اگر ۳ بزرگتر از ۲\n    چاپ -بله-")==["بله"]
 def test_function(): assert run("تابع جمع با الف و ب\n    بازگردان الف + ب\nچاپ جمع با ۲ و ۳")==[5]

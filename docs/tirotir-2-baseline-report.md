@@ -299,6 +299,16 @@ cross-platform/package verification unverified
 
 هیچ tag، release، push به `main`، merge، انتشار PyPI یا انتشار VS Code انجام نشده است.
 
+## ۱۳. checkpoint پس از اصلاح KI-2
+
+پس از baseline اولیه، اصلاح محدود KI-2 انجام شد: نرمال‌سازی سراسری نیم‌فاصله از `parse()` حذف شد تا literal متن Unicode خود را حفظ کند؛ normalization شناسه در `norm()` باقی ماند و aliasهای دارای نیم‌فاصله regression شدند. نتیجهٔ آزمون پس از این اصلاح:
+
+```text
+245 passed in 0.80s
+```
+
+این نتیجه یک checkpoint پس از baseline است و نباید با baseline تاریخی ۲۴۴ تست خلط شود. اصلاح هنوز به‌عنوان release یا تغییر سازگارشدهٔ عمومی منتشر نشده است.
+
 ## ۱۳. نتیجه
 
 دارایی اصلی پروژه حفظ شده و توسعهٔ نسخهٔ ۲٫۰ در مسیر مستقل آماده است. مهم‌ترین نتیجهٔ baseline این است که repository واقعی با نسخهٔ checkout قبلی جلسه یکسان نیست: HEAD فعلی روی commit جدیدتر قرار دارد، چند لایهٔ معماری ۲٫۰ از قبل در source وجود دارند، اما بعضی از آن‌ها فقط contract یا scaffold هستند و هنوز رفتار end-to-end و امنیتی آن‌ها اثبات نشده است.
