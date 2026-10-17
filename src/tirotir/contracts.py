@@ -81,8 +81,27 @@ class RuntimeService(Protocol):
 class CapabilityRegistry:
     """whitelist سرویس‌های فعال؛ حالت پیش‌فرض فقط core است."""
     def __init__(self, enabled: Sequence[Capability | str] | None = None):
-        values = enabled or (Capability.CORE,)
+        values = (Capability.CORE,) if enabled is None else enabled
         self._enabled = {Capability(v) for v in values}
+
+    @classmethod
+    def from_mapping(cls, mapping: Mapping[str, Any] | None = None):
+        """ساخت policy از بخش capabilities در تنظیمات پروژه."""
+        enabled = [Capability.CORE]
+        for raw_name, raw_value in (mapping or {}).items():
+            try:
+                capability = Capability(raw_name)
+            except ValueError as exc:
+                raise CapabilityError(f'قابلیت ناشناخته «{raw_name}» است.') from exc
+            if isinstance(raw_value, bool):
+                active = raw_value
+            elif isinstance(raw_value, str):
+                active = raw_value.strip().lower() not in {'', '0', 'false', 'no', 'off', 'none'}
+            else:
+                raise CapabilityError(f'مقدار قابلیت «{raw_name}» باید boolean یا متن باشد.')
+            if active and capability not in enabled:
+                enabled.append(capability)
+        return cls(enabled)
 
     def allows(self, capability: Capability | str) -> bool:
         return Capability(capability) in self._enabled
@@ -94,6 +113,19 @@ class CapabilityRegistry:
 
     def enabled(self) -> frozenset[Capability]:
         return frozenset(self._enabled)
+
+@dataclass(frozen=True)
+class RuntimeContext:
+    """سیاست قابلیت‌های یک اجرای مشخص؛ پیش‌فرض فقط core است."""
+    registry: CapabilityRegistry = field(default_factory=CapabilityRegistry)
+    project_root: str | None = None
+
+    @classmethod
+    def from_capabilities(cls, enabled: Sequence[Capability | str] | None = None, project_root: str | None = None):
+        return cls(CapabilityRegistry(enabled), project_root)
+
+    def require(self, capability: Capability | str) -> None:
+        self.registry.require(capability)
 
 def node_id(source: str, ordinal: int, kind: str) -> NodeId:
     """تولید شناسهٔ قابل تکرار برای node در یک parse مشخص."""

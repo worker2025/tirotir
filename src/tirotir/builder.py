@@ -14,19 +14,21 @@ def resolve_launcher():
         if candidate.is_file(): return candidate
     raise FileNotFoundError('Launcher تیروتیر پیدا نشد؛ مسیرهای بررسی‌شده: '+', '.join(str(x) for x in candidates))
 
-def make_entry_launcher(entry, work):
+def make_entry_launcher(entry, work, capabilities=None):
     target=Path(work)/'tirotir_entry_launcher.py'
     source=Path(entry).read_text(encoding='utf8')
+    enabled=list(capabilities or [])
     target.write_text(
         'import os\n'
         'from tirotir.core import execute, parse\n'
+        'from tirotir.contracts import RuntimeContext\n'
         'from tirotir.semantic import SemanticAnalyzer\n'
         'os.environ["TIROTIR_ENTRY"]='+repr(str(Path(entry).resolve()))+'\n'
         'source='+repr(source)+'\n'
         'result=SemanticAnalyzer(os.environ["TIROTIR_ENTRY"]).analyze(parse(source))\n'
         'if result.diagnostics:\n'
         '    raise SystemExit("\\n".join(d.message for d in result.diagnostics))\n'
-        'execute(source)\n',
+        'execute(source, runtime_context=RuntimeContext.from_capabilities('+repr(enabled)+'))\n',
         encoding='utf8')
     return target
 

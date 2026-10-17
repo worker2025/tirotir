@@ -37,13 +37,11 @@ def test_ki5_registry_has_positive_and_negative_decisions():
         registry.require(Capability.GUI)
 
 
-def test_ki5_graphics_execution_path_is_not_currently_bound_to_registry(tmp_path):
-    # Characterizes the unresolved issue: execute() has no registry/context and
-    # graphics currently runs despite the default registry denying graphics.
+def test_ki5_graphics_execution_requires_registry(tmp_path):
     output = tmp_path / "scene.svg"
-    execute("مربع با ۱۰", output=lambda _: None, scene_path=str(output))
-    assert output.is_file()
-    assert "<line" in output.read_text(encoding="utf8")
+    with pytest.raises(CapabilityError):
+        execute("مربع با ۱۰", output=lambda _: None, scene_path=str(output))
+    assert not output.exists()
 
 
 def test_ki9_user_function_takes_precedence_over_graphics_name_collision():
@@ -63,5 +61,5 @@ def test_ki9_user_function_takes_precedence_over_graphics_name_collision():
 
 def test_ki9_graphics_primitive_still_runs_without_name_collision(tmp_path):
     output = tmp_path / "scene.svg"
-    execute("مربع با ۱۰", output=lambda _: None, scene_path=str(output))
+    execute("مربع با ۱۰", output=lambda _: None, scene_path=str(output), capabilities=[Capability.GRAPHICS])
     assert output.read_text(encoding="utf8").count("<line") == 4

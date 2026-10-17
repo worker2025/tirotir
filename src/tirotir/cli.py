@@ -2,6 +2,7 @@ import argparse, json, os, sys, tempfile
 from .core import parse, execute, ast_json, TirotirError
 from .semantic import SemanticAnalyzer
 from .modules import ModuleGraphBuilder, ModuleLoader, load_project
+from .contracts import Capability, CapabilityError, CapabilityRegistry, RuntimeContext
 
 VERSION='1.1.0'
 
@@ -30,12 +31,25 @@ def output_writer():
 def error_writer(value):
     write_utf8(sys.stderr, value)
 
-def run_live(source, play_audio=False):
+def build_runtime_context(config=None, requested=(), automatic=()):
+    if config is None:
+        enabled={Capability.CORE}
+        project_root=None
+    else:
+        registry=CapabilityRegistry.from_mapping(config.capabilities)
+        enabled=set(registry.enabled())
+        project_root=str(config.root)
+    for raw in (*requested, *automatic):
+        try: enabled.add(Capability(raw))
+        except ValueError as exc: raise CapabilityError(f'قابلیت «{raw}» شناخته‌شده نیست.') from exc
+    return RuntimeContext.from_capabilities(enabled, project_root)
+
+def run_live(source, play_audio=False, runtime_context=None):
     fd, path=tempfile.mkstemp(prefix='tirotir-live-', suffix='.svg')
     os.close(fd)
     output=[]
     try:
-        execute(source, output=output.append, scene_path=path, play_audio=play_audio)
+        execute(source, output=output.append, scene_path=path, play_audio=play_audio, runtime_context=runtime_context)
         svg=open(path, encoding='utf-8').read() if os.path.exists(path) else ''
         return {'type':'scene','width':800,'height':600,'stdout':'\n'.join(map(str,output)), 'svg':svg}
     finally:
@@ -48,6 +62,7 @@ def main(argv=None):
     p.add_argument('command',nargs='?'); p.add_argument('file',nargs='?')
     p.add_argument('--write',action='store_true'); p.add_argument('--scene',default=None)
     p.add_argument('--play-audio',action='store_true'); p.add_argument('--live-scene',action='store_true')
+    p.add_argument('--capability',action='append',default=[])
     a=p.parse_args(argv)
     try:
         if a.command and a.command.endswith(('.t','.tirotir')) and a.file is None:
@@ -73,6 +88,7 @@ def main(argv=None):
             write_utf8(sys.stdout,f'پروژه: {config.name}\nورودی: {config.entry}\nزبان: {config.language}'); return 0
         if not a.file and a.command=='run':
             config=load_project('.')
+            runtime_context=build_runtime_context(config, a.capability)
             loader=ModuleLoader(config.root); entry=loader.sandbox.module_id(config.root/config.entry)
             graph, diagnostics=ModuleGraphBuilder(loader).build(entry)
             if diagnostics:
@@ -83,7 +99,7 @@ def main(argv=None):
                 if result.diagnostics:
                     for diagnostic in result.diagnostics:error_writer(f'{diagnostic.code}: {diagnostic.message}')
                     return 1
-            for module_id in graph.topological_order():execute(loader.load(module_id),output_writer(),scene_path=a.scene,play_audio=a.play_audio)
+            for module_id in graph.topological_order():execute(loader.load(module_id),output_writer(),scene_path=a.scene,play_audio=a.play_audio,runtime_context=runtime_context)
             return 0
         if not a.file: error_writer('نام فایل لازم است.'); return 2
         src=open(a.file,encoding='utf-8').read(); tree=parse(src)
@@ -91,8 +107,10 @@ def main(argv=None):
         if semantic.diagnostics and a.command in ('check','run','graphics','audio','gui'):
             for diagnostic in semantic.diagnostics:error_writer(f'{diagnostic.code}: {diagnostic.message}\nپیشنهاد: {diagnostic.suggestion or ""}')
             return 1
+        automatic=[a.command] if a.command in ('graphics','audio','gui') else []
+        runtime_context=build_runtime_context(requested=a.capability, automatic=automatic)
         if a.live_scene:
-            write_utf8(sys.stdout,json.dumps(run_live(src,play_audio=a.play_audio),ensure_ascii=False,separators=(',',':'))); return 0
+            write_utf8(sys.stdout,json.dumps(run_live(src,play_audio=a.play_audio,runtime_context=runtime_context),ensure_ascii=False,separators=(',',':'))); return 0
         if a.command=='ast': write_utf8(sys.stdout,json.dumps(ast_json(tree),ensure_ascii=False,indent=2))
         elif a.command=='check': write_utf8(sys.stdout,'برنامه صحیح است.')
         elif a.command=='format':
@@ -101,10 +119,10 @@ def main(argv=None):
             else: write_utf8(sys.stdout,text,end='')
         elif a.command in ('run','graphics','audio','gui',a.file):
             scene=a.scene or (a.file+'.svg' if a.command=='graphics' else None)
-            execute(src,output_writer(),scene_path=scene,play_audio=(a.play_audio or a.command=='audio'))
+            execute(src,output_writer(),scene_path=scene,play_audio=(a.play_audio or a.command=='audio'),runtime_context=runtime_context)
         else: error_writer('فرمان ناشناخته است.'); return 2
         return 0
-    except (OSError,TirotirError) as e:
+    except (OSError,TirotirError,CapabilityError) as e:
         error_writer(f'خطا: {e}'); return 1
 
 if __name__=='__main__':sys.exit(main())

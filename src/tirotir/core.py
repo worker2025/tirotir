@@ -2,7 +2,7 @@
 from dataclasses import dataclass, fields, is_dataclass
 import html, re, math, wave, struct
 from .audio import AudioBackendUnavailable, play_file, render_sequence
-from .contracts import SourceSpan
+from .contracts import Capability, CapabilityError, RuntimeContext, SourceSpan
 
 DIGITS=str.maketrans('۰۱۲۳۴۵۶۷۸۹٫٬','0123456789.,')
 def norm(s:str)->str:return s.translate(DIGITS).replace('ي','ی').replace('ك','ک').replace('\u200c','_')
@@ -249,7 +249,7 @@ class Ret(Exception):
 class Br(Exception):pass
 class Cont(Exception):pass
 class Interpreter:
- def __init__(self,output=None,input_fn=None,max_steps=100000,play_audio=False):self.env=Env();self.out=print if output is None else output;self.input=input if input_fn is None else input_fn;self.steps=0;self.max_steps=max_steps;self.funcs={};self.play_audio=play_audio;self.audio_notes=[];self.audio_path='tirotir-note.wav'
+ def __init__(self,output=None,input_fn=None,max_steps=100000,play_audio=False,runtime_context=None):self.env=Env();self.out=print if output is None else output;self.input=input if input_fn is None else input_fn;self.steps=0;self.max_steps=max_steps;self.funcs={};self.play_audio=play_audio;self.audio_notes=[];self.audio_path='tirotir-note.wav';self.runtime_context=runtime_context or RuntimeContext()
  def run(self,p):
   for s in p.body:
    if isinstance(s,Func):self.funcs[s.name]=s
@@ -361,9 +361,11 @@ class Interpreter:
    return None
   return None
  def graphics(self,name,args):
+  self.runtime_context.require(Capability.GRAPHICS)
   if not hasattr(self,'scene'):self.scene=Scene()
   return self.scene.command(name,args)
  def audio_note(self,args):
+  self.runtime_context.require(Capability.AUDIO)
   if not args:raise RuntimeErrorFa('نت بنواز به نام نت یا فرکانس نیاز دارد.')
   notes={'دو':261.63,'ر':'293.66','رِ':293.66,'می':329.63,'فا':349.23,'سل':392.00,'لا':440.00,'سی':493.88}
   try:freq=float(args[0])
@@ -374,6 +376,7 @@ class Interpreter:
   self.audio_notes.append((freq,duration))
   return self.audio_path
  def gui_command(self,name,args):
+  self.runtime_context.require(Capability.GUI)
   if not hasattr(self,'gui'):self.gui=Gui()
   return self.gui.command(name,args)
 
@@ -459,7 +462,9 @@ def parse(src):
  for a,b in aliases:src=src.replace(a,b)
  for a,b in [('بزرگتر یا مساوی','>='),('کوچکتر یا مساوی','<='),('برابر با','=='),('نا برابر با','!='),('بزرگتر از','>'),('کوچکتر از','<')]:src=re.sub(r'(?<![\w\u0600-\u06ff])'+re.escape(a)+r'(?![\w\u0600-\u06ff])',b,src)
  return Parser(tokenize(src)).parse()
-def execute(src,output=None,input_fn=None,scene_path=None,play_audio=False):
- p=parse(src);runner=Interpreter(output,input_fn,play_audio=play_audio);runner.run(p)
+def execute(src,output=None,input_fn=None,scene_path=None,play_audio=False,capabilities=None,runtime_context=None):
+ if capabilities is not None and runtime_context is not None:raise CapabilityError('capabilities و runtime_context را هم‌زمان ارسال نکنید.')
+ if runtime_context is None:runtime_context=RuntimeContext.from_capabilities(capabilities)
+ p=parse(src);runner=Interpreter(output,input_fn,play_audio=play_audio,runtime_context=runtime_context);runner.run(p)
  if hasattr(runner,'scene'):runner.scene.save(scene_path or 'tirotir-scene.svg')
  return p

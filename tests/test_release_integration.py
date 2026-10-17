@@ -20,7 +20,7 @@ def test_event_loop_is_deterministic():
 
 def test_graphics_svg_end_to_end(tmp_path):
     source=Path('examples/graphics/hello_shape.t').read_text(encoding='utf8')
-    output=tmp_path/'scene.svg'; execute(source,output=lambda _:None,scene_path=str(output))
+    output=tmp_path/'scene.svg'; execute(source,output=lambda _:None,scene_path=str(output),capabilities=['graphics'])
     svg=output.read_text(encoding='utf8')
     assert '<svg' in svg and svg.count('<line') == 4 and 'آبی' in svg
     assert 'stroke="#2563eb"' in svg and 'data-tirotir-color="آبی"' in svg
@@ -30,28 +30,28 @@ def test_graphics_svg_end_to_end(tmp_path):
 
 def test_graphics_persian_colors_are_utf8(tmp_path):
     output=tmp_path/'colors.svg'
-    execute('رنگ قلم برابر -قرمز-\nمربع با ۱۰\n',output=lambda _:None,scene_path=str(output))
+    execute('رنگ قلم برابر -قرمز-\nمربع با ۱۰\n',output=lambda _:None,scene_path=str(output),capabilities=['graphics'])
     raw=output.read_bytes(); text=raw.decode('utf-8')
     assert 'قرمز' in text and 'stroke="#dc2626"' in text and 'Ø' not in text
 
 
 def test_audio_render_fallback(tmp_path,monkeypatch):
     monkeypatch.chdir(tmp_path)
-    execute('نت بنواز با ۴۴۰ و ۰٫۰۱',output=lambda _:None)
+    execute('نت بنواز با ۴۴۰ و ۰٫۰۱',output=lambda _:None,capabilities=['audio'])
     wav=tmp_path/'tirotir-note.wav'; assert wav.exists() and wav.stat().st_size>44
     with wave.open(str(wav),'rb') as sound: assert sound.getframerate()==44100
 
 
 def test_audio_persian_note_name(tmp_path,monkeypatch):
     monkeypatch.chdir(tmp_path)
-    execute('نت بنواز با -دو- و ۰٫۰۱',output=lambda _:None)
+    execute('نت بنواز با -دو- و ۰٫۰۱',output=lambda _:None,capabilities=['audio'])
     assert (tmp_path/'tirotir-note.wav').exists()
 
 
 def test_audio_scale_is_one_sequential_wav(tmp_path,monkeypatch):
     source=Path(__file__).parents[1].joinpath('examples/audio/scale.t').read_text(encoding='utf8')
     monkeypatch.chdir(tmp_path)
-    execute(source,output=lambda _:None)
+    execute(source,output=lambda _:None,capabilities=['audio'])
     with wave.open('tirotir-note.wav','rb') as sound:
         assert sound.getnchannels()==1 and sound.getframerate()==44100
         assert sound.getnframes() >= int(7*0.15*44000)
@@ -60,7 +60,7 @@ def test_audio_scale_is_one_sequential_wav(tmp_path,monkeypatch):
 def test_builder_resolves_real_launcher(tmp_path):
     launcher=resolve_launcher()
     assert launcher.is_file() and launcher.name in ('tirotir_launcher.py','launcher.py')
-    generated=make_entry_launcher('examples/audio/scale.t',tmp_path)
+    generated=make_entry_launcher('examples/audio/scale.t',tmp_path,capabilities=['audio'])
     content=generated.read_text(encoding='utf8')
     assert generated.is_file() and 'TIROTIR_ENTRY' in content and 'SemanticAnalyzer' in content
     assert 'from tirotir.core import execute, parse' in content
@@ -68,7 +68,7 @@ def test_builder_resolves_real_launcher(tmp_path):
 
 
 def test_builder_entrypoint_runs_without_source_file(tmp_path, monkeypatch, capsys):
-    generated=make_entry_launcher('examples/audio/scale.t',tmp_path)
+    generated=make_entry_launcher('examples/audio/scale.t',tmp_path,capabilities=['audio'])
     source=Path('examples/audio/scale.t').read_text(encoding='utf8')
     (tmp_path/'tirotir_entry_launcher.py').write_text(generated.read_text(encoding='utf8'),encoding='utf8')
     monkeypatch.chdir(tmp_path)
@@ -86,7 +86,7 @@ def test_audio_backend_reports_unavailable_cleanly(tmp_path):
 def test_gui_headless_has_farsi_diagnostic(monkeypatch):
     monkeypatch.setenv('DISPLAY','')
     with pytest.raises(RuntimeErrorFa, match='TIR4001'):
-        execute('پنجره بساز با -برنامه- و ۳۲۰ و ۲۰۰',output=lambda _:None)
+        execute('پنجره بساز با -برنامه- و ۳۲۰ و ۲۰۰',output=lambda _:None,capabilities=['gui'])
 
 
 def test_project_cli_runs_topological_modules(tmp_path, monkeypatch, capsys):
@@ -121,7 +121,7 @@ def test_windows_cp1252_stdout_is_utf8(tmp_path):
 
 def test_live_scene_is_json_and_has_no_sidecar(tmp_path):
     source=tmp_path/'shape.t'; source.write_text(Path('examples/graphics/hello_shape.t').read_text(encoding='utf8'),encoding='utf8')
-    result=subprocess.run([sys.executable,'-m','tirotir.cli','run',str(source),'--live-scene'],capture_output=True)
+    result=subprocess.run([sys.executable,'-m','tirotir.cli','run',str(source),'--live-scene','--capability','graphics'],capture_output=True)
     payload=json.loads(result.stdout.decode('utf8'))
     assert payload['type']=='scene' and payload['svg'].count('<line')==4 and 'آبی' in payload['svg']
     assert not (tmp_path/'shape.t.svg').exists()
@@ -146,7 +146,7 @@ def test_graphics_fit_to_scene_viewport():
     source='پنجره بازکن با ۸۰۰ و ۶۰۰\nرنگ قلم برابر -آبی-\nضخامت قلم برابر ۳\nتکرار ۸ بار\n    حرکت با ۸۰\n    چرخش با ۴۵\n'
     output=Path('fit-scene-test.svg')
     try:
-        execute(source,output=lambda _:None,scene_path=str(output))
+        execute(source,output=lambda _:None,scene_path=str(output),capabilities=['graphics'])
         svg=output.read_text(encoding='utf8')
         viewbox=re.search(r'viewBox="([^"]+)"',svg).group(1).split()
         assert float(viewbox[2]) < 800 and float(viewbox[3]) < 600
@@ -159,7 +159,7 @@ def test_move_rotate_produces_square_path():
     source='پنجره بازکن با ۸۰۰ و ۶۰۰\nرنگ قلم برابر -آبی-\nضخامت قلم برابر ۳\nحرکت با ۱۰۰\nچرخش با ۹۰\nحرکت با ۱۰۰\nچرخش با ۹۰\nحرکت با ۱۰۰\nچرخش با ۹۰\nحرکت با ۱۰۰\n'
     output=Path('movement-test.svg')
     try:
-        execute(source,output=lambda _:None,scene_path=str(output))
+        execute(source,output=lambda _:None,scene_path=str(output),capabilities=['graphics'])
         svg=output.read_text(encoding='utf8')
         lines=re.findall(r'<line x1="([\-0-9.]+)" y1="([\-0-9.]+)" x2="([\-0-9.]+)" y2="([\-0-9.]+)"',svg)
         assert len(lines)==4
