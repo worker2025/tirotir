@@ -53,7 +53,7 @@ def tokenize(src:str):
    if c.isdigit() or c in '۰۱۲۳۴۵۶۷۸۹':
     m=re.match(r'[0-9۰-۹]+(?:[٫.][0-9۰-۹]+)?',raw[i:]);v=norm(m.group());out.append(Tok('NUMBER',v,ln,col));i+=len(m.group());continue
    if c.isalpha() or c=='_' or '\u0600'<=c<='\u06ff':
-    m=re.match(r'[\w\u0600-\u06ff]+',raw[i:],re.UNICODE);out.append(Tok('WORD',norm(m.group()),ln,col));i+=len(m.group());continue
+    m=re.match(r'[\w\u0600-\u06ff\u200c]+',raw[i:],re.UNICODE);out.append(Tok('WORD',norm(m.group()),ln,col));i+=len(m.group());continue
    two=raw[i:i+2]
    if two in ('==','>=','<=','!='):out.append(Tok('OP',two,ln,col));i+=2;continue
    if c in '+*/%=<>[](),:':out.append(Tok('OP',c,ln,col));i+=1;continue
