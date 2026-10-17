@@ -43,6 +43,18 @@ Module/release integration: 28 passed
 Full regression suite: 273 passed
 ```
 
+## corpus مثال‌ها
+
+این اعداد از اجرای مستقل روی commit `d32f97a` به‌دست آمده‌اند و با full suite مخلوط نشده‌اند:
+
+```text
+parse-only: 51 مثال؛ 45 موفق، 6 ناموفق
+اجرای واقعیِ مثال‌های غیر-GUI و غیر-input: 38 مورد؛ 30 موفق، 8 ناموفق
+GUI/desktop: 13 مورد BLOCKED در محیط headless
+```
+
+هر ۶ خطای parse-only مربوط به نیم‌فاصله در identifierهاست و به‌صورت `NOT FIXED` باقی می‌ماند. در اجرای واقعی، ۲ مورد به `input()` و نبود ورودی تعاملی مربوط بود؛ ۶ مورد همان خطاهای identifier هستند. این اعداد ادعای اجرای موفق همهٔ مثال‌ها نیستند.
+
 ## مسیرهای enforcement
 
 - graphics: ابتدای `Interpreter.graphics()`؛ قبل از ساخت `Scene` یا ذخیرهٔ SVG؛

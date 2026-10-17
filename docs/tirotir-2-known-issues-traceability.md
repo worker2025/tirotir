@@ -1,10 +1,10 @@
 # ردیابی مسائل شناخته‌شدهٔ Tirotir 2.0
 
-**مبنای بررسی:** `e333c670f1b9b20b147900b5131a2fe73c99cc80`
+**مبنای بررسی:** `d32f97abdfdee69e40b839e35b81f99531b3c0b3`
 **baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`
 **محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1
 **نتیجهٔ regression baseline:** `244 passed in 1.46s`
-**نتیجهٔ پس از KI-5:** `273 passed`؛ شامل ۱۴ تست مستقل enforcement و regressionهای KI-1، KI-2، KI-9، module و release.
+**نتیجهٔ review:** candidate KI-1 برابر `7 passed`، KI-5 dedicated برابر `14 passed`، module/release برابر `28 passed` و full suite برابر `273 passed`؛ historical baseline جداگانه روی `a6dd5de` موفق شد.
 **قاعده:** هیچ موردی بدون regression test و شواهد اجرای مرتبط `VERIFIED` اصلاح‌شده علامت نمی‌خورد.
 
 ## وضعیت‌های مجاز
@@ -22,7 +22,7 @@
 
 | ID | حوزه | وضعیت فعلی | اولویت | commit اصلاحی |
 |---|---|---|---|---|
-| KI-1 | متن و تفریق | `REPRODUCED` | P0 | characterization tests added |
+| KI-1 | متن و تفریق | `VERIFIED` | P0 | e333c67 |
 | KI-2 | Unicode و نیم‌فاصله | `FIXED LOCALLY` | P0 | 3749e69 |
 | KI-3 | شکل‌های مقایسهٔ فارسی | `OPEN` | P1 | ندارد |
 | KI-4 | diagnostics ساختاریافته | `REPRODUCED` | P1 | ندارد |
@@ -51,23 +51,23 @@
 چاپ ۵-۳+۲-۱
 ```
 
-**Actual:** نمونهٔ سالم `چاپ -سلام دنیا-` همچنان خروجی `سلام دنیا` می‌دهد. عبارت فاصله‌دار `چاپ ۵ - ۳ + ۲ - ۱` خروجی `3` و عبارت فشرده `چاپ ۵-۳+۲-۱` خروجی `5` تولید کرد؛ در حالت فشرده parser بخشی از عبارت را به literal متن تبدیل می‌کند.
+**Actual در candidate:** نمونهٔ سالم `چاپ -سلام دنیا-` خروجی `سلام دنیا` می‌دهد. `چاپ ۵-۳` خروجی `2`، عبارت فاصله‌دار `چاپ ۵ - ۳ + ۲ - ۱` خروجی `3` و عبارت فشرده `چاپ ۵-۳+۲-۱` نیز خروجی `3` می‌دهد.
 
 **Expected:** دو عبارت حسابی معادل باید یا نتیجهٔ یکسان بدهند، یا حالت مبهم با diagnostic دقیق رد شود. متن معتبر legacy باید تا حد امکان حفظ شود.
 
-**Evidence:** `src/tirotir/core.py` در tokenizer/parser؛ smoke test ثبت‌شده در baseline report.
+**Evidence:** `src/tirotir/core.py` در tokenizer/parser؛ `tests/test_ki1_candidate_acceptance.py` و اجرای مستقل ماتریس arithmetic روی commit `d32f97a`.
 
-**Root cause:** در سطح lexer اثبات شد: در `tokenize`، هر `-` که پس از آن فاصله نباشد تا خط تیرهٔ بعدی به‌عنوان `STRING` مصرف می‌شود؛ بنابراین `۵-۳+۲-۱` به توکن‌های متن/عدد تبدیل می‌شود، اما خط‌های جداشده با فاصله `OP` تفریق می‌سازند. علت precedence مستقل هنوز جداگانه لازم نیست.
+**Root cause تاریخی:** در سطح lexer اثبات شد: نسخهٔ baseline هر `-` را در این موقعیت به‌صورت متن مصرف می‌کرد. اصلاح KI-1 در commitهای `60d5197` و `e333c67` lexer را grammar-aware کرد و رفتار compact arithmetic را به قرارداد candidate رساند.
 
 **اثر امنیتی:** خروجی اشتباه بدون خطا؛ مسئلهٔ correctness با اولویت P0.
 
-**آزمون ثبت‌شده:** `tests/test_known_issues.py::test_ki1_legacy_text_and_arithmetic_tokenization_are_characterized` و `test_ki1_existing_function_program_remains_unchanged`. اصلاح semantics هنوز انجام نشده است؛ delimiter سالم باید در هر راه‌حل حفظ شود.
+**آزمون ثبت‌شده:** `tests/test_ki1_candidate_acceptance.py` شامل ۷ آزمون candidate؛ baseline تاریخی در `tests/baseline/ki1_historical_behavior.py` جدا نگه‌داری شده است. تست تابع، return، module import، literal فارسی، U+200C و escape نیز موفق شدند.
 
-**وضعیت:** `REPRODUCED`؛ هنوز اصلاح نشده.
+**وضعیت:** `VERIFIED` در candidate scope؛ رفتار تاریخی `5` فقط روی baseline commit `a6dd5de` حفظ شده و در candidate معرفی نمی‌شود.
 
-**Migration risk:** زیاد؛ هر تغییر lexer ممکن است برنامه‌های 1.1.0 را تغییر دهد.
+**Migration risk:** زیاد؛ compact arithmetic از خروجی تاریخی `5` به `3` تغییر کرده و برنامه‌های وابسته به misclassification تاریخی نیازمند بررسی مهاجرت هستند.
 
-**Commit و verification:** ندارد.
+**Commit و verification:** انتقال KI-1 در `e333c67`؛ candidate `7 passed` روی `d32f97a`؛ historical assertion روی `a6dd5de` موفق.
 
 ## KI-2 — تغییر ناخواستهٔ نیم‌فاصله و Unicode در literal متن
 

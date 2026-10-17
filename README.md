@@ -135,6 +135,38 @@
 
 ---
 
+## وضعیت توسعهٔ Tirotir 2.0
+
+نسخهٔ ۲٫۰ هنوز release نهایی نیست. شاخهٔ review فعلی، قراردادهای آزمایشی و اصلاحات قابل‌آزمون را جدا از baseline نسخهٔ ۱٫۱٫۰ پیش می‌برد. در commit `d32f97a` روی Linux/Python 3.12.3، candidate acceptance برابر **۷ تست موفق**، تست‌های اختصاصی KI-5 برابر **۱۴ تست موفق** و full suite برابر **۲۷۳ تست موفق** است. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
+
+### قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی
+
+- رفتار حسابی فشردهٔ جدید: `چاپ ۵-۳+۲-۱` خروجی `3` می‌دهد؛
+- حفظ literalهای فارسی و نیم‌فاصلهٔ U+200C در متن؛
+- حفظ escapeهای مستندشده، import ماژول و بازگشت مقدار از تابع؛
+- اولویت تابع کاربر بر primitive گرافیکی هم‌نام؛
+- enforcement قابلیت‌های `graphics`، `audio` و `gui` در مسیرهای مستقیم، CLI، project و builder launcher که آزموده شده‌اند؛
+- هستهٔ lexer، parser، interpreter، CLI و module system موجود در baseline؛
+- تولید SVG، تولید WAV و GUI مبتنی بر Tkinter، با محدودیت‌های محیطی و release که در اسناد آمده‌اند.
+
+### قابلیت‌های ناتمام یا برنامه‌ریزی‌شده
+
+- enforcement مستقل `project-files` و `network` و بررسی همهٔ launcherهای خارجی هنوز انجام نشده است؛ کنترل graphics/audio/gui به‌تنهایی sandbox سیستم‌عامل نیست؛
+- شش نمونهٔ رسمی دارای نیم‌فاصله در identifierها هنوز parse نمی‌شوند؛
+- namespace کامل ماژول، event syntax، LSP، debugger، object model، تست native ویندوز، GUI روی desktop واقعی و پخش صوت روی دستگاه واقعی هنوز نهایی یا آزموده نشده‌اند؛
+- نسخهٔ ۲٫۰ هنوز برای انتشار عمومی یا به‌عنوان framework کامل GUI/بازی معرفی نمی‌شود.
+
+رفتار arithmetic فشرده یک تغییر سازگاری‌پذیر مهم است. رفتار تاریخی baseline چنین بود:
+
+```text
+baseline: چاپ ۵-۳+۲-۱ → 5
+Tirotir 2.0 candidate: چاپ ۵-۳+۲-۱ → 3
+```
+
+برای قرارداد KI-1 به [برنامهٔ پذیرش KI-1](docs/tirotir-2-ki1-acceptance-plan-fa.md)، برای معماری به [نقشهٔ معماری ۲٫۰](docs/tirotir-2-architecture-roadmap-fa.md)، برای ردیابی مسائل به [سند traceability](docs/tirotir-2-known-issues-traceability.md)، و برای تغییرات ثبت‌شده به [CHANGELOG](CHANGELOG.md) مراجعه کنید.
+
+---
+
 ## 📚 مستندات HTML
 
 در ریشهٔ مخزن دو سند مستقل HTML قرار دارد که برای مطالعه در مرورگر مناسب‌اند:
