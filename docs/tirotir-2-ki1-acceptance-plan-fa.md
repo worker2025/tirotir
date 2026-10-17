@@ -2,7 +2,7 @@
 
 ## وضعیت
 
-Prototype C هنوز در branch مستقل است و این سند فقط contract و برنامهٔ تست را ثبت می‌کند. هیچ کدی به development منتقل نمی‌شود.
+این سند قرارداد نهایی KI-1 در branch integration را ثبت می‌کند. انتقال به development فقط پس از validation کامل و fast-forward کنترل‌شده انجام می‌شود.
 
 ## ۱. Historical baseline
 
@@ -19,8 +19,7 @@ Old output: 5
 بازآزمایی baseline باید با checkout همان commit، Python همان محیط، و اجرای زیر انجام شود:
 
 ```bash
-PYTHONPATH=src python3 -m pytest -q \
-  tests/test_known_issues.py::test_ki1_legacy_text_and_arithmetic_tokenization_are_characterized
+PYTHONPATH=src python3 tests/baseline/ki1_historical_behavior.py
 ```
 
 در candidate suite نباید این assertion با expected `3` جایگزین شود؛ baseline باید در گزارش/فایل جدا باقی بماند.
@@ -44,10 +43,10 @@ Candidate باید این رفتارها را اثبات کند:
 
 ## ۳. تغییرات دقیق موردنیاز در تست‌ها
 
-در یک integration operation جداگانه، تغییرات زیر پیشنهاد می‌شود:
+در این integration، تغییرات زیر اعمال شده است:
 
-1. assertion فعلی در `tests/test_known_issues.py` حذف یا rewrite نشود؛ به‌عنوان historical characterization باقی بماند.
-2. فایل جدید `tests/test_ki1_acceptance.py` ایجاد شود و فقط candidate contract جدول بالا را بررسی کند.
+1. assertion تاریخی با همان معنا در `tests/baseline/ki1_historical_behavior.py` نگه‌داری شده و روی baseline واقعی اجرا می‌شود.
+2. فایل `tests/test_ki1_candidate_acceptance.py` فقط candidate contract جدول بالا را بررسی می‌کند.
 3. تست compact arithmetic با فاصله و بدون فاصله جدا باشند تا failure مکان‌پذیر باشد.
 4. تست literalهای legacy، escape و U+200C مستقل باشند.
 5. تست module import و `examples2/functions/format_result.t` مستقل باشند.
@@ -70,11 +69,11 @@ Candidate باید این رفتارها را اثبات کند:
 
 ## ۶. فرمان‌های اعتبارسنجی candidate
 
-پس از آماده‌سازی test file در branch integration، فرمان‌های زیر لازم‌اند:
+فرمان‌های نهایی validation عبارت‌اند از:
 
 ```bash
-PYTHONPATH=src python3 -m pytest -q tests/test_ki1_acceptance.py
-PYTHONPATH=src python3 -m pytest -q tests/test_known_issues.py::test_ki1_legacy_text_and_arithmetic_tokenization_are_characterized
+PYTHONPATH=src python3 -m pytest -q tests/test_ki1_candidate_acceptance.py
+PYTHONPATH=src python3 tests/baseline/ki1_historical_behavior.py
 PYTHONPATH=src python3 -m pytest -q tests/test_known_issues.py tests/test_core.py
 PYTHONPATH=src python3 -m pytest -q tests/test_modules.py tests/test_release_integration.py
 PYTHONPATH=src python3 -m pytest -q
@@ -82,11 +81,11 @@ PYTHONPATH=src python3 -m pytest -q
 
 full suite فقط زمانی «سبز» گزارش شود که assertion تاریخی به‌درستی از candidate suite جدا شده باشد؛ نباید failure با `xfail` یا حذف تست پنهان شود.
 
-## ۷. توصیهٔ فعلی
+## ۷. وضعیت نهایی integration
 
-Prototype C برای **human integration review** آماده است، اما برای انتقال به development هنوز به این تصمیم‌ها نیاز دارد:
+branch integration پس از جداسازی baseline و candidate برای انتقال fast-forward آماده است. موارد زیر باید در گزارش نهایی حفظ شوند:
 
-1. تصویب arithmetic contract جدید؛
-2. تصویب نحوهٔ نگهداری و اجرای baseline؛
-3. تصویب migration policy برای compact arithmetic؛
-4. اجرای integration operation جداگانه با checkpoint و review diff.
+1. ثبت arithmetic contract جدید؛
+2. حفظ اجرای baseline روی commit قدیمی؛
+3. ثبت migration risk برای compact arithmetic؛
+4. اجرای تست‌های پس از انتقال روی development.

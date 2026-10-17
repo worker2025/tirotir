@@ -1,7 +1,7 @@
 import pytest
 
 from tirotir import Capability, CapabilityError, CapabilityRegistry
-from tirotir.core import Call, Func, ast_json, execute, parse, tokenize
+from tirotir.core import Call, Func, ast_json, execute, parse
 
 
 def run(source):
@@ -22,18 +22,6 @@ def test_ki2_keeps_identifier_normalization_for_arabic_variants():
     # Identifier normalization is distinct from literal preservation.
     assert run("بگذار كليد برابر ۷\nچاپ کلید") == [7]
     assert run("بگذار يک برابر ۸\nچاپ یک") == [8]
-
-
-def test_ki1_legacy_text_and_arithmetic_tokenization_are_characterized():
-    assert [(token.kind, token.value) for token in tokenize("چاپ -سلام دنیا-")] == [
-        ("WORD", "چاپ"),
-        ("STRING", "سلام دنیا"),
-        ("NEWLINE", ""),
-        ("EOF", ""),
-    ]
-    assert run("چاپ ۵ - ۳ + ۲ - ۱") == [3]
-    # This is the current legacy behavior and is recorded before any KI-1 fix.
-    assert run("چاپ ۵-۳+۲-۱") == [5]
 
 
 def test_ki1_existing_function_program_remains_unchanged():
