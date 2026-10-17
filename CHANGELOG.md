@@ -27,6 +27,12 @@ Tirotir 2.0 candidate:
 - بازگشت مقدار از function؛
 - اولویت تابع کاربر بر primitive گرافیکی هم‌نام.
 
+### ممیزی U+200C در identifierها
+
+در audit branch مستقل `audit/u200c-identifier-fix`، lexer اکنون U+200C را داخل identifier می‌پذیرد و normalization قراردادی آن را به underscore تبدیل می‌کند؛ بنابراین identifierهایی مانند `نام‌گذاری` به `نام_گذاری` نگاشت می‌شوند. مسیر literal متن و escapeها تغییر نکرده‌اند. شش مثال رسمی دارای این نویسه اکنون parse و اجرا می‌شوند.
+
+این اصلاح هنوز به `review/tirotir-2-integrity` یا `development` منتقل نشده است و release محسوب نمی‌شود. commit ممیزی: `dc110f3`.
+
 ### وضعیت validation
 
 - candidate acceptance: `7 passed`؛
@@ -34,7 +40,9 @@ Tirotir 2.0 candidate:
 - full review suite: `273 passed` روی commit `d32f97abdfdee69e40b839e35b81f99531b3c0b3`؛
 - historical baseline: assertion مستقل روی commit `a6dd5dec1b4b9e2a304fec0a6cf06aecac7b417` موفق شد؛
 - module/release integration: `28 passed`؛
-- شش failure مربوط به U+200C در identifierهای نمونه‌ها همچنان حل‌نشده و خارج از scope KI-1 هستند.
+- audit regression برای U+200C در identifierها: `9 passed`؛
+- full suite در audit branch: `282 passed`؛
+- دو مثال نیازمند ورودی تعاملی و ۱۳ مثال GUI در اجرای end-to-end محیط sandbox جداگانه گزارش شده‌اند؛ parse-only corpus برابر `51/51` موفق است.
 
 ### خارج از این تغییر
 

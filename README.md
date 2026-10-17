@@ -137,7 +137,7 @@
 
 ## وضعیت توسعهٔ Tirotir 2.0
 
-نسخهٔ ۲٫۰ هنوز release نهایی نیست. شاخهٔ review فعلی، قراردادهای آزمایشی و اصلاحات قابل‌آزمون را جدا از baseline نسخهٔ ۱٫۱٫۰ پیش می‌برد. در commit `d32f97a` روی Linux/Python 3.12.3، candidate acceptance برابر **۷ تست موفق**، تست‌های اختصاصی KI-5 برابر **۱۴ تست موفق** و full suite برابر **۲۷۳ تست موفق** است. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
+نسخهٔ ۲٫۰ هنوز release نهایی نیست. شاخهٔ review فعلی، قراردادهای آزمایشی و اصلاحات قابل‌آزمون را جدا از baseline نسخهٔ ۱٫۱٫۰ پیش می‌برد. در checkpoint review روی commit `d32f97a`، candidate acceptance برابر **۷ تست موفق**، تست‌های اختصاصی KI-5 برابر **۱۴ تست موفق** و full suite برابر **۲۷۳ تست موفق** است. در audit branch مستقل `audit/u200c-identifier-fix`، پس از اصلاح parsing شناسه‌های دارای U+200C، full suite برابر **۲۸۲ تست موفق** است. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
 
 ### قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی
 
@@ -146,13 +146,14 @@
 - حفظ escapeهای مستندشده، import ماژول و بازگشت مقدار از تابع؛
 - اولویت تابع کاربر بر primitive گرافیکی هم‌نام؛
 - enforcement قابلیت‌های `graphics`، `audio` و `gui` در مسیرهای مستقیم، CLI، project و builder launcher که آزموده شده‌اند؛
+- پذیرش U+200C در شناسه‌ها با حفظ قرارداد normalization به underscore؛ شش مثال رسمی مرتبط اکنون parse و اجرا می‌شوند؛
 - هستهٔ lexer، parser، interpreter، CLI و module system موجود در baseline؛
 - تولید SVG، تولید WAV و GUI مبتنی بر Tkinter، با محدودیت‌های محیطی و release که در اسناد آمده‌اند.
 
 ### قابلیت‌های ناتمام یا برنامه‌ریزی‌شده
 
 - enforcement مستقل `project-files` و `network` و بررسی همهٔ launcherهای خارجی هنوز انجام نشده است؛ کنترل graphics/audio/gui به‌تنهایی sandbox سیستم‌عامل نیست؛
-- شش نمونهٔ رسمی دارای نیم‌فاصله در identifierها هنوز parse نمی‌شوند؛
+- اصلاح شناسه‌های دارای نیم‌فاصله در audit branch ثبت شده است، اما هنوز به شاخهٔ review یا `development` منتقل نشده و release محسوب نمی‌شود؛
 - namespace کامل ماژول، event syntax، LSP، debugger، object model، تست native ویندوز، GUI روی desktop واقعی و پخش صوت روی دستگاه واقعی هنوز نهایی یا آزموده نشده‌اند؛
 - نسخهٔ ۲٫۰ هنوز برای انتشار عمومی یا به‌عنوان framework کامل GUI/بازی معرفی نمی‌شود.
 
