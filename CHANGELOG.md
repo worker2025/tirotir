@@ -74,3 +74,7 @@ Tirotir 2.0 candidate:
 - VSIX از commit نهایی ساخته و با `unzip -t` بررسی شد؛ checksum در گزارش ممیزی ثبت شده است.
 
 این validation برای انتشار آزمایشی محدود candidate کافی است، اما مجوز انتشار عمومی، ساخت tag یا تغییر `main` نیست.
+
+### راهنمای آزمایش candidate
+
+راهنمای [فارسی آزمایش](docs/tirotir-2-experimental-testing-fa.md) و [انگلیسی آزمایش](docs/tirotir-2-experimental-testing-en.md) شامل نصب، اولین اجرا، KI-1، capabilityها، محدودیت‌های محیط و قالب گزارش خطا هستند.

@@ -168,7 +168,7 @@ baseline: چاپ ۵-۳+۲-۱ → 5
 Tirotir 2.0 candidate: چاپ ۵-۳+۲-۱ → 3
 ```
 
-برای قرارداد KI-1 به [برنامهٔ پذیرش KI-1](docs/tirotir-2-ki1-acceptance-plan-fa.md)، برای مهاجرت به [راهنمای مهاجرت ۲٫۰](docs/tirotir-2-migration-guide-fa.md)، برای معماری به [نقشهٔ معماری ۲٫۰](docs/tirotir-2-architecture-roadmap-fa.md)، برای ردیابی مسائل به [سند traceability](docs/tirotir-2-known-issues-traceability.md)، و برای تغییرات ثبت‌شده به [CHANGELOG](CHANGELOG.md) مراجعه کنید.
+برای قرارداد KI-1 به [برنامهٔ پذیرش KI-1](docs/tirotir-2-ki1-acceptance-plan-fa.md)، برای مهاجرت به [راهنمای مهاجرت ۲٫۰](docs/tirotir-2-migration-guide-fa.md)، برای شروع آزمایش به [راهنمای فارسی آزمایش](docs/tirotir-2-experimental-testing-fa.md) و [راهنمای انگلیسی آزمایش](docs/tirotir-2-experimental-testing-en.md)، برای معماری به [نقشهٔ معماری ۲٫۰](docs/tirotir-2-architecture-roadmap-fa.md)، برای ردیابی مسائل به [سند traceability](docs/tirotir-2-known-issues-traceability.md)، و برای تغییرات ثبت‌شده به [CHANGELOG](CHANGELOG.md) مراجعه کنید.
 
 ---
 
