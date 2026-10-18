@@ -2,7 +2,7 @@
 from dataclasses import dataclass, fields, is_dataclass
 import html, re, math, wave, struct
 from .audio import AudioBackendUnavailable, play_file, render_sequence
-from .contracts import SourceSpan
+from .contracts import Capability, CapabilityError, RuntimeContext, SourceSpan
 
 DIGITS=str.maketrans('۰۱۲۳۴۵۶۷۸۹٫٬','0123456789.,')
 def norm(s:str)->str:return s.translate(DIGITS).replace('ي','ی').replace('ك','ک').replace('\u200c','_')
@@ -31,7 +31,17 @@ def tokenize(src:str):
    if c=='#':break
    col=i+1
    if c=='-':
-    # متن با -...-؛ خط تیرهٔ جدا از دو طرف عملگر تفریق است
+    # Prototype C: derive string positions from parser roles instead of a
+    # broad keyword list. After an expression terminator '-' is subtraction;
+    # after a statement/argument/module string introducer it may open text.
+    prev=next((t for t in reversed(out) if t.kind not in ('NEWLINE','INDENT','DEDENT')),None)
+    before_prev=next((t for t in reversed(out[:-1]) if t.kind not in ('NEWLINE','INDENT','DEDENT')),None) if prev is not None else None
+    text_position=(prev is None or prev.kind=='STRING' or
+                   (prev.kind=='WORD' and prev.value in ('چاپ','برابر','با','و','بازگردان','اگر','تاوقتی','در','تکرار')) or
+                   (prev.kind=='WORD' and prev.value=='کن' and before_prev is not None and before_prev.value=='وارد') or
+                   (prev.kind=='OP' and prev.value in ('(','[',',',':')))
+    if not text_position:
+     out.append(Tok('OP','-',ln,col));i+=1;continue
     j=i+1; escaped=False; buf=[]
     while j<len(raw):
      if raw[j]=='-' and not escaped:break
@@ -43,7 +53,7 @@ def tokenize(src:str):
    if c.isdigit() or c in '۰۱۲۳۴۵۶۷۸۹':
     m=re.match(r'[0-9۰-۹]+(?:[٫.][0-9۰-۹]+)?',raw[i:]);v=norm(m.group());out.append(Tok('NUMBER',v,ln,col));i+=len(m.group());continue
    if c.isalpha() or c=='_' or '\u0600'<=c<='\u06ff':
-    m=re.match(r'[\w\u0600-\u06ff]+',raw[i:],re.UNICODE);out.append(Tok('WORD',norm(m.group()),ln,col));i+=len(m.group());continue
+    m=re.match(r'[\w\u0600-\u06ff\u200c]+',raw[i:],re.UNICODE);out.append(Tok('WORD',norm(m.group()),ln,col));i+=len(m.group());continue
    two=raw[i:i+2]
    if two in ('==','>=','<=','!='):out.append(Tok('OP',two,ln,col));i+=2;continue
    if c in '+*/%=<>[](),:':out.append(Tok('OP',c,ln,col));i+=1;continue
@@ -239,7 +249,7 @@ class Ret(Exception):
 class Br(Exception):pass
 class Cont(Exception):pass
 class Interpreter:
- def __init__(self,output=None,input_fn=None,max_steps=100000,play_audio=False):self.env=Env();self.out=print if output is None else output;self.input=input if input_fn is None else input_fn;self.steps=0;self.max_steps=max_steps;self.funcs={};self.play_audio=play_audio;self.audio_notes=[];self.audio_path='tirotir-note.wav'
+ def __init__(self,output=None,input_fn=None,max_steps=100000,play_audio=False,runtime_context=None):self.env=Env();self.out=print if output is None else output;self.input=input if input_fn is None else input_fn;self.steps=0;self.max_steps=max_steps;self.funcs={};self.play_audio=play_audio;self.audio_notes=[];self.audio_path='tirotir-note.wav';self.runtime_context=runtime_context or RuntimeContext()
  def run(self,p):
   for s in p.body:
    if isinstance(s,Func):self.funcs[s.name]=s
@@ -328,7 +338,7 @@ class Interpreter:
    except (KeyError,TypeError,ZeroDivisionError):raise RuntimeErrorFa(f'عملیات «{o}» روی این نوع داده مجاز نیست.')
   if isinstance(n,Call):
    args=[self.val(a) for a in n.args]
-   if n.name in ('پنجره_بازکن','پنجره_ببند','پاک_کن','حرکت','عقب_برو','چرخش','به_سمت','قلم_پایین','قلم_بالا','رنگ_قلم','ضخامت_قلم','مربع','مستطیل','دایره','مثلث','پر_کن'):
+   if n.name in ('پنجره_بازکن','پنجره_ببند','پاک_کن','حرکت','عقب_برو','چرخش','به_سمت','قلم_پایین','قلم_بالا','رنگ_قلم','ضخامت_قلم','مربع','مستطیل','دایره','مثلث','پر_کن') and n.name not in self.funcs:
     return self.graphics(n.name,args)
    if n.name in ('پنجره_بساز','برچسب_بساز','دکمه_بساز','ورودی_بساز','چک_باکس_بساز','لیست_بساز','منوی_انتخاب_بساز','متن_چندخطی_بساز','نوار_لغزش_بساز','نمایش_پنجره'):
     return self.gui_command(n.name,args)
@@ -351,9 +361,11 @@ class Interpreter:
    return None
   return None
  def graphics(self,name,args):
+  self.runtime_context.require(Capability.GRAPHICS)
   if not hasattr(self,'scene'):self.scene=Scene()
   return self.scene.command(name,args)
  def audio_note(self,args):
+  self.runtime_context.require(Capability.AUDIO)
   if not args:raise RuntimeErrorFa('نت بنواز به نام نت یا فرکانس نیاز دارد.')
   notes={'دو':261.63,'ر':'293.66','رِ':293.66,'می':329.63,'فا':349.23,'سل':392.00,'لا':440.00,'سی':493.88}
   try:freq=float(args[0])
@@ -364,7 +376,8 @@ class Interpreter:
   self.audio_notes.append((freq,duration))
   return self.audio_path
  def gui_command(self,name,args):
-  if not hasattr(self,'gui'):self.gui=Gui()
+  self.runtime_context.require(Capability.GUI)
+  if not hasattr(self,'gui'):self.gui=Gui(self.out)
   return self.gui.command(name,args)
 
 class Scene:
@@ -413,10 +426,10 @@ class Scene:
 
 class Gui:
  """رابط گرافیکی اختیاری؛ فقط با فراخوانی API فعال و به Tkinter وابسته است."""
- def __init__(self):
+ def __init__(self,output=None):
   try:
    import tkinter as tk
-   self.tk=tk;self.root=None;self.widgets=[]
+   self.tk=tk;self.root=None;self.widgets=[];self.out=print if output is None else output
   except ImportError:raise RuntimeErrorFa('TIR4001: رابط گرافیکی در این محیط در دسترس نیست؛ Tkinter و desktop لازم است.')
  def command(self,name,args):
   if name=='پنجره_بساز':
@@ -426,9 +439,11 @@ class Gui:
    self.root.title(title);self.root.geometry(f'{w}x{h}')
   elif self.root is None:raise RuntimeErrorFa('ابتدا با «پنجره بساز» یک پنجره ایجاد کنید.')
   elif name=='برچسب_بساز':
-   self.widgets.append(self.tk.Label(self.root,text=str(args[0]) if args else '').pack(padx=12,pady=8))
+   widget=self.tk.Label(self.root,text=str(args[0]) if args else '');widget.pack(padx=12,pady=8);self.widgets.append(widget)
   elif name=='دکمه_بساز':
-   self.widgets.append(self.tk.Button(self.root,text=str(args[0]) if args else 'دکمه').pack(padx=12,pady=8))
+   label=str(args[0]) if args else 'دکمه';message=str(args[1]) if len(args)>1 else None
+   callback=(lambda:self.out(message)) if message is not None else (lambda:None)
+   widget=self.tk.Button(self.root,text=label,command=callback);widget.pack(padx=12,pady=8);self.widgets.append(widget)
   elif name=='ورودی_بساز':self.widgets.append(self.tk.Entry(self.root));self.widgets[-1].pack(padx=12,pady=8)
   elif name=='چک_باکس_بساز':
    var=self.tk.BooleanVar();self.widgets.append(self.tk.Checkbutton(self.root,text=str(args[0]) if args else 'فعال',variable=var));self.widgets[-1].pack(padx=12,pady=8)
@@ -445,12 +460,13 @@ class Gui:
   return None
 
 def parse(src):
- src=src.replace('\u200c','_')
  aliases=[('پنجره بازکن','پنجره_بازکن'),('پنجره ببند','پنجره_ببند'),('پنجره بساز','پنجره_بساز'),('برچسب بساز','برچسب_بساز'),('دکمه بساز','دکمه_بساز'),('ورودی بساز','ورودی_بساز'),('چک_باکس بساز','چک_باکس_بساز'),('چک‌باکس بساز','چک_باکس_بساز'),('چک باکس بساز','چک_باکس_بساز'),('لیست بساز','لیست_بساز'),('منوی انتخاب بساز','منوی_انتخاب_بساز'),('متن چندخطی بساز','متن_چندخطی_بساز'),('نوار لغزش بساز','نوار_لغزش_بساز'),('نمایش پنجره','نمایش_پنجره'),('پاک کن','پاک_کن'),('عقب برو','عقب_برو'),('قلم پایین','قلم_پایین'),('قلم بالا','قلم_بالا'),('رنگ قلم','رنگ_قلم'),('ضخامت قلم','ضخامت_قلم'),('نت بنواز','نت_بنواز'),('موسیقی پخش کن','موسیقی_پخش_کن')]
  for a,b in aliases:src=src.replace(a,b)
  for a,b in [('بزرگتر یا مساوی','>='),('کوچکتر یا مساوی','<='),('برابر با','=='),('نا برابر با','!='),('بزرگتر از','>'),('کوچکتر از','<')]:src=re.sub(r'(?<![\w\u0600-\u06ff])'+re.escape(a)+r'(?![\w\u0600-\u06ff])',b,src)
  return Parser(tokenize(src)).parse()
-def execute(src,output=None,input_fn=None,scene_path=None,play_audio=False):
- p=parse(src);runner=Interpreter(output,input_fn,play_audio=play_audio);runner.run(p)
+def execute(src,output=None,input_fn=None,scene_path=None,play_audio=False,capabilities=None,runtime_context=None):
+ if capabilities is not None and runtime_context is not None:raise CapabilityError('capabilities و runtime_context را هم‌زمان ارسال نکنید.')
+ if runtime_context is None:runtime_context=RuntimeContext.from_capabilities(capabilities)
+ p=parse(src);runner=Interpreter(output,input_fn,play_audio=play_audio,runtime_context=runtime_context);runner.run(p)
  if hasattr(runner,'scene'):runner.scene.save(scene_path or 'tirotir-scene.svg')
  return p

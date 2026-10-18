@@ -135,6 +135,43 @@
 
 ---
 
+## وضعیت توسعهٔ Tirotir 2.0
+
+نسخهٔ رسمی **Tirotir 2.0.0** بر پایهٔ شاخهٔ توسعهٔ اعتبارسنجی‌شده منتشر می‌شود. full suite برابر **۲۹۱ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI و security boundary نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
+
+### قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی
+
+- رفتار حسابی فشردهٔ جدید: `چاپ ۵-۳+۲-۱` خروجی `3` می‌دهد؛
+- حفظ literalهای فارسی و نیم‌فاصلهٔ U+200C در متن؛
+- حفظ escapeهای مستندشده، import ماژول و بازگشت مقدار از تابع؛
+- اولویت تابع کاربر بر primitive گرافیکی هم‌نام؛
+- enforcement قابلیت‌های `graphics`، `audio` و `gui` در مسیرهای مستقیم، CLI، project و builder launcher که آزموده شده‌اند؛
+- پذیرش U+200C در شناسه‌ها با حفظ قرارداد normalization به underscore؛ شش مثال رسمی مرتبط اکنون parse و اجرا می‌شوند؛
+- هستهٔ lexer، parser، interpreter، CLI و module system موجود در baseline؛
+- تولید SVG، تولید WAV و GUI مبتنی بر Tkinter، با محدودیت‌های محیطی و release که در اسناد آمده‌اند.
+
+### قابلیت‌های ناتمام یا برنامه‌ریزی‌شده
+
+- enforcement مستقل `project-files` و `network` و بررسی همهٔ launcherهای خارجی هنوز انجام نشده است؛ کنترل graphics/audio/gui به‌تنهایی sandbox سیستم‌عامل نیست؛
+- اصلاح شناسه‌های دارای نیم‌فاصله در release 2.0.0 ثبت و آزموده شده است؛
+- metadata candidate، حداقل Python `>=3.11` و مدیریت EOF CLI هماهنگ و آزموده شده‌اند؛
+- GUI با Tkinter و Xvfb به‌صورت واقعی smoke شده است، اما اجرای desktop فیزیکی و Windows هنوز تأیید نشده‌اند؛
+- traversal و symlink escape در ModuleSandbox آزموده شده و برای `network` و `project-files` نبود backend زبانی عمداً صریح ثبت شده است؛
+- CI لینوکس برای Python 3.11 و 3.12 در `.github/workflows/ci.yml` اضافه شده است؛
+- namespace کامل ماژول، event syntax، LSP، debugger، object model، تست native ویندوز، GUI روی desktop واقعی و پخش صوت روی دستگاه واقعی هنوز نهایی یا آزموده نشده‌اند؛
+- نسخهٔ ۲٫۰٫۰ برای Linux و Python 3.11/3.12 منتشر شده است؛ این release به‌عنوان framework کامل GUI/بازی یا release cross-platform معرفی نمی‌شود.
+
+رفتار arithmetic فشرده یک تغییر سازگاری‌پذیر مهم است. رفتار تاریخی baseline چنین بود:
+
+```text
+baseline: چاپ ۵-۳+۲-۱ → 5
+Tirotir 2.0 candidate: چاپ ۵-۳+۲-۱ → 3
+```
+
+برای قرارداد KI-1 به [برنامهٔ پذیرش KI-1](docs/tirotir-2-ki1-acceptance-plan-fa.md)، برای مهاجرت به [راهنمای مهاجرت ۲٫۰](docs/tirotir-2-migration-guide-fa.md)، برای شروع آزمایش به [راهنمای فارسی آزمایش](docs/tirotir-2-experimental-testing-fa.md) و [راهنمای انگلیسی آزمایش](docs/tirotir-2-experimental-testing-en.md)، برای معماری به [نقشهٔ معماری ۲٫۰](docs/tirotir-2-architecture-roadmap-fa.md)، برای ردیابی مسائل به [سند traceability](docs/tirotir-2-known-issues-traceability.md)، و برای تغییرات ثبت‌شده به [CHANGELOG](CHANGELOG.md) مراجعه کنید.
+
+---
+
 ## 📚 مستندات HTML
 
 در ریشهٔ مخزن دو سند مستقل HTML قرار دارد که برای مطالعه در مرورگر مناسب‌اند:
