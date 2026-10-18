@@ -6,6 +6,8 @@
 **commitهای این مرحله:** `276e55f` و `5fa8882`
 **محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1
 
+**وضعیت سند:** این گزارش ابتدا برای candidate توسعه نوشته شد؛ پس از validation نهایی و هماهنگ‌سازی نسخه، release رسمی `v2.0.0` بر همان شواهد و با محدودیت‌های ثبت‌شده ساخته می‌شود.
+
 ## نتیجهٔ اجرایی
 
 نسخهٔ فعلی یک **candidate عملی برای Linux/Python 3.11+** است، نه release عمومی نهایی. هستهٔ زبان، CLI، نصب Python package، تولید SVG، تولید WAV، capabilityهای graphics/audio/gui، module execution و مسیر VS Code دارای کد و regression واقعی هستند. GUI با Tkinter در این sandbox پس از نصب `python3-tk` و با `Xvfb` به‌صورت واقعی smoke شد.

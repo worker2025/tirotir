@@ -1,8 +1,7 @@
 # Changelog
 
-## Unreleased — Tirotir 2.0 candidate
-
-این بخش وضعیت توسعهٔ نسخهٔ ۲٫۰ را ثبت می‌کند. نسخهٔ ۲٫۰ هنوز release نهایی نیست و این تغییرات منتشر نشده‌اند.
+## Tirotir 2.0.0 — 2026-10-18
+این release رسمی نسخهٔ ۲٫۰ است. محدودیت‌های پلتفرم، GUI، صوت، VS Code و sandbox در README و Known Issues صریحاً ثبت شده‌اند.
 
 ### تغییر KI-1: arithmetic فشرده
 
@@ -12,7 +11,7 @@
 Historical baseline 1.1.0:
 چاپ ۵-۳+۲-۱ → 5
 
-Tirotir 2.0 candidate:
+Tirotir 2.0.0:
 چاپ ۵-۳+۲-۱ → 3
 ```
 
@@ -33,9 +32,9 @@ Tirotir 2.0 candidate:
 
 این اصلاح ابتدا در audit branch ثبت و سپس همراه review به `development/tirotir-2.0-20261017T110755Z` منتقل شد؛ release عمومی محسوب نمی‌شود. commit ممیزی: `dc110f3`.
 
-### تکمیل candidate در development
+### تکمیل release در development
 
-- metadata پکیج، runtime و افزونه به نسخهٔ غیرانتشاری `2.0.0.dev0` / `2.0.0-dev` هماهنگ شد؛
+- metadata پکیج، runtime و افزونه به نسخهٔ رسمی `2.0.0` هماهنگ شد؛
 - حداقل Python به `>=3.11` تغییر کرد، چون module loader از `tomllib` استفاده می‌کند؛
 - EOF ورودی استاندارد اکنون پیام خطای فارسی کنترل‌شده می‌دهد؛
 - مسیر GUI widgetها را نگه می‌دارد و callback سادهٔ دکمه را dispatch می‌کند؛ این مسیر با fake Tkinter و Tkinter واقعی تحت Xvfb آزمایش شد؛
@@ -43,7 +42,7 @@ Tirotir 2.0 candidate:
 - security boundary tests برای `network`، `project-files`، traversal و symlink escape: `5 passed`؛ full suite فعلی: `291 passed`؛
 - CI لینوکس برای Python 3.11 و 3.12 به `.github/workflows/ci.yml` اضافه شد؛ اجرای GitHub runner در این session انجام نشده است.
 
-این موارد candidate توسعه هستند و به‌معنای آماده‌بودن برای انتشار عمومی Windows/macOS، installer، VS Code واقعی یا پخش صوت دستگاهی نیستند.
+این release رسمی است، اما به‌معنای تأیید Windows/macOS، installer، VS Code واقعی یا پخش صوت دستگاهی نیست.
 
 ### وضعیت validation
 
@@ -73,7 +72,7 @@ Tirotir 2.0 candidate:
 - نصب پاک، CLI، تولید SVG و تولید WAV موفق شد؛ پخش سخت‌افزاری صدا و VS Code واقعی در محیط موجود نبود؛
 - VSIX از commit نهایی ساخته و با `unzip -t` بررسی شد؛ checksum در گزارش ممیزی ثبت شده است.
 
-این validation برای انتشار آزمایشی محدود candidate کافی است، اما مجوز انتشار عمومی، ساخت tag یا تغییر `main` نیست.
+این validation برای release رسمی در محدودهٔ Linux/Python 3.11-3.12 انجام شده است؛ محدودیت‌های خارج از این محدوده پابرجاست.
 
 ### راهنمای آزمایش candidate
 

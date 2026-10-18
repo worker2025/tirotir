@@ -137,7 +137,7 @@
 
 ## وضعیت توسعهٔ Tirotir 2.0
 
-نسخهٔ ۲٫۰ هنوز release نهایی نیست. شاخهٔ development فعلی، قراردادهای آزمایشی و اصلاحات قابل‌آزمون را جدا از baseline نسخهٔ ۱٫۱٫۰ پیش می‌برد. در checkpoint نهایی این مرحله، full suite برابر **۲۹۱ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI و security boundary نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
+نسخهٔ رسمی **Tirotir 2.0.0** بر پایهٔ شاخهٔ توسعهٔ اعتبارسنجی‌شده منتشر می‌شود. full suite برابر **۲۹۱ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI و security boundary نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
 
 ### قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی
 
@@ -153,13 +153,13 @@
 ### قابلیت‌های ناتمام یا برنامه‌ریزی‌شده
 
 - enforcement مستقل `project-files` و `network` و بررسی همهٔ launcherهای خارجی هنوز انجام نشده است؛ کنترل graphics/audio/gui به‌تنهایی sandbox سیستم‌عامل نیست؛
-- اصلاح شناسه‌های دارای نیم‌فاصله به شاخهٔ development منتقل شده است، اما release محسوب نمی‌شود؛
+- اصلاح شناسه‌های دارای نیم‌فاصله در release 2.0.0 ثبت و آزموده شده است؛
 - metadata candidate، حداقل Python `>=3.11` و مدیریت EOF CLI هماهنگ و آزموده شده‌اند؛
 - GUI با Tkinter و Xvfb به‌صورت واقعی smoke شده است، اما اجرای desktop فیزیکی و Windows هنوز تأیید نشده‌اند؛
 - traversal و symlink escape در ModuleSandbox آزموده شده و برای `network` و `project-files` نبود backend زبانی عمداً صریح ثبت شده است؛
 - CI لینوکس برای Python 3.11 و 3.12 در `.github/workflows/ci.yml` اضافه شده است؛
 - namespace کامل ماژول، event syntax، LSP، debugger، object model، تست native ویندوز، GUI روی desktop واقعی و پخش صوت روی دستگاه واقعی هنوز نهایی یا آزموده نشده‌اند؛
-- نسخهٔ ۲٫۰ هنوز برای انتشار عمومی یا به‌عنوان framework کامل GUI/بازی معرفی نمی‌شود.
+- نسخهٔ ۲٫۰٫۰ برای Linux و Python 3.11/3.12 منتشر شده است؛ این release به‌عنوان framework کامل GUI/بازی یا release cross-platform معرفی نمی‌شود.
 
 رفتار arithmetic فشرده یک تغییر سازگاری‌پذیر مهم است. رفتار تاریخی baseline چنین بود:
 

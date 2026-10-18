@@ -3,6 +3,7 @@
 **مبنای بررسی:** `cf6a30dd536f11c1e42076ebc4778dae8418ee4b`
 **baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`
 **محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1
+**وضعیت انتشار:** شواهد این سند ابتدا در candidate توسعه جمع‌آوری شد و سپس برای release رسمی `v2.0.0` بازبینی شد. `VERIFIED` در این سند به محدودهٔ آزموده‌شده اشاره دارد و به‌معنای پشتیبانی همهٔ سیستم‌عامل‌ها یا sandbox کامل OS نیست.
 **نتیجهٔ regression baseline:** `244 passed in 1.46s`
 **نتیجهٔ validation نهایی:** full suite برابر `291 passed`، focused security/runtime/KI suite برابر `38 passed`، همهٔ `51/51` مثال parse شدند، `38` مثال non-GUI با capability لازم اجرا شدند و GitHub Actions برای همین SHA با موفقیت کامل شد؛ historical baseline جداگانه روی `a6dd5de` موفق شد.
 **قاعده:** هیچ موردی بدون regression test و شواهد اجرای مرتبط `VERIFIED` اصلاح‌شده علامت نمی‌خورد.

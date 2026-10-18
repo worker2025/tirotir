@@ -1,12 +1,12 @@
-# Tirotir 2.0 Experimental Testing Guide
+# Tirotir 2.0.0 Testing Guide
 
-This package is an **experimental candidate**, not a stable or public release.
+This guide describes testing the official `2.0.0` release; platform and backend limitations remain explicit below.
 
 ## Validated environment
 
 - Linux;
 - Python 3.11 or 3.12;
-- package name: `tirotir`, version: `2.0.0.dev0`;
+- package name: `tirotir`, version: `2.0.0`;
 - CLI command: `tirotir`.
 
 Windows, macOS, real VS Code activation, physical desktop GUI, and hardware audio playback are not validated for this candidate.

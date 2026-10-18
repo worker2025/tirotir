@@ -1,12 +1,12 @@
-# راهنمای آزمایش Tirotir 2.0 — فارسی
+# راهنمای آزمایش Tirotir 2.0.0 — فارسی
 
-این بسته **experimental candidate** است و release پایدار یا عمومی نیست.
+این سند روش آزمایش release رسمی `2.0.0` را ثبت می‌کند؛ محدودیت‌های پلتفرم و backend در ادامه صریح هستند.
 
 ## محیط تأییدشده
 
 - Linux؛
 - Python 3.11 یا 3.12؛
-- package نام `tirotir`، نسخهٔ `2.0.0.dev0`؛
+- package نام `tirotir`، نسخهٔ `2.0.0`؛
 - فرمان CLI: `tirotir`.
 
 Windows، macOS، اجرای واقعی VS Code، desktop GUI فیزیکی و پخش صوت سخت‌افزاری در این candidate تأیید نشده‌اند.

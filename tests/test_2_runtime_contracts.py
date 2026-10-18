@@ -13,8 +13,8 @@ ROOT = Path(__file__).parents[1]
 def test_candidate_version_is_consistent_across_runtime_and_manifests():
     metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf8"))
     extension = json.loads((ROOT / "vscode-tirotirLang/package.json").read_text(encoding="utf8"))
-    assert __version__ == VERSION == metadata["project"]["version"] == "2.0.0.dev0"
-    assert extension["version"] == "2.0.0-dev"
+    assert __version__ == VERSION == metadata["project"]["version"] == "2.0.0"
+    assert extension["version"] == "2.0.0"
     assert extension["repository"]["url"] == "https://github.com/worker2025/tirotir"
     assert (ROOT / "vscode-tirotirLang/.vscodeignore").is_file()
     assert metadata["project"]["requires-python"] == ">=3.11"
@@ -22,7 +22,7 @@ def test_candidate_version_is_consistent_across_runtime_and_manifests():
 
 def test_cli_reports_version_from_package(capsys):
     assert main(["version"]) == 0
-    assert capsys.readouterr().out.strip() == "Tirotir 2.0.0.dev0"
+    assert capsys.readouterr().out.strip() == "Tirotir 2.0.0"
 
 
 def test_cli_reports_eof_as_user_error_without_traceback(tmp_path, monkeypatch, capsys):
