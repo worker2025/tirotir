@@ -301,11 +301,11 @@
 
 **اصلاح پیشنهادی:** تصمیم رسمی، هماهنگ‌سازی pyproject، README، wheel metadata، CI و docs.
 
-**وضعیت:** `REPRODUCED` به‌عنوان discrepancy metadata؛ اصلاح نشده.
+**وضعیت:** `VERIFIED` در candidate scope. `pyproject.toml` اکنون حداقل Python را `>=3.11` اعلام می‌کند؛ این مقدار با import مستقیم `tomllib` و نصب پاک candidate سازگار است. این تغییر به‌معنای پشتیبانی آزموده‌نشده از Python 3.9/3.10 نیست و آن نسخه‌ها دیگر target اعلام‌شده نیستند.
 
 **Migration risk:** متوسط؛ تغییر حداقل نسخه روی کاربران قدیمی اثر دارد.
 
-**Commit و verification:** ندارد.
+**Commit و verification:** `276e55f`؛ تست consistency در `tests/test_2_runtime_contracts.py` و نصب پاک wheel با Python 3.12 موفق شد.
 
 ## KI-12 — ناسازگاری metadata و انتشار
 

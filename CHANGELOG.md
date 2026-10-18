@@ -31,7 +31,17 @@ Tirotir 2.0 candidate:
 
 در audit branch مستقل `audit/u200c-identifier-fix`، lexer اکنون U+200C را داخل identifier می‌پذیرد و normalization قراردادی آن را به underscore تبدیل می‌کند؛ بنابراین identifierهایی مانند `نام‌گذاری` به `نام_گذاری` نگاشت می‌شوند. مسیر literal متن و escapeها تغییر نکرده‌اند. شش مثال رسمی دارای این نویسه اکنون parse و اجرا می‌شوند.
 
-این اصلاح هنوز به `review/tirotir-2-integrity` یا `development` منتقل نشده است و release محسوب نمی‌شود. commit ممیزی: `dc110f3`.
+این اصلاح ابتدا در audit branch ثبت و سپس همراه review به `development/tirotir-2.0-20261017T110755Z` منتقل شد؛ release عمومی محسوب نمی‌شود. commit ممیزی: `dc110f3`.
+
+### تکمیل candidate در development
+
+- metadata پکیج، runtime و افزونه به نسخهٔ غیرانتشاری `2.0.0.dev0` / `2.0.0-dev` هماهنگ شد؛
+- حداقل Python به `>=3.11` تغییر کرد، چون module loader از `tomllib` استفاده می‌کند؛
+- EOF ورودی استاندارد اکنون پیام خطای فارسی کنترل‌شده می‌دهد؛
+- مسیر GUI widgetها را نگه می‌دارد و callback سادهٔ دکمه را dispatch می‌کند؛ این مسیر با fake Tkinter و Tkinter واقعی تحت Xvfb آزمایش شد؛
+- full suite پس از این تغییرات: `286 passed`.
+
+این موارد candidate توسعه هستند و به‌معنای آماده‌بودن برای انتشار عمومی Windows/macOS، installer، VS Code واقعی یا پخش صوت دستگاهی نیستند.
 
 ### وضعیت validation
 
