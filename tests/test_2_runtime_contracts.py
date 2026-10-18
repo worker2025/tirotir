@@ -15,6 +15,8 @@ def test_candidate_version_is_consistent_across_runtime_and_manifests():
     extension = json.loads((ROOT / "vscode-tirotirLang/package.json").read_text(encoding="utf8"))
     assert __version__ == VERSION == metadata["project"]["version"] == "2.0.0.dev0"
     assert extension["version"] == "2.0.0-dev"
+    assert extension["repository"]["url"] == "https://github.com/worker2025/tirotir"
+    assert (ROOT / "vscode-tirotirLang/.vscodeignore").is_file()
     assert metadata["project"]["requires-python"] == ">=3.11"
 
 

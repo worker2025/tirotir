@@ -5,7 +5,7 @@
   "version": "2.0.0-dev",
   "publisher": "tirotir",
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/tirotir/tirotir" },
+  "repository": { "type": "git", "url": "https://github.com/worker2025/tirotir" },
   "engines": { "vscode": ">=1.85.0" },
   "categories": ["Programming Languages", "Formatters"],
   "keywords": ["tirotir", "persian", "farsi", "language"],
