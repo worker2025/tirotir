@@ -1,9 +1,9 @@
-# تیروتیر — Tirotir
+# تیروتیر — Tirotir 2
 
 <p align="center">
 <img src="assets/logo/tirotir-logo.png" alt="Tirotir Logo" width="180">
 </p> <p align="center">
-  <strong>تیروتیر (Tirotir)</strong>  
+  <strong>تیروتیر (Tirotir)</strong>
 
   یک زبان برنامه‌نویسی متنی فارسی و مفسری
 </p> <p align="center">
@@ -79,11 +79,13 @@
 
 # وضعیت فعلی
 
-## Tirotir 1.1.0 — Frozen Baseline
+## Tirotir 2.0.1 — آخرین رلیز رسمی
 
-نسخهٔ **1.1.0** یک baseline پایدار برای توسعه و انتشار پروژه است.
+برای نسخهٔ مرتب و نهایی رلیز، [سند نهایی Tirotir 2](docs/tirotir-2-final-release-fa.md) را ببینید.
 
-ویژگی‌های اصلی:
+نسخهٔ **2.0.1** آخرین رلیز رسمی بستهٔ Python تیروتیر ۲ است و از PyPI قابل نصب است. افزونهٔ VS Code این رلیز در نسخهٔ **2.0.5** ارائه می‌شود. full suite فعلی checkout برابر **۳۰۳ تست موفق** است.
+
+ویژگی‌های اصلی نسخهٔ ۲:
 
 - زبان برنامه‌نویسی مفسری فارسی
 
@@ -123,9 +125,9 @@
 
 - Runtime با قابلیت‌های کنترل‌شده
 
-- **۲۴۴ تست موفق در baseline**
+- **۳۰۳ تست موفق در full suite فعلی نسخهٔ ۲**؛ آمار تاریخی baseline نسخهٔ ۱٫۱٫۰ برابر **۲۴۴ تست موفق** بوده است.
 
-پسوند قدیمی:
+پسوند قدیمی نسخهٔ ۱:
 
 ```
 .tirotir
@@ -133,24 +135,32 @@
 
 نیز برای سازگاری با پروژه‌های قدیمی حفظ شده است.
 
+> **یادداشت تاریخی:** نسخهٔ ۱٫۱٫۰ یک baseline قدیمی پروژه است و نباید به‌عنوان وضعیت فعلی یا آخرین رلیز تفسیر شود. آمار ۲۴۴ تست فقط به همان baseline تاریخی مربوط است.
+
 ---
 
 ## نصب رسمی Tirotir 2.0
 
-نسخهٔ patch فعلی `2.0.1` است. در حال حاضر distribution عمومی `tirotir` در PyPI وجود ندارد؛ بنابراین `pip install tirotir` روش معتبر نصب این پروژه نیست و ممکن است شکست بخورد یا به بسته‌ای نامرتبط اشاره کند. wheel رسمی را از [GitHub Release v2.0.1](https://github.com/worker2025/tirotir/releases/tag/v2.0.1) دریافت کنید:
+نسخهٔ patch فعلی `2.0.1` است و بستهٔ رسمی در [PyPI](https://pypi.org/project/tirotir/) منتشر شده است. روش نصب پیشنهادی:
+
+```bash
+python -m pip install tirotir==2.0.1
+```
+
+برای نصب آفلاین یا توسعه، wheel یا source archive رسمی GitHub Release نیز قابل استفاده است:
 
 ```powershell
 py -3.11 -m venv .venv
 .venv\Scripts\Activate.ps1
-py -3.11 -m pip install .\tirotir-2.0.1-py3-none-any.whl
+py -3.11 -m pip install tirotir==2.0.1
 tirotir version
 ```
 
-در دستور بالا برای اطمینان از interpreter درست در Windows از `py -3.11 -m pip show tirotir` و `Get-Command tirotir -All` استفاده کنید. بستهٔ مثال‌های قابل‌اجرا در [tirotir-2.0-examples](tirotir-2.0-examples/README.md) و release asset ZIP قرار دارد.
+در دستور بالا برای اطمینان از interpreter درست در Windows از `py -3.11 -m pip show tirotir` و `Get-Command tirotir -All` استفاده کنید. راهنمای مثال‌های قابل‌اجرا در [examples2/README-fa.md](examples2/README-fa.md) و راهنمای جامع نسخهٔ ۲ قرار دارد.
 
 ## وضعیت توسعهٔ Tirotir 2.0
 
-نسخهٔ رسمی **Tirotir 2.0.0** بر پایهٔ شاخهٔ توسعهٔ اعتبارسنجی‌شده منتشر شده است و patch release `2.0.1` اصلاحات بسته‌بندی و examples را اضافه می‌کند. full suite برابر **۲۹۱ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI و security boundary نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
+نسخهٔ رسمی **Tirotir 2.0.0** بر پایهٔ شاخهٔ توسعهٔ اعتبارسنجی‌شده منتشر شده است و patch release `2.0.1` اصلاحات بسته‌بندی و examples را اضافه می‌کند. full suite فعلی checkout برابر **۳۰۳ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI، security boundary، ورودی تعاملی، VSIX و اسنیپت‌هاست. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
 
 ### قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی
 
@@ -172,7 +182,7 @@ tirotir version
 - traversal و symlink escape در ModuleSandbox آزموده شده و برای `network` و `project-files` نبود backend زبانی عمداً صریح ثبت شده است؛
 - CI لینوکس برای Python 3.11 و 3.12 در `.github/workflows/ci.yml` اضافه شده است؛
 - namespace کامل ماژول، event syntax، LSP، debugger، object model، تست native ویندوز، GUI روی desktop واقعی و پخش صوت روی دستگاه واقعی هنوز نهایی یا آزموده نشده‌اند؛
-- نسخهٔ ۲٫۰٫۰ برای Linux و Python 3.11/3.12 منتشر شده است؛ این release به‌عنوان framework کامل GUI/بازی یا release cross-platform معرفی نمی‌شود.
+- بستهٔ Python نسخهٔ `2.0.1` در PyPI و افزونهٔ VS Code نسخهٔ `2.0.5` در VSIX آماده شده‌اند؛ این release به‌عنوان framework کامل GUI/بازی یا release cross-platform معرفی نمی‌شود.
 
 رفتار arithmetic فشرده یک تغییر سازگاری‌پذیر مهم است. رفتار تاریخی baseline چنین بود:
 
@@ -233,25 +243,13 @@ FAQ فارسی **Tirotir 1.1.0** شامل ۶۱ پرسش در ۹ بخش:
 
 # نصب
 
-## Windows — برای کاربران عادی
+## Windows — نصب نسخهٔ ۲ برای کاربران عادی
 
-اگر فقط می‌خواهید تیروتیر را نصب و استفاده کنید، نصب‌کنندهٔ زیر را اجرا کنید:
+برای نسخهٔ ۲، نصب رسمی CLI در Windows از PyPI انجام می‌شود:
 
+```powershell
+py -3.11 -m pip install tirotir==2.0.1
 ```
-Tirotir-1.1.0-Setup.exe
-```
-
-در این روش نیازی به نصب موارد زیر ندارید:
-
-- Python
-
-- pip
-
-- Git
-
-- PyInstaller
-
-- Inno Setup
 
 پس از نصب، یک **PowerShell** یا **Command Prompt** جدید باز کنید:
 
@@ -262,13 +260,13 @@ tirotir version
 خروجی:
 
 ```
-Tirotir 1.1.0
+Tirotir 2.0.1
 ```
 
-اگر `tirotir` در PATH قرار نگرفته بود:
+برای بررسی interpreter و محل نصب:
 
 ```
-& "C:\Program Files\Tirotir\tirotir.exe" version
+py -3.11 -m pip show tirotir
 ```
 
 ---
@@ -434,10 +432,10 @@ tirotir run
 اجرا:
 
 ```bash
-tirotir graphics examples/graphics/hello_shape.t --scene scene.svg
+tirotir graphics examples2/graphics/hello_shape.t --scene scene.svg
 ```
 
-Graphics در نسخهٔ 1.1.0 از renderer مبتنی بر **SVG** استفاده می‌کند.
+Graphics در نسخهٔ ۲ از renderer مبتنی بر **SVG** استفاده می‌کند.
 
 > Animation کامل در این نسخه هنوز وجود ندارد.
 
@@ -456,13 +454,13 @@ Graphics در نسخهٔ 1.1.0 از renderer مبتنی بر **SVG** استفا�
 اجرا:
 
 ```bash
-tirotir run examples/audio/scale.t
+tirotir audio examples2/audio/scale.t
 ```
 
 برای پخش Audio:
 
 ```bash
-tirotir run examples/audio/scale.t --play-audio
+tirotir audio examples2/audio/scale.t --play-audio
 ```
 
 تولید WAV مستقل از backend پخش سیستم‌عامل انجام می‌شود.
@@ -484,12 +482,12 @@ tirotir run examples/audio/scale.t --play-audio
 اجرا:
 
 ```bash
-tirotir gui examples/apps/hello_gui.t
+tirotir gui examples2/gui/hello_window.t
 ```
 
 GUI فعلی بر پایهٔ **Tkinter** است.
 
-> GUI در نسخهٔ 1.1.0 هنوز یک Framework کامل GUI محسوب نمی‌شود.
+> GUI در نسخهٔ ۲ هنوز یک framework کامل GUI محسوب نمی‌شود و به Tkinter و desktop/display نیاز دارد.
 
 ---
 
@@ -498,7 +496,7 @@ GUI فعلی بر پایهٔ **Tkinter** است.
 افزونهٔ VS Code:
 
 ```
-tirotirLang-1.1.0.vsix
+tirotirlang-2.0.5.vsix
 ```
 
 برای نصب از داخل VS Code:
@@ -516,7 +514,7 @@ Extensions: Install from VSIX
 یا از خط فرمان:
 
 ```bash
-code --install-extension tirotirLang-1.1.0.vsix
+code --install-extension tirotirlang-2.0.5.vsix
 ```
 
 امکانات فعلی شامل:
@@ -537,7 +535,7 @@ code --install-extension tirotirLang-1.1.0.vsix
 
 است.
 
-موارد زیر هنوز در نسخهٔ 1.1.0 کامل نیستند:
+موارد زیر هنوز در نسخهٔ ۲ کامل نیستند:
 
 - LSP کامل
 
@@ -551,17 +549,17 @@ code --install-extension tirotirLang-1.1.0.vsix
 
 ## محدودیت‌ها و مسائل شناخته‌شده
 
-نسخهٔ **Tirotir 1.1.0** یک baseline واقعی و قابل استفاده است، اما همهٔ قراردادهای زبان، ابزارهای توسعه و بسته‌بندی آن هنوز نهایی نشده‌اند. برخی موارد، مانند ابهام متن با خط تیره و عملگر تفریق، نرمال‌سازی نیم‌فاصله در متن، پشتیبانی ناقص از بعضی شکل‌های مقایسهٔ فارسی، تکمیل import و namespace، اعمال capabilityها و اعتبارسنجی کامل بستهٔ Windows، در نسخهٔ بعدی بررسی و اصلاح خواهند شد.
+نسخهٔ **Tirotir 2** یک release واقعی و قابل استفاده است، اما همهٔ قراردادهای زبان، ابزارهای توسعه و بسته‌بندی آن هنوز نهایی نشده‌اند. برخی موارد، مانند ابهام متن با خط تیره و عملگر تفریق، تکمیل import و namespace، اجرای native Windows، LSP، debugger و اعتبارسنجی کامل بستهٔ Windows، همچنان محدودیت یا کار آینده هستند.
 
 در حال حاضر نباید قابلیت‌های ناتمام یا ادعاهای آموزشی بدون مطالعهٔ کاربر به‌عنوان نتیجهٔ قطعی معرفی شوند. برای فهرست کامل موارد، شواهد، اثر هر مشکل و برنامهٔ اصلاح، به سند زیر مراجعه کنید:
 
 - [فهرست کامل محدودیت‌ها و مسائل شناخته‌شده](known-issues-fa.md)
 
-> این بخش وضعیت نسخهٔ 1.1.0 را شفاف گزارش می‌کند؛ موارد ذکرشده هنوز اصلاح‌شده محسوب نمی‌شوند و اصلاح آن‌ها باید همراه با تست regression و مستندات به‌روز انجام شود.
+> این بخش وضعیت نسخهٔ ۲ را شفاف گزارش می‌کند؛ موارد ذکرشده هنوز قابلیت کامل یا cross-platform تضمین‌شده محسوب نمی‌شوند و اصلاح آن‌ها باید همراه با تست regression و مستندات به‌روز انجام شود.
 
-## قابلیت‌های جدید افزونهٔ TirotirLang
+## قابلیت‌های افزوده‌شدهٔ افزونهٔ TirotirLang در نسخهٔ ۲
 
-افزونهٔ TirotirLang برای VS Code علاوه بر قابلیت‌های پایهٔ اجرای فایل، Check، AST، خروجی راست‌به‌چپ و Live Scene، امکانات تعاملی زیر را نیز فراهم می‌کند. این قابلیت‌ها فقط در افزونه هستند و هستهٔ زبان Tirotir 1.1.0 را تغییر نمی‌دهند.
+افزونهٔ TirotirLang برای VS Code علاوه بر قابلیت‌های پایهٔ اجرای فایل، Check، AST، خروجی راست‌به‌چپ و Live Scene، امکانات تعاملی زیر را نیز فراهم می‌کند. این قابلیت‌ها در افزونه ارائه می‌شوند و هستهٔ زبان را از قراردادهای ثبت‌شدهٔ نسخهٔ ۲ خارج نمی‌کنند.
 
 ### اجرای زندهٔ تعاملی و دریافت ورودی
 
@@ -601,7 +599,7 @@ program-003.t
 
 ### Snippetهای آموزشی
 
-افزونه ۱۴ snippet آموزشی دارد. در فایل `.t`، prefix را بنویسید و `Tab` بزنید:
+افزونه ۱۴ snippet آموزشی دارد. در فایل `.t`، prefix را بنویسید و `Ctrl+Space` بزنید؛ سپس با `Tab` درج کنید. نسخهٔ ۲.۰.۵ علاوه بر contribution استاندارد، completion provider پشتیبان دارد:
 
 | نام | Prefix | کاربرد کوتاه |
 | --- | --- | --- |
@@ -620,7 +618,7 @@ program-003.t
 | نت صوتی | `نت` | ساخت دستور نت صوتی |
 | گرافیک مربع | `مربع` | رسم مربع SVG |
 
-فرمان‌های قبلی افزونه در منوی راست‌کلیک فایل‌های `.t` حفظ شده‌اند. این قابلیت‌های افزونه، زبان پایه، نسخهٔ زبان، Audio، GUI، Builder و EXE را تغییر نمی‌دهند.
+فرمان‌های قبلی افزونه در منوی راست‌کلیک فایل‌های `.t` حفظ شده‌اند. این قابلیت‌های افزونه، زبان پایه و قراردادهای Audio و GUI را تغییر نمی‌دهند؛ ساخت EXE همچنان به Windows واقعی نیاز دارد.
 
 ---
 
@@ -644,7 +642,7 @@ tirotir builder
 
 خروجی برنامه‌ای که کاربر با Tirotir ساخته است.
 
-### `Tirotir-1.1.0-Setup.exe`
+### `Tirotir-1.1.0-Setup.exe` — installer تاریخی
 
 نصب‌کنندهٔ خود Tirotir.
 
@@ -652,7 +650,7 @@ tirotir builder
 
 # نمونه‌های آموزشی
 
-بستهٔ آموزشی مستقل شامل نمونه‌های `.t` برای موضوعات زیر است:
+بستهٔ آموزشی و مجموعهٔ `examples2` شامل نمونه‌های `.t` برای موضوعات زیر است:
 
 - شروع کار
 
@@ -682,14 +680,12 @@ tirotir builder
 
 بستهٔ آموزشی:
 
-```
-tirotir-examples-education-1.1.0.zip
-```
+راهنمای جاری: [`examples2/README-fa.md`](examples2/README-fa.md)
 
 پس از استخراج، نمونه‌ها را اجرا کنید:
 
 ```bash
-tirotir run examples/basics/hello_world.t
+tirotir run examples2/basics/hello_world.t
 ```
 
 ---
@@ -726,7 +722,7 @@ network
 
 ---
 
-# محدودیت‌های نسخهٔ 1.1.0
+# محدودیت‌های نسخهٔ ۲
 
 موارد زیر هنوز قابلیت کامل محسوب نمی‌شوند:
 
@@ -838,7 +834,7 @@ docs/
 - مخزن [tirotir-new-examples](https://github.com/worker2025/tirotir-new-examples) و افزونهٔ VS Code
 - QR لینک‌های مهم
 
-> 💡 نمونه‌کدهای جزوه با Tirotir 1.1.0 آزمایش شده‌اند. برای ظاهر دقیق‌تر، فایل Word را در Microsoft Word باز کنید.
+> 💡 نمونه‌کدهای قدیمی جزوه با baseline نسخهٔ ۱ آزمایش شده‌اند؛ برای نمونه‌های نسخهٔ ۲ به `examples2/README-fa.md` مراجعه کنید. برای ظاهر دقیق‌تر، فایل Word را در Microsoft Word باز کنید.
 
 ---
 
@@ -900,7 +896,7 @@ docs/
 
 ---
 
-# Tirotir 1.1.0
+# Tirotir 1.1.0 — بخش تاریخی
 
 <p align="center">
 <img src="assets/logo/tirotir-logo.png" alt="Tirotir" width="120">
