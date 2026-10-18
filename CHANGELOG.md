@@ -1,12 +1,35 @@
 # Changelog
 
-## Tirotir 2.0.1 — packaging and examples patch
+## Tirotir 2.0.1 — Final release
 
-- package/runtime/CLI/VSIX metadata aligned to `2.0.1`;
-- stale tracked `src/tirotir.egg-info/PKG-INFO` regenerated from the current project metadata;
-- PyPI status documented accurately: no public `tirotir` distribution was present during verification;
-- added the tested `tirotir-2.0-examples` bundle with English/Persian instructions and an executable harness;
-- added direct-wheel installation diagnostics for Windows and explicit separation from PyPI installation.
+این آخرین رلیز رسمی Tirotir 2 است: بستهٔ Python نسخهٔ `2.0.1` در PyPI و افزونهٔ VS Code نسخهٔ `2.0.5` به‌صورت VSIX.
+
+### تغییرات اصلی
+
+- package metadata requires Python `>=3.11` and exposes the project URLs;
+- `tirotir==2.0.1` is available from the public [PyPI project page](https://pypi.org/project/tirotir/);
+- installation is documented with `python -m pip install tirotir==2.0.1`;
+- maintained the `examples2` bundle with Persian instructions and capability-aware execution commands;
+- added interactive UTF-8 input coverage, including stdin, EOF and invalid numeric input;
+- documented direct wheel/source installation as alternatives for offline or development use;
+- verified the current checkout with a full suite of `303 passed` tests;
+
+### افزونهٔ VS Code و اسنیپت‌ها
+
+- fixed VS Code snippet discoverability for `.t` files;
+- kept the standard `contributes.snippets` declaration for language id `tirotirLang`;
+- enabled snippet suggestions and `Tab` completion through language-specific defaults;
+- added an extension-side completion provider using `SnippetString` as a fallback when native snippet suggestions are hidden by user settings;
+- bundled and verified 14 Persian snippets in the final VSIX;
+- rebuilt and integrity-checked `tirotirlang-2.0.5.vsix`.
+
+### اعتبارسنجی نهایی
+
+- full suite: `303 passed`;
+- syntax و JSON manifest افزونه: موفق؛
+- integrity بستهٔ VSIX: موفق؛
+- اجرای مثال‌های هسته، ورودی تعاملی، Graphics و Audio: موفق؛
+- GUI، اجرای native Windows، پخش سخت‌افزاری صدا و sandbox کامل OS همچنان وابسته به محیط واقعی و خارج از شواهد این sandbox هستند.
 
 
 ## Tirotir 2.0.0 — 2026-10-18
