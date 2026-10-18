@@ -3,8 +3,9 @@ from .core import parse, execute, ast_json, TirotirError
 from .semantic import SemanticAnalyzer
 from .modules import ModuleGraphBuilder, ModuleLoader, load_project
 from .contracts import Capability, CapabilityError, CapabilityRegistry, RuntimeContext
+from . import __version__
 
-VERSION='1.1.0'
+VERSION=__version__
 
 def configure_utf8_stdio():
     """روی Windows/PowerShell و pipeها UTF-8 را ترجیح می‌دهد، بدون شکستن stream سفارشی."""
@@ -70,12 +71,12 @@ def main(argv=None):
         if a.command in ('version','--version'):
             write_utf8(sys.stdout,f'Tirotir {VERSION}'); return 0
         if a.command in ('help','--help',None):
-            write_utf8(sys.stdout,'تیروتیر ۱٫۱\nاستفاده: tirotir run FILE | project | graphics FILE | audio FILE | gui FILE | builder | check FILE | ast FILE | format FILE | repl'); return 0
+            write_utf8(sys.stdout,'تیروتیر ۲٫۰ (candidate)\nاستفاده: tirotir run FILE | project | graphics FILE | audio FILE | gui FILE | builder | check FILE | ast FILE | format FILE | repl'); return 0
         if a.command in ('builder','build-gui'):
             from .builder import main as builder_main
             builder_main(); return 0
         if a.command=='repl':
-            write_utf8(sys.stdout,'REPL تیروتیر ۱٫۱ — برای خروج «خروج» بنویسید.')
+            write_utf8(sys.stdout,'REPL تیروتیر ۲٫۰ — برای خروج «خروج» بنویسید.')
             while True:
                 try:s=input('تیروتیر> ')
                 except EOFError:break
@@ -122,6 +123,9 @@ def main(argv=None):
             execute(src,output_writer(),scene_path=scene,play_audio=(a.play_audio or a.command=='audio'),runtime_context=runtime_context)
         else: error_writer('فرمان ناشناخته است.'); return 2
         return 0
+    except EOFError as e:
+        error_writer('خطا: ورودی استاندارد پیش از تکمیل برنامه پایان یافت.')
+        return 1
     except (OSError,TirotirError,CapabilityError) as e:
         error_writer(f'خطا: {e}'); return 1
 
