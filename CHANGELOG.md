@@ -1,5 +1,14 @@
 # Changelog
 
+## Tirotir 2.0.1 — packaging and examples patch
+
+- package/runtime/CLI/VSIX metadata aligned to `2.0.1`;
+- stale tracked `src/tirotir.egg-info/PKG-INFO` regenerated from the current project metadata;
+- PyPI status documented accurately: no public `tirotir` distribution was present during verification;
+- added the tested `tirotir-2.0-examples` bundle with English/Persian instructions and an executable harness;
+- added direct-wheel installation diagnostics for Windows and explicit separation from PyPI installation.
+
+
 ## Tirotir 2.0.0 — 2026-10-18
 این release رسمی نسخهٔ ۲٫۰ است. محدودیت‌های پلتفرم، GUI، صوت، VS Code و sandbox در README و Known Issues صریحاً ثبت شده‌اند.
 

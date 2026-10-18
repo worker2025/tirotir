@@ -1,4 +1,6 @@
+AUTHORS.md
 LICENSE
+LICENSE.md
 README.md
 pyproject.toml
 src/tirotir/__init__.py
@@ -22,11 +24,18 @@ src/tirotir/modules/loader.py
 src/tirotir/modules/model.py
 src/tirotir/modules/project.py
 src/tirotir/modules/sandbox.py
+tests/test_2_runtime_contracts.py
 tests/test_acceptance.py
 tests/test_bulk_regression.py
 tests/test_contracts.py
 tests/test_core.py
 tests/test_creative.py
+tests/test_gui_runtime.py
+tests/test_ki1_candidate_acceptance.py
+tests/test_ki5_capability_enforcement.py
+tests/test_known_issues.py
 tests/test_modules.py
 tests/test_release_integration.py
+tests/test_security_boundaries.py
 tests/test_semantic.py
+tests/test_u200c_identifiers.py
