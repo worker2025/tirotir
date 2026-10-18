@@ -377,7 +377,7 @@ class Interpreter:
   return self.audio_path
  def gui_command(self,name,args):
   self.runtime_context.require(Capability.GUI)
-  if not hasattr(self,'gui'):self.gui=Gui()
+  if not hasattr(self,'gui'):self.gui=Gui(self.out)
   return self.gui.command(name,args)
 
 class Scene:
@@ -426,10 +426,10 @@ class Scene:
 
 class Gui:
  """رابط گرافیکی اختیاری؛ فقط با فراخوانی API فعال و به Tkinter وابسته است."""
- def __init__(self):
+ def __init__(self,output=None):
   try:
    import tkinter as tk
-   self.tk=tk;self.root=None;self.widgets=[]
+   self.tk=tk;self.root=None;self.widgets=[];self.out=print if output is None else output
   except ImportError:raise RuntimeErrorFa('TIR4001: رابط گرافیکی در این محیط در دسترس نیست؛ Tkinter و desktop لازم است.')
  def command(self,name,args):
   if name=='پنجره_بساز':
@@ -439,9 +439,11 @@ class Gui:
    self.root.title(title);self.root.geometry(f'{w}x{h}')
   elif self.root is None:raise RuntimeErrorFa('ابتدا با «پنجره بساز» یک پنجره ایجاد کنید.')
   elif name=='برچسب_بساز':
-   self.widgets.append(self.tk.Label(self.root,text=str(args[0]) if args else '').pack(padx=12,pady=8))
+   widget=self.tk.Label(self.root,text=str(args[0]) if args else '');widget.pack(padx=12,pady=8);self.widgets.append(widget)
   elif name=='دکمه_بساز':
-   self.widgets.append(self.tk.Button(self.root,text=str(args[0]) if args else 'دکمه').pack(padx=12,pady=8))
+   label=str(args[0]) if args else 'دکمه';message=str(args[1]) if len(args)>1 else None
+   callback=(lambda:self.out(message)) if message is not None else (lambda:None)
+   widget=self.tk.Button(self.root,text=label,command=callback);widget.pack(padx=12,pady=8);self.widgets.append(widget)
   elif name=='ورودی_بساز':self.widgets.append(self.tk.Entry(self.root));self.widgets[-1].pack(padx=12,pady=8)
   elif name=='چک_باکس_بساز':
    var=self.tk.BooleanVar();self.widgets.append(self.tk.Checkbutton(self.root,text=str(args[0]) if args else 'فعال',variable=var));self.widgets[-1].pack(padx=12,pady=8)
