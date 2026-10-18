@@ -63,3 +63,14 @@ Tirotir 2.0 candidate:
 ## Tirotir 1.1.0
 
 سوابق release نسخهٔ ۱٫۱٫۰ در اسناد تاریخی `docs/public-release-readiness-fa.md` و `docs/release-readiness-fa.md` نگه‌داری شده‌اند و در این commit بازنویسی نشده‌اند.
+
+### اعتبارسنجی پیش از انتشار آزمایشی
+
+- remote branch `development/tirotir-2.0-20261017T110755Z` روی SHA `cf6a30dd536f11c1e42076ebc4778dae8418ee4b` تأیید شد؛
+- GitHub Actions واقعی برای Linux و Python 3.11/3.12 موفق شد: [run 39102503306](https://github.com/worker2025/tirotir/actions/runs/39102503306)؛
+- full suite محلی: `291 passed`؛ focused security/runtime/KI suite: `38 passed`؛
+- parse مثال‌های رسمی: `51/51`؛ اجرای non-GUI با capability لازم: `38 passed`؛
+- نصب پاک، CLI، تولید SVG و تولید WAV موفق شد؛ پخش سخت‌افزاری صدا و VS Code واقعی در محیط موجود نبود؛
+- VSIX از commit نهایی ساخته و با `unzip -t` بررسی شد؛ checksum در گزارش ممیزی ثبت شده است.
+
+این validation برای انتشار آزمایشی محدود candidate کافی است، اما مجوز انتشار عمومی، ساخت tag یا تغییر `main` نیست.

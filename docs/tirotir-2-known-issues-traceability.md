@@ -1,10 +1,10 @@
 # ردیابی مسائل شناخته‌شدهٔ Tirotir 2.0
 
-**مبنای بررسی:** `d32f97abdfdee69e40b839e35b81f99531b3c0b3`
+**مبنای بررسی:** `cf6a30dd536f11c1e42076ebc4778dae8418ee4b`
 **baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`
 **محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1
 **نتیجهٔ regression baseline:** `244 passed in 1.46s`
-**نتیجهٔ review:** candidate KI-1 برابر `7 passed`، KI-5 dedicated برابر `14 passed`، module/release برابر `28 passed` و full suite برابر `273 passed`؛ historical baseline جداگانه روی `a6dd5de` موفق شد.
+**نتیجهٔ validation نهایی:** full suite برابر `291 passed`، focused security/runtime/KI suite برابر `38 passed`، همهٔ `51/51` مثال parse شدند، `38` مثال non-GUI با capability لازم اجرا شدند و GitHub Actions برای همین SHA با موفقیت کامل شد؛ historical baseline جداگانه روی `a6dd5de` موفق شد.
 **قاعده:** هیچ موردی بدون regression test و شواهد اجرای مرتبط `VERIFIED` اصلاح‌شده علامت نمی‌خورد.
 
 ## وضعیت‌های مجاز
@@ -30,11 +30,11 @@
 | KI-6 | import و namespace | `OPEN` | P1 | ندارد |
 | KI-7 | formatter خروجی | `OPEN` | P1 | ندارد |
 | KI-8 | scope تابع | `OPEN` | P1 | ندارد |
-| KI-9 | مثال‌ها و بازگشت تابع | `FIXED LOCALLY` | P0 | pending checkpoint |
+| KI-9 | مثال‌ها و بازگشت تابع | `VERIFIED` | P0 | e3c1cd8 |
 | KI-10 | Windows artifact | `BLOCKED` | P1 | ندارد |
-| KI-11 | حداقل Python | `REPRODUCED` | P1 | ندارد |
-| KI-12 | metadata و انتشار | `OPEN` | P2 | ندارد |
-| KI-13 | پوشش cross-platform | `BLOCKED` | P1 | ندارد |
+| KI-11 | حداقل Python | `VERIFIED` | P1 | 276e55f |
+| KI-12 | metadata و انتشار | `VERIFIED` در candidate | P2 | a44ca6b |
+| KI-13 | پوشش cross-platform | `BLOCKED` خارج از Linux CI | P1 | d51941a |
 | KI-14 | LSP و debugger | `DEFERRED` | P2 | ندارد |
 | KI-15 | Event Runtime | `OPEN` | P2 | ندارد |
 
@@ -79,7 +79,7 @@
 چاپ -قلم بالا-
 ```
 
-**Actual:** خروجی `قلم_بالا` مشاهده شد.
+**Actual تاریخی:** در baseline خروجی `قلم_بالا` مشاهده شد؛ در candidate فعلی این reproduction دیگر برقرار نیست و literal به‌صورت `قلم‌بالا` حفظ می‌شود.
 
 **Expected:** literal متن باید محتوای Unicode منبع را حفظ کند، مگر آنکه specification صریحاً transformation تعریف کند.
 
@@ -95,9 +95,9 @@
 
 **Migration risk:** متوسط؛ برنامه‌هایی که به underscore فعلی در literal تکیه دارند باید شناسایی شوند، اما aliasهای دارای نیم‌فاصله با تست integration حفظ شدند.
 
-**Verification:** پس از checkpoint اولیه `245 passed in 0.80s`؛ پس از افزودن تست‌های مستقل characterization، `252 passed in 0.86s`؛ و در review نهایی `282 passed`. آزمون‌ها حفظ متن و نیم‌فاصله، نرمال‌سازی `ك/ي` برای شناسه، alias نیم‌فاصله‌دار و پذیرش U+200C داخلی در identifier را پوشش می‌دهند. اصلاح literal در commit `3749e69` و اصلاح identifier در `dc110f3` ثبت شده‌اند؛ release نهایی هنوز جداگانه تأیید نشده است.
+**Verification:** پس از checkpoint اولیه `245 passed`؛ پس از افزودن تست‌های مستقل characterization، `252 passed`؛ در review نهایی `282 passed` و در candidate نهایی `291 passed`. آزمون‌ها حفظ متن و نیم‌فاصله، نرمال‌سازی `ك/ي` برای شناسه، alias نیم‌فاصله‌دار و پذیرش U+200C داخلی در identifier را پوشش می‌دهند. اصلاح literal در commit `3749e69` و اصلاح identifier در `dc110f3` ثبت شده‌اند؛ candidate نهایی با full suite و CI Linux تأیید شده، اما release عمومی نیست.
 
-**افزونهٔ ممیزی U+200C در شناسه‌ها:** سند محصول نیم‌فاصله را در شناسه‌ها مجاز و معادل underscore تعریف می‌کند، اما lexer پیش از این آن را در الگوی شناسه نمی‌پذیرفت. در شاخهٔ مستقل `audit/u200c-identifier-fix`، الگوی lexer با کمترین تغییر در `src/tirotir/core.py` اصلاح شد؛ `norm()` همچنان `نام‌گذاری` را به `نام_گذاری` تبدیل می‌کند و مسیر literal دست‌نخورده است. آزمون مستقل `tests/test_u200c_identifiers.py` شامل ۹ مورد regression است: انتساب/استفاده، تابع و return، شش مثال رسمی، و حفظ literal/escape. نتیجه: `9 passed` و full suite برابر `282 passed`. این افزونه در commit `dc110f3` ثبت شده و تا زمان انتقال و بازبینی انسانی، وضعیت آن `VERIFIED در audit branch؛ غیر release` است.
+**افزونهٔ ممیزی U+200C در شناسه‌ها:** سند محصول نیم‌فاصله را در شناسه‌ها مجاز و معادل underscore تعریف می‌کند، اما lexer پیش از این آن را در الگوی شناسه نمی‌پذیرفت. در شاخهٔ مستقل `audit/u200c-identifier-fix`، الگوی lexer با کمترین تغییر در `src/tirotir/core.py` اصلاح شد؛ `norm()` همچنان `نام‌گذاری` را به `نام_گذاری` تبدیل می‌کند و مسیر literal دست‌نخورده است. آزمون مستقل `tests/test_u200c_identifiers.py` شامل ۹ مورد regression است: انتساب/استفاده، تابع و return، شش مثال رسمی، و حفظ literal/escape. نتیجه: `9 passed`، full suite نهایی `291 passed` و وضعیت candidate `VERIFIED` است؛ این مورد هنوز release عمومی محسوب نمی‌شود.
 
 ## KI-3 — پشتیبانی ناقص از شکل‌های مقایسهٔ فارسی
 
@@ -255,17 +255,17 @@
 
 **Root cause:** اثبات‌شده و مربوط به پارامتر/Return نیست. `parse()` برای نمونهٔ مربع AST درست با `Func(args=["عدد"])`، `Return` و `Call(args=[5])` می‌سازد. در `Interpreter.val()`، نام `مربع` پیش از lookup تابع کاربر در فهرست primitiveهای graphics بررسی می‌شود؛ `Scene.command("مربع", ...)` مقدار `None` می‌دهد و تابع کاربر اصلاً اجرا نمی‌شود. تابع جمع با همان مسیر Return مقدار `5` می‌دهد.
 
-**آزمون ثبت‌شده:** `tests/test_known_issues.py::test_ki9_square_example_is_a_builtin_name_collision` AST معتبر و خروجی فعلی `None` را characterization می‌کند. اصلاح collision هنوز انجام نشده؛ پیش از هر تغییر باید قرارداد اولویت نام تابع کاربر و primitiveها تصمیم‌گیری شود.
+**آزمون تاریخی:** `tests/test_known_issues.py::test_ki9_square_example_is_a_builtin_name_collision` AST معتبر و خروجی baseline `None` را characterization می‌کرد. regression جدید اولویت تابع کاربر را مستقل تأیید می‌کند.
 
-**وضعیت:** `FIXED LOCALLY`. قرارداد این checkpoint این است که تابع کاربرِ هم‌نام بر primitive گرافیکی اولویت دارد؛ primitive گرافیکی وقتی تابع هم‌نام تعریف نشده باشد بدون تغییر اجرا می‌شود. کوچک‌ترین تغییر فقط شرط dispatch graphics را به `n.name not in self.funcs` محدود کرد.
+**وضعیت:** `VERIFIED` در candidate scope. قرارداد این candidate آن است که تابع کاربرِ هم‌نام بر primitive گرافیکی اولویت دارد؛ primitive گرافیکی وقتی تابع هم‌نام تعریف نشده باشد بدون تغییر اجرا می‌شود. کوچک‌ترین تغییر فقط شرط dispatch graphics را به `n.name not in self.funcs` محدود کرد.
 
 **آزمون‌ها:** `tests/test_known_issues.py::test_ki9_user_function_takes_precedence_over_graphics_name_collision`، `test_ki9_graphics_primitive_still_runs_without_name_collision` و آزمون موجود تابع جمع.
 
-**Verification:** focused `3 passed`، acceptance/graphics `32 passed`، full suite `253 passed`. این مورد هنوز `VERIFIED` release اعلام نمی‌شود؛ رفتار سایر نام‌های builtin و cross-platform باید جداگانه ارزیابی شود.
+**Verification:** focused regression و acceptance/graphics موفق؛ focused نهایی شامل این مسیر در مجموعهٔ `38 passed` و full suite نهایی `291 passed` است. این وضعیت `VERIFIED` candidate است، نه ادعای release عمومی یا cross-platform.
 
 **Migration risk:** متوسط؛ برنامه‌ای که عمداً تابعی با نام primitive گرافیکی تعریف کرده باشد اکنون اولویت تابع کاربر را دریافت می‌کند. برنامه‌های بدون collision unchanged هستند.
 
-**Commit و verification:** commit اصلاحی در checkpoint بعدی ثبت می‌شود.
+**Commit و verification:** `e3c1cd8`; regression collision و primitive بدون collision موفق شدند.
 
 ## KI-10 — بستهٔ Windows و ادعای اجرای مستقل
 
@@ -311,7 +311,7 @@
 
 **شرح اصلی:** version، author، repository، citation، license و artifactها باید منبع واحد داشته باشند.
 
-**Actual:** `CITATION.cff` repository اصلی را ثبت می‌کند، اما `vscode-tirotirLang/package.json` repository متفاوت `github.com/tirotir/tirotir` را اعلام می‌کند. دو فایل license و اسناد متناقض release نیز وجود دارد.
+**Actual تاریخی:** `CITATION.cff` repository اصلی را ثبت می‌کرد و `vscode-tirotirLang/package.json` repository متفاوت `github.com/tirotir/tirotir` را اعلام می‌کرد. در candidate فعلی URL افزونه با repository واقعی هماهنگ شده است؛ وجود فایل‌های license و اسناد تاریخی همچنان باید در release review جداگانه بررسی شود.
 
 **Expected:** یک source of truth برای name/version/author/date/repository و validation خودکار.
 
@@ -321,31 +321,31 @@
 
 **اصلاح پیشنهادی:** version check script، validation `CITATION.cff`، CI consistency test، تصمیم دربارهٔ LICENSE تکراری و repository افزونه.
 
-**وضعیت:** `OPEN`.
+**وضعیت:** `VERIFIED` در candidate scope برای version/repository metadata؛ بررسی نهایی license و release artifact هنوز خارج از این verification است.
 
 **Migration risk:** کم برای runtime؛ زیاد برای اعتماد release و citation.
 
-**Commit و verification:** ندارد.
+**Commit و verification:** `a44ca6b`؛ consistency regression، package metadata و VSIX integrity check موفق شدند.
 
 ## KI-13 — پوشش سیستم‌عامل و artifact کامل نیست
 
 **شرح اصلی:** regression فعلی فقط در Linux/Python 3.12.3 اجرا شده است.
 
-**Actual:** `244 passed in 1.46s` در Linux. Windows، macOS، Setup، GUI واقعی و playback واقعی تأیید نشده‌اند.
+**Actual:** Linux با Python 3.12 و GitHub Actions matrix برای Python 3.11/3.12 تأیید شده است. Windows، macOS، Setup، GUI روی desktop فیزیکی و playback واقعی تأیید نشده‌اند.
 
 **Expected:** CI برای Linux/Windows/macOS و نسخه‌های Python پشتیبانی‌شده، artifact test و نمونه‌های رسمی.
 
-**Evidence:** اجرای pytest baseline، نبود workflow در `.github/workflows`، docs release.
+**Evidence:** `.github/workflows/ci.yml`، run موفق GitHub Actions برای SHA `cf6a30d` در [run 39102503306](https://github.com/worker2025/tirotir/actions/runs/39102503306)، full suite `291 passed` و docs release.
 
 **Root cause:** CI cross-platform در checkout موجود نیست یا قابل مشاهده نیست.
 
 **اصلاح پیشنهادی:** matrix CI، coverage، artifact install test، smoke test Windows و ثبت environment.
 
-**وضعیت:** `BLOCKED` برای آزمون کامل؛ baseline Linux verified.
+**وضعیت:** `BLOCKED` برای آزمون کامل cross-platform؛ Linux/Python 3.11-3.12 CI در candidate verified.
 
 **Migration risk:** کم تا متوسط؛ ممکن است failureهای platform-specific آشکار شوند.
 
-**Commit و verification:** ندارد.
+**Commit و verification:** `d51941a`؛ CI واقعی run `39102503306` موفق، اما Windows/macOS هنوز blocked.
 
 ## KI-14 — Language Server و debugger کامل نیستند
 
@@ -420,4 +420,4 @@
 6. اثبات bypass مسیر graphics در نبود context؛
 7. اثبات collision نام `مربع` با primitive graphics در KI-9.
 
-این آزمون‌ها characterization هستند؛ KI-2 و KI-9 در checkpointهای جداگانه اصلاح شده‌اند، اما هنوز release-verified نیستند. KI-1 و KI-5 هنوز اصلاح نشده‌اند.
+این آزمون‌ها ابتدا characterization بودند؛ در candidate نهایی KI-1، KI-2، KI-5 و KI-9 با regression و integration verification شده‌اند. این وضعیت به‌معنای release عمومی یا sandbox کامل سیستم‌عامل نیست.
