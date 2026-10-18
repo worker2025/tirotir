@@ -39,7 +39,9 @@ Tirotir 2.0 candidate:
 - حداقل Python به `>=3.11` تغییر کرد، چون module loader از `tomllib` استفاده می‌کند؛
 - EOF ورودی استاندارد اکنون پیام خطای فارسی کنترل‌شده می‌دهد؛
 - مسیر GUI widgetها را نگه می‌دارد و callback سادهٔ دکمه را dispatch می‌کند؛ این مسیر با fake Tkinter و Tkinter واقعی تحت Xvfb آزمایش شد؛
-- full suite پس از این تغییرات: `286 passed`.
+- full suite پس از این تغییرات: `286 passed`؛
+- security boundary tests برای `network`، `project-files`، traversal و symlink escape: `5 passed`؛ full suite فعلی: `291 passed`؛
+- CI لینوکس برای Python 3.11 و 3.12 به `.github/workflows/ci.yml` اضافه شد؛ اجرای GitHub runner در این session انجام نشده است.
 
 این موارد candidate توسعه هستند و به‌معنای آماده‌بودن برای انتشار عمومی Windows/macOS، installer، VS Code واقعی یا پخش صوت دستگاهی نیستند.
 

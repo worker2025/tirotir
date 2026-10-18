@@ -137,7 +137,7 @@
 
 ## وضعیت توسعهٔ Tirotir 2.0
 
-نسخهٔ ۲٫۰ هنوز release نهایی نیست. شاخهٔ development فعلی، قراردادهای آزمایشی و اصلاحات قابل‌آزمون را جدا از baseline نسخهٔ ۱٫۱٫۰ پیش می‌برد. در checkpoint نهایی این مرحله روی commit `85107ec`، full suite برابر **۲۸۶ تست موفق** است؛ این عدد شامل regressionهای version/EOF و GUI نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
+نسخهٔ ۲٫۰ هنوز release نهایی نیست. شاخهٔ development فعلی، قراردادهای آزمایشی و اصلاحات قابل‌آزمون را جدا از baseline نسخهٔ ۱٫۱٫۰ پیش می‌برد. در checkpoint نهایی این مرحله، full suite برابر **۲۹۱ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI و security boundary نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
 
 ### قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی
 
@@ -156,6 +156,8 @@
 - اصلاح شناسه‌های دارای نیم‌فاصله به شاخهٔ development منتقل شده است، اما release محسوب نمی‌شود؛
 - metadata candidate، حداقل Python `>=3.11` و مدیریت EOF CLI هماهنگ و آزموده شده‌اند؛
 - GUI با Tkinter و Xvfb به‌صورت واقعی smoke شده است، اما اجرای desktop فیزیکی و Windows هنوز تأیید نشده‌اند؛
+- traversal و symlink escape در ModuleSandbox آزموده شده و برای `network` و `project-files` نبود backend زبانی عمداً صریح ثبت شده است؛
+- CI لینوکس برای Python 3.11 و 3.12 در `.github/workflows/ci.yml` اضافه شده است؛
 - namespace کامل ماژول، event syntax، LSP، debugger، object model، تست native ویندوز، GUI روی desktop واقعی و پخش صوت روی دستگاه واقعی هنوز نهایی یا آزموده نشده‌اند؛
 - نسخهٔ ۲٫۰ هنوز برای انتشار عمومی یا به‌عنوان framework کامل GUI/بازی معرفی نمی‌شود.
 
