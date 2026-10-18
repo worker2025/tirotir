@@ -135,9 +135,22 @@
 
 ---
 
+## نصب رسمی Tirotir 2.0
+
+نسخهٔ patch فعلی `2.0.1` است. در حال حاضر distribution عمومی `tirotir` در PyPI وجود ندارد؛ بنابراین `pip install tirotir` روش معتبر نصب این پروژه نیست و ممکن است شکست بخورد یا به بسته‌ای نامرتبط اشاره کند. wheel رسمی را از [GitHub Release v2.0.1](https://github.com/worker2025/tirotir/releases/tag/v2.0.1) دریافت کنید:
+
+```powershell
+py -3.11 -m venv .venv
+.venv\Scripts\Activate.ps1
+py -3.11 -m pip install .\tirotir-2.0.1-py3-none-any.whl
+tirotir version
+```
+
+در دستور بالا برای اطمینان از interpreter درست در Windows از `py -3.11 -m pip show tirotir` و `Get-Command tirotir -All` استفاده کنید. بستهٔ مثال‌های قابل‌اجرا در [tirotir-2.0-examples](tirotir-2.0-examples/README.md) و release asset ZIP قرار دارد.
+
 ## وضعیت توسعهٔ Tirotir 2.0
 
-نسخهٔ رسمی **Tirotir 2.0.0** بر پایهٔ شاخهٔ توسعهٔ اعتبارسنجی‌شده منتشر می‌شود. full suite برابر **۲۹۱ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI و security boundary نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
+نسخهٔ رسمی **Tirotir 2.0.0** بر پایهٔ شاخهٔ توسعهٔ اعتبارسنجی‌شده منتشر شده است و patch release `2.0.1` اصلاحات بسته‌بندی و examples را اضافه می‌کند. full suite برابر **۲۹۱ تست موفق** است؛ این عدد شامل regressionهای version/EOF، GUI و security boundary نیز می‌شود. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه **۲۴۴ تست موفق** داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.
 
 ### قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی
 
@@ -165,7 +178,7 @@
 
 ```text
 baseline: چاپ ۵-۳+۲-۱ → 5
-Tirotir 2.0 candidate: چاپ ۵-۳+۲-۱ → 3
+Tirotir 2.0.0/2.0.1: چاپ ۵-۳+۲-۱ → 3
 ```
 
 برای قرارداد KI-1 به [برنامهٔ پذیرش KI-1](docs/tirotir-2-ki1-acceptance-plan-fa.md)، برای مهاجرت به [راهنمای مهاجرت ۲٫۰](docs/tirotir-2-migration-guide-fa.md)، برای شروع آزمایش به [راهنمای فارسی آزمایش](docs/tirotir-2-experimental-testing-fa.md) و [راهنمای انگلیسی آزمایش](docs/tirotir-2-experimental-testing-en.md)، برای معماری به [نقشهٔ معماری ۲٫۰](docs/tirotir-2-architecture-roadmap-fa.md)، برای ردیابی مسائل به [سند traceability](docs/tirotir-2-known-issues-traceability.md)، و برای تغییرات ثبت‌شده به [CHANGELOG](CHANGELOG.md) مراجعه کنید.

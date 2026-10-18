@@ -28,3 +28,5 @@ jobs:
         run: |
           tirotir version
           tirotir check examples2/basics/hello_world.t
+      - name: Example bundle harness
+        run: python tirotir-2.0-examples/tests/run_examples.py
