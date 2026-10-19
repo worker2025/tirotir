@@ -1,15 +1,15 @@
 # Tirotir 2.0 examples
 
-This is the tested example bundle for Tirotir 2.0.1. It contains only syntax and runtime paths verified in the repository.
+This is the tested example bundle for Tirotir 2.0.2. It contains only syntax and runtime paths verified in the repository.
 
 ## Install and run
 
-Download the `tirotir-2.0.1-py3-none-any.whl` from the [v2.0.1 GitHub Release](https://github.com/worker2025/tirotir/releases/tag/v2.0.1), then run:
+Download the `tirotir-2.0.2-py3-none-any.whl` from the [v2.0.2 GitHub Release](https://github.com/worker2025/tirotir/releases/tag/v2.0.2), then run:
 
 ```bash
 python3.11 -m venv .venv
 . .venv/bin/activate
-python -m pip install /path/to/tirotir-2.0.1-py3-none-any.whl
+python -m pip install /path/to/tirotir-2.0.2-py3-none-any.whl
 python tests/run_examples.py
 ```
 

@@ -1,5 +1,7 @@
 # ردیابی مسائل شناخته‌شدهٔ Tirotir 2.0
 
+> **یادداشت نسخهٔ فعلی:** این سند شامل checkpointها و اعداد تاریخی ممیزی است. وضعیت جاری و عدد رسمی release در [گزارش پایدار Tirotir 2](tirotir-2-stable-release-fa.md) ثبت می‌شود: Python `2.0.2`، افزونه `2.0.6` و full suite برابر `291 passed`.
+
 **مبنای بررسی:** `cf6a30dd536f11c1e42076ebc4778dae8418ee4b`
 **baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`
 **محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1

@@ -1,15 +1,15 @@
 # بستهٔ مثال‌های Tirotir 2.0
 
-این bundle فقط نمونه‌هایی را شامل می‌شود که syntax و مسیر اجرای آن‌ها در Tirotir 2.0.1 بررسی شده است.
+این bundle فقط نمونه‌هایی را شامل می‌شود که syntax و مسیر اجرای آن‌ها در Tirotir 2.0.2 بررسی شده است.
 
 ## نصب و اجرای harness
 
-wheel نسخهٔ `tirotir-2.0.1-py3-none-any.whl` را از [GitHub Release نسخهٔ v2.0.1](https://github.com/worker2025/tirotir/releases/tag/v2.0.1) دریافت و اجرا کنید:
+wheel نسخهٔ `tirotir-2.0.2-py3-none-any.whl` را از [GitHub Release نسخهٔ v2.0.2](https://github.com/worker2025/tirotir/releases/tag/v2.0.2) دریافت و اجرا کنید:
 
 ```bash
 python3.11 -m venv .venv
 . .venv/bin/activate
-python -m pip install /مسیر/tirotir-2.0.1-py3-none-any.whl
+python -m pip install /مسیر/tirotir-2.0.2-py3-none-any.whl
 python tests/run_examples.py
 ```
 

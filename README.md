@@ -266,7 +266,7 @@ tirotir version
 <p dir="rtl" align="right">خروجی:</p>
 
 ```
-Tirotir 2.0.1
+Tirotir 2.0.2
 ```
 
 <p dir="rtl" align="right">برای بررسی interpreter و محل نصب:</p>
@@ -589,7 +589,7 @@ program-003.t
 
 <h3 dir="rtl" align="right">Snippetهای آموزشی</h3>
 
-<p dir="rtl" align="right">افزونه ۱۴ snippet آموزشی دارد. در فایل <code dir="ltr">.t</code>، prefix را بنویسید و <code dir="ltr">Ctrl+Space</code> بزنید؛ سپس با <code dir="ltr">Tab</code> درج کنید. نسخهٔ ۲.۰.۵ علاوه بر contribution استاندارد، completion provider پشتیبان دارد:</p>
+<p dir="rtl" align="right">افزونه ۱۴ snippet آموزشی دارد. در فایل <code dir="ltr">.t</code>، prefix را بنویسید و <code dir="ltr">Ctrl+Space</code> بزنید؛ سپس با <code dir="ltr">Tab</code> درج کنید. نسخهٔ ۲.۰.۶ علاوه بر contribution استاندارد، completion provider پشتیبان دارد:</p>
 
 | نام | Prefix | کاربرد کوتاه |
 | --- | --- | --- |
