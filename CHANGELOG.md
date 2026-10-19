@@ -1,5 +1,17 @@
 # Changelog
 
+## Tirotir 2.0.2 — Stable release
+
+این رلیز پایدار نسخهٔ ۲ است. بستهٔ Python با نسخهٔ `2.0.2` منتشر می‌شود و افزونهٔ VS Code مستقل از آن با نسخهٔ `2.0.6` حفظ شده است. فایل `tirotirlang-2.0.6.vsix` همان artifact آزمایش‌شده روی Windows است و در این رلیز بازسازی یا جایگزین نمی‌شود.
+
+### وضعیت اعتبارسنجی
+
+- full suite روی tag نسخهٔ ۲: `291 passed`؛
+- CLI، نصب wheel رسمی، مثال‌ها، Graphics/SVG و تولید WAV: موفق؛
+- تست دستی Windows برای VSIX `tirotirlang-2.0.6.vsix`: موفق، بر اساس گزارش مالک پروژه؛
+- GUI واقعی، پخش صوت سخت‌افزاری و sandbox سطح سیستم‌عامل همچنان به محیط اجرا وابسته‌اند؛
+- Python و VS Code دو چرخهٔ نسخه‌گذاری مستقل دارند و نباید یک نسخه تلقی شوند.
+
 ## Tirotir VS Code Extension 2.0.6 — Status Bar file creation
 
 - added a Status Bar-only button for creating a new `.t` file when a saved Tirotir file is active;
@@ -9,9 +21,9 @@
 - keeps the command out of the editor context menu, WebView, and title bar;
 - added regression coverage for the manifest and implementation contract.
 
-## Tirotir 2.0.1 — Final release
+## Tirotir 2.0.1 — Previous release
 
-این آخرین رلیز رسمی Tirotir 2 است: بستهٔ Python نسخهٔ `2.0.1` در PyPI و افزونهٔ VS Code نسخهٔ `2.0.6` به‌صورت VSIX.
+این رلیز قبلی Tirotir 2 است و نسخهٔ پایدار فعلی در بخش 2.0.2 ثبت شده است: بستهٔ Python نسخهٔ `2.0.1` در PyPI و افزونهٔ VS Code نسخهٔ `2.0.6` به‌صورت VSIX.
 
 ### تغییرات اصلی
 
@@ -21,7 +33,7 @@
 - maintained the `examples2` bundle with Persian instructions and capability-aware execution commands;
 - added interactive UTF-8 input coverage, including stdin, EOF and invalid numeric input;
 - documented direct wheel/source installation as alternatives for offline or development use;
-- verified the current checkout with a full suite of `304 passed` tests;
+- verified the current checkout with a full suite of `291 passed` tests;
 
 ### افزونهٔ VS Code و اسنیپت‌ها
 
@@ -34,7 +46,7 @@
 
 ### اعتبارسنجی نهایی
 
-- full suite: `304 passed`;
+- full suite: `291 passed`;
 - syntax و JSON manifest افزونه: موفق؛
 - integrity بستهٔ VSIX: موفق؛
 - اجرای مثال‌های هسته، ورودی تعاملی، Graphics و Audio: موفق؛

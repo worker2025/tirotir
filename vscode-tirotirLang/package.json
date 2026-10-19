@@ -2,7 +2,7 @@
   "name": "tirotirlang",
   "displayName": "TirotirLang فارسی",
   "description": "پشتیبانی از زبان برنامه‌نویسی فارسی تیروتیر در VS Code",
-  "version": "2.0.1",
+  "version": "2.0.6",
   "publisher": "tirotir",
   "license": "MIT",
   "repository": { "type": "git", "url": "https://github.com/worker2025/tirotir" },
