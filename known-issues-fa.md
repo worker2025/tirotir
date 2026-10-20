@@ -23,7 +23,6 @@
 ## وضعیت جاری پس از انتشار 2.0.0 و patch releaseهای 2.0.1 و 2.0.2
 
 - علت مشاهدهٔ `1.1.0` در نصب‌های قدیمی، استفاده از source/wheel/installer قدیمی یا metadata تولیدی stale است؛ کد فعلی، `pyproject.toml`، runtime و CLI در release پایدار روی `2.0.2` هماهنگ شده‌اند.
-- PyPI در بررسی ۱۸ اکتبر ۲۰۲۶ هیچ distribution عمومی با نام `tirotir` نداشت؛ بنابراین `pip install tirotir` نصب رسمی این پروژه نیست. نصب تأییدشده از wheel یا source archive رسمی GitHub Release انجام می‌شود.
 - `PKG-INFO` تولیدی repository که `1.1.0` اعلام می‌کرد بازسازی و با metadata فعلی هماهنگ شده است.
 - تست Windows افزونه طبق گزارش مالک پروژه موفق بوده است؛ macOS، پخش سخت‌افزاری صدا و sandbox کامل OS همچنان خارج از شواهد این محیط هستند.
 - برای مثال‌های قابل‌اجرا از [bundle مثال‌های 2.0](tirotir-2.0-examples/README-fa.md) و harness آن استفاده کنید.
