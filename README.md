@@ -10,8 +10,11 @@
   <a href="https://tirotir.ir/">وب‌سایت</a> •
   <a href="https://tirotir.com/">Tirotir.com</a> •
   <a href="https://github.com/worker2025/tirotir">مخزن GitHub</a> •
-  <a href="https://doi.org/10.5281/zenodo.22874866">DOI</a>
+  <a href="https://doi.org/10.5281/zenodo.22874866">DOI</a> •
+  <a href="https://github.com/worker2025/tirotir/issues">Issues</a>
 </p>
+
+<p align="center"><a href="https://github.com/worker2025/tirotir/actions/workflows/ci.yml"><img src="https://github.com/worker2025/tirotir/actions/workflows/ci.yml/badge.svg" alt="Tirotir CI"></a></p>
 
 ---
 

@@ -53,6 +53,8 @@ parse-only: 51 مثال؛ 45 موفق، 6 ناموفق
 GUI/desktop: 13 مورد BLOCKED در محیط headless
 ```
 
+این corpus مربوط به اجرای تاریخی روی commit `d32f97a` است و با corpus فعلی `examples2/` یکی نیست. در validation release `v2.0.2`، ۴۱/۴۱ مثال فعلی parse شدند، ۳۲ مثال non-GUI اجرا شدند و ۹ مثال GUI به‌دلیل نبود Tkinter/desktop رد شدند.
+
 هر ۶ خطای parse-only مربوط به نیم‌فاصله در identifierهاست و به‌صورت `NOT FIXED` باقی می‌ماند. در اجرای واقعی، ۲ مورد به `input()` و نبود ورودی تعاملی مربوط بود؛ ۶ مورد همان خطاهای identifier هستند. این اعداد ادعای اجرای موفق همهٔ مثال‌ها نیستند.
 
 ## مسیرهای enforcement
