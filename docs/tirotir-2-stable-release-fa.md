@@ -18,7 +18,8 @@ Tirotir 2 برای استفادهٔ عمومی در محدودهٔ مستندش�
 - full suite روی tag منتشرشده و checkout فعلی: `291 passed`؛
 - CI GitHub روی Ubuntu با Python 3.11 و 3.12: موفق؛
 - نصب wheel رسمی و اجرای `tirotir version`: موفق؛
-- بررسی مثال‌ها: ۱۲ موفق، صفر ناموفق و یک GUI در محیط بدون display رد شده است؛
+- نسخهٔ `tirotir==2.0.2` در PyPI در ۲۰ اکتبر ۲۰۲۶ منتشر شده است؛ نصب پاک در virtualenv جدید روی Linux/Python 3.12.3 با `pip install tirotir==2.0.2` انجام شد و `tirotir version` خروجی `Tirotir 2.0.2` داد؛
+- هر ۴۱ فایل `.t` در `examples2/` با `tirotir check` با موفقیت parse شدند؛ ۳۲ مثال non-GUI با capability و ورودی لازم با `tirotir run`/فرمان تخصصی اجرا شدند؛ ۹ مثال GUI با خطای ساختاریافتهٔ `TIR4001` رد شدند، چون Tkinter و desktop در محیط موجود نبود؛
 - تولید SVG و WAV: موفق؛
 - VSIX `tirotirlang-2.0.6.vsix`: تست Windows توسط مالک پروژه با نتیجهٔ عالی گزارش شده و artifact حفظ شده است؛
 - افزونهٔ VS Code و Python عمداً version مستقل دارند: Python `2.0.2` و VSIX `2.0.6`.

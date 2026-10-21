@@ -2,12 +2,12 @@
 
 > **یادداشت نسخهٔ فعلی:** این سند شامل checkpointها و اعداد تاریخی ممیزی است. وضعیت جاری و عدد رسمی release در [گزارش پایدار Tirotir 2](tirotir-2-stable-release-fa.md) ثبت می‌شود: Python `2.0.2`، افزونه `2.0.6` و full suite برابر `291 passed`.
 
-**مبنای بررسی:** `cf6a30dd536f11c1e42076ebc4778dae8418ee4b`
+**مبنای release پایدار:** `396faf5a44c5c07c99a322b7d8496a45e1321025`
 **baseline تاریخی مسائل:** `481f15fcd18b21d38fc9161b69489d4560ce091b`
 **محیط:** Linux x86_64، Python 3.12.3، pytest 9.1.1
-**وضعیت انتشار:** شواهد این سند ابتدا در candidate توسعه جمع‌آوری شد و سپس برای release رسمی `v2.0.0` بازبینی شد. `VERIFIED` در این سند به محدودهٔ آزموده‌شده اشاره دارد و به‌معنای پشتیبانی همهٔ سیستم‌عامل‌ها یا sandbox کامل OS نیست.
+**وضعیت انتشار:** این سند checkpointهای تاریخی را حفظ می‌کند؛ وضعیت جاری برای release پایدار `v2.0.2` در خلاصهٔ بالا و گزارش رسمی release ثبت شده است. `VERIFIED` در این سند به محدودهٔ آزموده‌شده اشاره دارد و به‌معنای پشتیبانی همهٔ سیستم‌عامل‌ها یا sandbox کامل OS نیست.
 **نتیجهٔ regression baseline:** `244 passed in 1.46s`
-**نتیجهٔ validation نهایی:** full suite برابر `291 passed`، focused security/runtime/KI suite برابر `38 passed`، همهٔ `51/51` مثال parse شدند، `38` مثال non-GUI با capability لازم اجرا شدند و GitHub Actions برای همین SHA با موفقیت کامل شد؛ historical baseline جداگانه روی `a6dd5de` موفق شد.
+**نتیجهٔ validation release پایدار:** full suite برابر `291 passed`، focused security/runtime/KI suite برابر `38 passed`، هر `41/41` مثال `examples2/` با `check` parse شدند، `32` مثال non-GUI اجرا شدند و `9` مثال GUI به‌دلیل نبود Tkinter/desktop با `TIR4001` رد شدند؛ historical corpusهای `51/51` در بخش‌های قدیمی‌تر این سند checkpointهای قبلی هستند.
 **قاعده:** هیچ موردی بدون regression test و شواهد اجرای مرتبط `VERIFIED` اصلاح‌شده علامت نمی‌خورد.
 
 ## وضعیت‌های مجاز

@@ -7,7 +7,9 @@
 ### وضعیت اعتبارسنجی
 
 - full suite روی tag نسخهٔ ۲: `291 passed`؛
-- CLI، نصب wheel رسمی، مثال‌ها، Graphics/SVG و تولید WAV: موفق؛
+- CLI، نصب wheel رسمی، Graphics/SVG و تولید WAV: موفق؛
+- نسخهٔ `tirotir==2.0.2` در PyPI در ۲۰ اکتبر ۲۰۲۶ منتشر شد؛ نصب پاک روی Linux/Python 3.12.3 با `pip install tirotir==2.0.2` و اجرای `tirotir version` موفق بود؛
+- از ۴۱ مثال `.t` در `examples2/`، هر ۴۱ مورد parse شدند، ۳۲ مورد non-GUI اجرا شدند و ۹ مورد GUI به‌دلیل نبود Tkinter/desktop با `TIR4001` رد شدند؛
 - تست دستی Windows برای VSIX `tirotirlang-2.0.6.vsix`: موفق، بر اساس گزارش مالک پروژه؛
 - GUI واقعی، پخش صوت سخت‌افزاری و sandbox سطح سیستم‌عامل همچنان به محیط اجرا وابسته‌اند؛
 - Python و VS Code دو چرخهٔ نسخه‌گذاری مستقل دارند و نباید یک نسخه تلقی شوند.
@@ -23,12 +25,12 @@
 
 ## Tirotir 2.0.1 — Previous release
 
-این رلیز قبلی Tirotir 2 است و نسخهٔ پایدار فعلی در بخش 2.0.2 ثبت شده است: بستهٔ Python نسخهٔ `2.0.1` در PyPI و افزونهٔ VS Code نسخهٔ `2.0.6` به‌صورت VSIX.
+این رلیز قبلی Tirotir 2 است و نسخهٔ پایدار فعلی در بخش 2.0.2 ثبت شده است: بسته‌های Python نسخه‌های `2.0.1` و `2.0.2` هر دو در PyPI موجودند و افزونهٔ VS Code نسخهٔ مستقل `2.0.6` به‌صورت VSIX ارائه می‌شود.
 
 ### تغییرات اصلی
 
 - package metadata requires Python `>=3.11` and exposes the project URLs;
-- `tirotir==2.0.1` is available from the public [PyPI project page](https://pypi.org/project/tirotir/);
+- `tirotir==2.0.1` و `tirotir==2.0.2` در [PyPI](https://pypi.org/project/tirotir/) موجودند؛ نسخهٔ `2.0.2` در ۲۰ اکتبر ۲۰۲۶ upload شده است؛
 - installation is documented with `python -m pip install tirotir==2.0.1`;
 - maintained the `examples2` bundle with Persian instructions and capability-aware execution commands;
 - added interactive UTF-8 input coverage, including stdin, EOF and invalid numeric input;
