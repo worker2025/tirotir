@@ -148,6 +148,45 @@
 
 <p dir="rtl" align="right">نسخهٔ پایدار فعلی <code dir="ltr">2.0.2</code> است. نصب معمول از PyPI:</p>
 
+## 📄 مقالهٔ رسمی معرفی تیروتیر (Official Introduction Paper)
+
+مقالهٔ رسمی معرفی تیروتیر ۲.۰.۲ به‌عنوان مرجع علمی این پروژه منتشر شده است. اگر از تیروتیر در کار پژوهشی، آموزشی یا نرم‌افزاری استفاده می‌کنید، لطفاً به این مقاله استناد کنید.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23453275.svg)](https://doi.org/10.5281/zenodo.23453275)
+
+| مورد | مقدار |
+| :--- | :--- |
+| عنوان (فارسی) | تیروتیر: طراحی و پیاده‌سازی یک زبان برنامه‌نویسی مفسری با پشتیبانی فارسی |
+| عنوان (انگلیسی) | Tirotir 2.0.2: A Persian-Syntax Interpreted Programming Language — Engineering Case Study |
+| نویسنده | Daryoush Alipour |
+| نسخه | 2.0.2 |
+| نوع | Preprint / گزارش فنی |
+| ناشر | Zenodo |
+| DOI مقاله | `10.5281/zenodo.23453275` |
+| رکورد مقاله | https://zenodo.org/records/23453275 |
+| DOI نرم‌افزار | `<DOI-موجود-پروژه>` |
+| مخزن کد | https://github.com/worker2025/tirotir |
+
+
+### استناد (APA)
+
+> Alipour, D. (2025). *Tirotir 2.0.2: A Persian-Syntax Interpreted Programming Language — Engineering Case Study* [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.23453275
+
+### استناد (BibTeX)
+
+```bibtex
+@misc{alipour_tirotir_2025,
+  author       = {Alipour, Daryoush},
+  title        = {Tirotir 2.0.2: A Persian-Syntax Interpreted Programming Language
+                  --- Engineering Case Study},
+  year         = {2025},
+  howpublished = {Preprint},
+  publisher    = {Zenodo},
+  version      = {2.0.2},
+  doi          = {10.5281/zenodo.23453275},
+  url          = {https://doi.org/10.5281/zenodo.23453275},
+  note         = {Official introduction paper for the Tirotir project}
+}
 ```bash
 python -m pip install tirotir==2.0.2
 ```
