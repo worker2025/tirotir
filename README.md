@@ -84,7 +84,7 @@
 
 <p dir="rtl" align="right">برای وضعیت، قرارداد نسخه‌ها و شواهد اعتبارسنجی، <a href="docs/tirotir-2-stable-release-fa.md">گزارش رسمی رلیز پایدار Tirotir 2</a> را ببینید.</p>
 
-<p dir="rtl" align="right">نسخهٔ <strong>2.0.2</strong> رلیز پایدار فعلی بستهٔ Python تیروتیر ۲ است و از GitHub Release قابل دریافت و نصب است. افزونهٔ VS Code این رلیز در نسخهٔ <strong>2.0.6</strong> ارائه می‌شود. full suite فعلی checkout برابر <strong>۲۹۱ تست موفق</strong> است.</p>
+<p dir="rtl" align="right">نسخهٔ <strong>2.0.2</strong> رلیز پایدار فعلی بستهٔ Python تیروتیر ۲ است و از <a href="https://pypi.org/project/tirotir/">PyPI</a> قابل نصب است؛ wheel و source archive رسمی GitHub Release نیز برای نصب آفلاین در دسترس‌اند. افزونهٔ VS Code این رلیز در نسخهٔ <strong>2.0.6</strong> ارائه می‌شود. full suite فعلی checkout برابر <strong>۲۹۱ تست موفق</strong> است.</p>
 
 <p dir="rtl" align="right">ویژگی‌های اصلی نسخهٔ ۲:</p>
 
@@ -123,11 +123,13 @@
 
 <li>افزونهٔ VS Code</li>
 
-<li>Builder برای ساخت EXE در Windows</li>
+<li>Builder آزمایشی برای ساخت EXE در Windows؛ ساخت native EXE باید روی Windows تأیید شود</li>
 
 <li>Runtime با قابلیت‌های کنترل‌شده</li>
 
 <li><strong>۲۹۱ تست موفق در full suite فعلی نسخهٔ ۲</strong>؛ آمار تاریخی baseline نسخهٔ ۱٫۱٫۰ برابر <strong>۲۴۴ تست موفق</strong> بوده است.</li>
+
+<li>در corpus فعلی <code dir="ltr">examples2/</code>، هر ۴۱ مثال با <code dir="ltr">check</code> parse شدند، ۳۲ مثال non-GUI اجرا شدند و ۹ مثال GUI به‌دلیل نبود Tkinter/desktop با diagnostic <code dir="ltr">TIR4001</code> رد شدند.</li>
 </ul>
 
 <p dir="rtl" align="right">پسوند قدیمی نسخهٔ ۱:</p>
@@ -142,15 +144,21 @@
 
 ---
 
-<h2 dir="rtl" align="right">نصب رسمی Tirotir 2.0</h2>
+<h2 dir="rtl" align="right">نصب رسمی Tirotir 2.0.2</h2>
 
-<p dir="rtl" align="right">نسخهٔ پایدار فعلی <code dir="ltr">2.0.2</code> است و بستهٔ رسمی آن در GitHub Release قرار دارد. روش نصب پیشنهادی از wheel:</p>
+<p dir="rtl" align="right">نسخهٔ پایدار فعلی <code dir="ltr">2.0.2</code> است. نصب معمول از PyPI:</p>
+
+```bash
+python -m pip install tirotir==2.0.2
+```
+
+<p dir="rtl" align="right">برای نصب آفلاین یا توسعه، wheel رسمی GitHub Release را نصب کنید:</p>
 
 ```bash
 python -m pip install /path/to/tirotir-2.0.2-py3-none-any.whl
 ```
 
-<p dir="rtl" align="right">برای نصب آفلاین یا توسعه، wheel یا source archive رسمی GitHub Release نیز قابل استفاده است:</p>
+<p dir="rtl" align="right">برای نصب آفلاین یا توسعه، wheel رسمی GitHub Release قابل استفاده است:</p>
 
 ```powershell
 py -3.11 -m venv .venv
@@ -161,9 +169,9 @@ tirotir version
 
 <p dir="rtl" align="right">در دستور بالا برای اطمینان از interpreter درست در Windows از <code dir="ltr">py -3.11 -m pip show tirotir</code> و <code dir="ltr">Get-Command tirotir -All</code> استفاده کنید. راهنمای مثال‌های قابل‌اجرا در <a href="examples2/README-fa.md">examples2/README-fa.md</a> و راهنمای جامع نسخهٔ ۲ قرار دارد.</p>
 
-<h2 dir="rtl" align="right">وضعیت توسعهٔ Tirotir 2.0</h2>
+<h2 dir="rtl" align="right">وضعیت فنی و محدودیت‌های Tirotir 2</h2>
 
-<p dir="rtl" align="right">نسخهٔ رسمی <strong>Tirotir 2</strong> بر پایهٔ شاخهٔ توسعهٔ اعتبارسنجی‌شده منتشر شده است و patch releaseهای <code dir="ltr">2.0.1</code> و <code dir="ltr">2.0.2</code> اصلاحات بسته‌بندی و examples را اضافه می‌کند. full suite فعلی checkout برابر <strong>۲۹۱ تست موفق</strong> است؛ این عدد شامل regressionهای version/EOF، GUI، security boundary، ورودی تعاملی، VSIX و اسنیپت‌هاست. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه <strong>۲۴۴ تست موفق</strong> داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.</p>
+<p dir="rtl" align="right">نسخهٔ رسمی <strong>Tirotir 2.0.2</strong> منتشر شده است و patch releaseهای <code dir="ltr">2.0.1</code> و <code dir="ltr">2.0.2</code> اصلاحات بسته‌بندی و examples را اضافه کرده‌اند. full suite فعلی checkout برابر <strong>۲۹۱ تست موفق</strong> است؛ این عدد شامل regressionهای version/EOF، GUI، security boundary، ورودی تعاملی، VSIX و اسنیپت‌هاست. baseline تاریخی نسخهٔ ۱٫۱٫۰ جداگانه <strong>۲۴۴ تست موفق</strong> داشته است؛ این آمارها با هم جمع یا جایگزین نمی‌شوند.</p>
 
 <h3 dir="rtl" align="right">قابلیت‌های پیاده‌سازی‌شده و آزموده‌شده در checkpoint فعلی</h3>
 
@@ -200,9 +208,9 @@ Tirotir 2.0.0/2.0.1/2.0.2: چاپ ۵-۳+۲-۱ → 3</code></pre>
 
 ---
 
-<h2 dir="rtl" align="right">📚 مستندات HTML</h2>
+<h2 dir="rtl" align="right">📚 مستندات HTML تاریخی</h2>
 
-<p dir="rtl" align="right">در ریشهٔ مخزن دو سند مستقل HTML قرار دارد که برای مطالعه در مرورگر مناسب‌اند:</p>
+<p dir="rtl" align="right">در ریشهٔ مخزن دو سند مستقل HTML تاریخی قرار دارد. این فایل‌ها برای مطالعه در مرورگر مناسب‌اند، اما اعداد و گزارش‌های نسخهٔ ۱ را نشان می‌دهند و منبع وضعیت فعلی Tirotir 2 نیستند:</p>
 
 | سند | توضیح |
 | --- | --- |
@@ -255,6 +263,12 @@ Tirotir 2.0.0/2.0.1/2.0.2: چاپ ۵-۳+۲-۱ → 3</code></pre>
 <h2 dir="rtl" align="right">Windows — نصب نسخهٔ ۲ برای کاربران عادی</h2>
 
 <p dir="rtl" align="right">برای نسخهٔ ۲، نصب رسمی CLI در Windows از PyPI انجام می‌شود:</p>
+
+```powershell
+py -3.11 -m pip install tirotir==2.0.2
+```
+
+<p dir="rtl" align="right">برای نصب آفلاین، می‌توانید wheel رسمی را نیز نصب کنید:</p>
 
 ```powershell
 py -3.11 -m pip install .\tirotir-2.0.2-py3-none-any.whl
@@ -531,7 +545,7 @@ code --install-extension tirotirlang-2.0.6.vsix
 <ul dir="rtl" align="right" style="direction: rtl; text-align: right;">
 <li>LSP کامل</li>
 
-<li>Completion پیشرفته</li>
+<li>Completion پیشرفتهٔ کامل</li>
 
 <li>Hover کامل</li>
 
@@ -763,7 +777,8 @@ network
 └── modules/         # Project و Module System
 
 vscode-tirotirLang/  # افزونهٔ VS Code
-examples/             # نمونه‌ها
+examples2/            # نمونه‌های نسخهٔ ۲
+tirotir-2.0-examples/  # bundle مثال‌های release
 tests/                # تست‌ها
 docs/                 # مستندات فنی</code></pre>
 
